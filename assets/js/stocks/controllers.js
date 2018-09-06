@@ -20,20 +20,20 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
             }
         },
         crud: "",
-        croppie : {
+        /* croppie : {
             inputImage: "/assets/img/4.png",
             outputImage: null,
 
             onUpdate: function (data) {
                 //console.log(data);
             }
-        }
+        } */
     };
 
 
 }]);
 
-function ExampleCtrl() {
+/* function ExampleCtrl() {
     var vm = this;
 
     vm.inputImage = "./././assets/img/4.png";
@@ -43,4 +43,4 @@ function ExampleCtrl() {
         //console.log(data);
     };
 }
-stocksApp.controller('ExampleCtrl', [ExampleCtrl]);
+stocksApp.controller('ExampleCtrl', [ExampleCtrl]); */

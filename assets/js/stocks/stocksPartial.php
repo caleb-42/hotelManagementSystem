@@ -51,6 +51,9 @@
                 <img ng-src="{{outputImage}}" />
                 </div>
             </div> -->
+            <div class = "discount">
+                discount
+            </div>
         </div>
     </div>
     <!--main-sidebar-right end-->
