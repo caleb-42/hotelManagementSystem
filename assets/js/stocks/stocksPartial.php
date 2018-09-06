@@ -38,7 +38,18 @@
         <!--statusbar for main-sidebar-right end -->
         <div class="sidebar-body" ng-switch on="tabnav.selected">
             <div ng-switch-default>
-                <prodthumb></prodthumb>
+            <div ng-controller = "ExampleCtrl">
+                <ng-croppie  src="inputImage"
+                            ng-model='outputImage'
+                            update='onUpdate'
+                            boundry="{w: 400, h: 400}"
+                            viewport="{w: 300, h: 300}"
+                            orientation="true"
+                            rotation="90"
+                            type="circle">
+                </ng-croppie>
+                <img ng-src="{{outputImage}}" />
+                </div>
             </div>
         </div>
     </div>

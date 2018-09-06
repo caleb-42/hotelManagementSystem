@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngAnimate','ngRoute', 'ngSanitize', 'salesApp', 'stocksApp']);
+var app = angular.module('app', ['ngAnimate','ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'ngCroppie']);
 
 app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope) {
     $rootScope.settings = {

@@ -44,7 +44,7 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <link href="./assets/css/ng-animation.css" rel="stylesheet">
     <link href="./assets/css/utilities.css" rel="stylesheet">
     <link rel="stylesheet" href="./vendors/node_modules/croppie/croppie.css" />
-    <script src="./vendors/node_modules/croppie/croppie.js"></script>
+    <link rel="stylesheet" href="./vendors/node_modules/ng-croppie/unminified/ng-croppie.css" />
 
     <!-- Custom scripts for this template -->
     <script src="./assets/js/app.js"></script>
@@ -54,6 +54,7 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <script src="./assets/js/sales/controllers.js"></script>
     <script src="./assets/js/stocks/directives.js"></script>
     <script src="./assets/js/stocks/controllers.js"></script>
+    <script src="./vendors/node_modules/ng-croppie/unminified/ng-croppie.js"></script>
 </head>
 
 <body>

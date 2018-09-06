@@ -16,9 +16,31 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
     $scope.products = {
         itemlist: function () {
             return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {}) 
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         },
-        crud : ""
+        crud: "",
+        croppie : {
+            inputImage: "/assets/img/4.png",
+            outputImage: null,
+
+            onUpdate: function (data) {
+                //console.log(data);
+            }
+        }
     };
+
+
 }]);
+
+function ExampleCtrl() {
+    var vm = this;
+
+    vm.inputImage = "./././assets/img/4.png";
+    vm.outputImage = null;
+
+    vm.onUpdate = function(data) {
+        //console.log(data);
+    };
+}
+stocksApp.controller('ExampleCtrl', [ExampleCtrl]);

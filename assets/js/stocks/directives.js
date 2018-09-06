@@ -69,7 +69,7 @@ app.directive('productlist', ['$rootScope', function ($rootScope) {
     };
 }]);
 
-app.directive('prodthumb', ['$rootScope', function ($rootScope) {
+/*app.directive('prodthumb', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
         template: `<div class="details row justify-content-center">
@@ -80,7 +80,7 @@ app.directive('prodthumb', ['$rootScope', function ($rootScope) {
 <div><input  ng-change = "product.getpic" type="file" name="upload-img" id="upload-img" value = "Upload Photo" /><button  ng-if = "product.uploaded" class=" btn btn-danger" ng-change = "product.getpic">Upload Photo</button></div>
 </div>`,
 
-        /* */
+         
         scope: false,
 
         link: function (scope, element, attrs) {
@@ -139,4 +139,4 @@ app.directive('prodthumb', ['$rootScope', function ($rootScope) {
             scope.product.initialize();
         }
     };
-}]);
+}]);*/
