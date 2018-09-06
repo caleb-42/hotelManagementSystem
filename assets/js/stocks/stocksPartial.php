@@ -38,7 +38,7 @@
         <!--statusbar for main-sidebar-right end -->
         <div class="sidebar-body" ng-switch on="tabnav.selected">
             <div ng-switch-default>
-            <div ng-controller = "ExampleCtrl">
+            <!-- <div ng-controller = "ExampleCtrl">
                 <ng-croppie  src="inputImage"
                             ng-model='outputImage'
                             update='onUpdate'
@@ -50,6 +50,9 @@
                 </ng-croppie>
                 <img ng-src="{{outputImage}}" />
                 </div>
+            </div> -->
+            <div class = "discount">
+                discount
             </div>
         </div>
     </div>

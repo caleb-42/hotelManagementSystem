@@ -263,6 +263,16 @@ body {
     position: relative;
     right: 0;
 }
+
+.Stocks .main-sidebar-right .sidebar-body .discount {
+    width: 100%;
+    background: #fff;
+    height: 50vh;
+    position: relative;
+    right: 0;
+    top:50vh;
+}
+
 .Stocks .main-sidebar-right .sidebar-body .details .productpic{
     width:200px;
     height:200px;
