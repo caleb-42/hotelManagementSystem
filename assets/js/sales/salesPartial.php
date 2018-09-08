@@ -88,56 +88,7 @@
     </div>
 
 
-    <div class="modal fade" id="Customer" role="dialog">
-        <div class="modal-dialog modal-{{settings.modal.size}}">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title ml-3">{{settings.modal.name}}</h5>
-                    <button type="button" class="close" id="closeInvoice" data-dismiss="modal" onclick=" ">×</button>
-                </div>
-                <div class="modal-body nopadding" customerentry>
-
-                    <!--<customerentry></customerentry>-->
-                    
-                    <!--{
-                    "customer": "Ugonna",
-                    "sales_rep": "webplay",
-                    "customer_ref": "LOD_001",
-                    "transaction_discount": 10,
-                    "amount_paid": 5000,
-                    "total_cost": 8000,
-                    "discounted_total_cost": 7200,
-                    "pay_method": "CASH",
-                    "item_list": [{
-                    "item_name": "heineken",
-                    "type": "beer",
-                    "quantity": 4,
-                    "unit_cost": 300,
-                    "net_cost": 1200,
-                    "discount_rate": 0,
-                    "discounted_net_cost": 1200,
-                    "discount_amount": 0,
-                    "sold_by": "webplay"
-                    }-->
-                    <!--<div class="modal-footer w-100">
-                        <div class="justify-content-center w-100 d-flex flex-column">
-                            <div class="py-1 align-self-center row justify-content-between w-40">
-
-                                <button type="button" class="b-0 btn btn-warning" ng-click = "buyer.customer.selected = buyer.showPanel == 'addnew' ? buyer.customer.jsonform('visitor') : buyer.customer.selectedDefault">
-                                    {{buyer.showPanel == 'addnew' ? 'Select' : 'Reset'}}
-                                </button><button type="button" class="b-0 btn btn-success" ng-click = "buyer.customer.makeCustomer()">
-                                    Add
-                                </button><button type="button" class="btn b-0 {{buyer.showPanel == 'addnew' ? 'btn-danger' : 'btn-info'}}" ng-click = "buyer.showPanel = buyer.showPanel == 'addnew' ? 'search' : 'addnew'">
-                                {{buyer.showPanel == 'addnew' ? 'Search' : 'New'}}
-                                </button>
-                            </div>
-                        </div>
-                    </div>-->
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal fade" id="Customer" role="dialog" modalentry></div>
 
 </div>
 <!--main-sidebar-right end-->

@@ -15,6 +15,12 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+.center{
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top:0; left:0; bottom: 0; right: 0;
+}
 .deactivate{
     pointer-events: none;
     cursor: not-allowed;
@@ -58,6 +64,9 @@ li{
 }
 .blac{
     color: black !important;
+}
+.dark{
+    color: rgba(0,0,0,.5) !important;
 }
 .green{
     color: green !important;
@@ -202,6 +211,9 @@ button.btnnone{
 }
 .b-0{
     border: none !important;
+}
+.b-1{
+    border-bottom: .5px dotted rgba(0,0,0,.3) !important;
 }
 .w-90{
     width: 90% !important;

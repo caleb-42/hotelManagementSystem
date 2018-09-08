@@ -214,12 +214,6 @@ body {
     border-top-right-radius: 10px;
 }
 
-.menuicon {
-    /*top: 10px;
-    left: 10px;
-    position: absolute;
-    z-index: 20;*/
-}
 
 .itembox {
     width: 140px;
@@ -270,13 +264,28 @@ body {
     height: 50vh;
     position: relative;
     right: 0;
-    top:50vh;
 }
 
-.Stocks .main-sidebar-right .sidebar-body .details .productpic{
-    width:200px;
-    height:200px;
-    background: #aaa;
+.Stocks .main-sidebar-right .sidebar-body .discount .header {
+    border-bottom: 2px solid rgba(240, 173, 78, 1);
+}
+.Stocks .main-sidebar-right .sidebar-body .discount .center {
+    width:70px;
+    height:50px;
+}
+.Stocks .main-sidebar-right .sidebar-body .photodetails{
+    width: 100%;
+    background: #fff;
+    height: 40vh;
+    position: relative;
+    right: 0;
+    margin-bottom: 10px;
+}
+.Stocks .main-sidebar-right .sidebar-body .photodetails .productpic{
+    width:180px;
+    height:180px;
+    background: rgba(0,0,0,.2);
+    border-radius: 90px;
 }
 
 .avatar-img {
@@ -472,10 +481,6 @@ productlist li.actparent{
     background: #ddd;
     color: #333;
     padding: 10px 0px;
-}
-
-.main-sidebar-right .statusbar {
-    /*border-left: .5px solid rgba(0,0,0,.2);*/
 }
 
 .hamburger-inner,

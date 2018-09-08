@@ -50,6 +50,7 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/filters.js"></script>
     <script src="./assets/js/services.js"></script>
+    <script src="./assets/js/directives.js"></script>
     <script src="./assets/js/sales/directives.js"></script>
     <script src="./assets/js/sales/controllers.js"></script>
     <script src="./assets/js/stocks/directives.js"></script>

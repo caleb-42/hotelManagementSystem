@@ -19,7 +19,12 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         },
-        crud: "",
+        addProduct : function(jsonprod){
+            console.log("new product", jsonprod);
+        },
+        updateProduct : function(jsonprod){
+            console.log("new product", jsonprod);
+        }
         /* croppie : {
             inputImage: "/assets/img/4.png",
             outputImage: null,
@@ -29,6 +34,11 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
             }
         } */
     };
+    $scope.details = {
+        discount:{
+            selected_discount : "item"
+        }
+    }
 
 
 }]);

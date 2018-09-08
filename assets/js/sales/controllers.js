@@ -38,7 +38,7 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
             }
         };
     }])
-    .controller("rightsidebar", ["$rootScope", "$scope", "$route", 'jsonPost', function ($rootScope, $scope, $route, jsonPost) {
+    .controller("rightsidebar", ["$rootScope", "$scope", "$route", 'jsonPost', '$filter', function ($rootScope, $scope, $route, jsonPost,$filter) {
         $rootScope.$on("addItemToCart", function (evt, params) {
             params.editqty = false;
             params.quantity = 0;
@@ -87,7 +87,6 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
         $scope.$watch("surcharge.discount.type", function (newValue) {
             $scope.surcharge.CalcCosts();
         });
-
         $scope.buyer = {
             showPanel: "search",
             customer: {
@@ -138,7 +137,56 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                         room: 7,
                         type: "customer"
                     }
-                ]
+                ],
+                makeCustomer : function () {
+                    jsonForm = $scope.buyer.customer.jsonform("customer");
+                    if (jsonForm.name == "Buyer") {
+                        return 0;
+                    }
+    
+                    if ($scope.buyer.showPanel == "addnew") {
+                        $scope.buyer.customer.customerList.push(jsonForm);
+                        $scope.buyer.customer.selected = jsonForm;;
+                    }
+                    //console.log(jsonForm);
+                },
+                getLodgers: function (request, response) {
+                    data = [];
+                    json1 = [
+                        {
+                            name: "martins",
+                            phone: "08130249102",
+                            address: "",
+                            bal: 1350,
+                            sex: "male",
+                            room: 5,
+                            type: "customer"
+                        },
+                        {
+                            name: "yoma",
+                            phone: "08130249102",
+                            address: "",
+                            bal: 1350,
+                            sex: "male",
+                            room: 16,
+                            type: "customer"
+                        },
+                        {
+                            name: "debby",
+                            phone: "08130249102",
+                            address: "",
+                            bal: 1350,
+                            sex: "female",
+                            room: 7,
+                            type: "customer"
+                        }
+                    ];
+                    json = $filter('filter')(json1, request.term);
+                    for (var a = 0; a < json.length; a++) {
+                        data.push(json[a].name)
+                    }
+                    response(data);
+                }
             }
         };
         $scope.cart = {
