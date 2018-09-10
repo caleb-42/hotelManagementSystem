@@ -20,7 +20,7 @@
                 <div class="animate-switch Products px-4 h-100" ng-switch-default>
                     <div class="prodlisthd row justify-content-between">
                         <h4 class=" my-4 py-2 font-fam-Montserrat-bold">Manage Products</h4>
-                        <div class="my-4"><button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Add Product'; settings.modal.name = 'Add Product'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Update Product'; settings.modal.name = 'Update Product'; settings.modal.size = 'lg'; " ng-disabled="!products.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!products.jslist.selected">Delete</button></div>
+                        <div class="my-4"><button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Add Product'; settings.modal.name = 'Add Product'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Update Product'; settings.modal.name = 'Update Product'; settings.modal.size = 'lg'; " ng-disabled="!stocks.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!stocks.jslist.selected">Delete</button></div>
                     </div>
                     <div class="prodlist">
                         <productlist></productlist>
@@ -31,7 +31,7 @@
         </div>
     </div>
     <!--statusbar for primehd end-->
-    <div class="main-sidebar-right hs-100 anim" ng-controller="rightsidebar">
+    <div class="main-sidebar-right hs-100 anim">
         <div class="statusbar grn row align-items-end justify-content-center">
             <h4 class="text-center wht">Details <i class="fa fa-book"></i></h4>
         </div>

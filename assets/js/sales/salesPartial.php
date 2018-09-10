@@ -1,4 +1,5 @@
-<div class="prime-hd anim" ng-controller="primehd">
+<div ng-controller="sales">
+<div class="prime-hd anim">
     <div class="statusbar grn row  align-items-end pl-1">
         <div class="tabnav col-7 row">
             <button ng-repeat='nav in tabnav.navs' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected}">
@@ -6,11 +7,10 @@
             </button>
         </div>
         <!--tabnav end-->
-        <div class="searchbox col-5 h-100 row  align-items-end pb-1" ng-mouseleave="searchbox.iconhover = true">
+        <div class="searchbox col-5 h-100 row  align-items-end pb-1">
             <div class="col-10">
                 <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
-            <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
-            <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2" ng-mouseover="searchbox.iconhover = false"></div>
+            <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2"></div>
         </div>
 
     </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="orders anim px-4" ng-class='{"h-0": !sales.order.panel, "h-30": sales.order.panel}'>
 
-                    <!--<ordersgrid list = "surcharge.order.list"></ordersgrid>-->
+                    <!--<ordersgrid list = "sales.order.list"></ordersgrid>-->
                     <ordersgrid ordercheck="sales.order.checkOrderExist()"></ordersgrid>
 
                 </div>
@@ -44,23 +44,23 @@
 </div>
 <!--primehd end-->
 
-<div class="main-sidebar-right hs-100 anim" ng-controller="rightsidebar">
+<div class="main-sidebar-right hs-100 anim">
     <div class="statusbar grn row align-items-end justify-content-center">
         <h4 class="text-center wht">Cart <i class="fa fa-shopping-cart"></i></h4>
     </div>
     <!--statusbar for main-sidebar-right end -->
     <div class="sidebar-body" ng-switch on="tabnav.selected">
         <div ng-switch-default>
-            <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart' : !surcharge.order.orderSelect}">
+            <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart' : !sales.order.orderDeselect}">
                 <div class="col-3 m-0" ng-click="buyer.customer.selected = buyer.customer.selectedDefault">
                     <div class="{{buyer.customer.selected.sex == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
                 </div>
                 <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
                     <span class="m-0 p-0 buyerbio"><p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.name == buyer.customer.selectedDefault.name ? 'Select Customer' : buyer.customer.selected.name}}</p><p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.name == buyer.customer.selectedDefault.name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
                 </div>
-                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !surcharge.order.orderSelect}" ng-style="{'box-shadow' : !surcharge.order.orderSelect ? '-3px 3px  5px #444' : 'none'}">
-                    <i class="fa addicon pointer " ng-if="surcharge.order.orderSelect"></i>
-                    <h4 class="wht f-13 mt-1" ng-if="!surcharge.order.orderSelect">ORDER</h4>
+                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
+                    <i class="fa addicon pointer " ng-if="sales.order.orderDeselect"></i>
+                    <h4 class="wht f-13 mt-1" ng-if="!sales.order.orderDeselect">ORDER</h4>
                 </div>
             </div>
             <div class="cart pb-4 anim">
@@ -80,7 +80,7 @@
                 <!--<button class="btn-block btn "><span class="mr-1">N</span>{{cart.TotalItemCost}}</button>-->
                 <button class="btn-block btn btn-warning my-2"><span class="mr-1 mt-1">N</span>{{surcharge.TotalItemCost}}</button>
                 <div class="row">
-                    <button class="col-5 btn sechue" ng-click="surcharge.order.command()">{{!surcharge.order.orderSelect ? 'Delete Order' : 'Open Order'}}</button>
+                    <button class="col-5 btn sechue" ng-click="sales.order.command()">{{!sales.order.orderDeselect ? 'Delete Order' : 'Open Order'}}</button>
                     <button class="offset-2 col-5 btn btn-success" data-toggle="modal" data-target="#Customer" ng-click="settings.modal.active = 'payment'; surcharge.payment.preview(); settings.modal.name = 'Reciept Preview'; settings.modal.size = 'md' ">Pay</button>
                 </div>
             </div>
@@ -93,3 +93,4 @@
 </div>
 <!--main-sidebar-right end-->
 <div class="clr"></div>
+</div>

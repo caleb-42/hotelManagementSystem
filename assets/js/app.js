@@ -3,7 +3,7 @@ var app = angular.module('app', ['ngAnimate','ngRoute', 'ngSanitize', 'salesApp'
 app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope) {
     $rootScope.settings = {
         modal : {
-            active : "customer",
+            active : "",
             name : "",
             size : ""
         },
@@ -11,7 +11,7 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
     }
         $scope.sidebarnav = {
             navig: {
-                activeNav: "Stocks",
+                activeNav: "Sales",
                 mkactiveNav: function (nav) {
                     $scope.sidebarnav.navig.activeNav = nav;
                 },

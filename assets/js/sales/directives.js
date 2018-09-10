@@ -1,4 +1,4 @@
-app.directive('jslist', ['List', '$rootScope', function (List, $rootScope) {
+salesApp.directive('jslist', ['List', '$rootScope', function (List, $rootScope) {
     return {
         restrict: 'E',
         template: '<div class="animate-switch-container h-100 pb-4" ng-switch on="layout"><div class="animate-switch h-100" ng-switch-default><div class = "itemboxhd ovflo-y h-100 w-100"><div class = "itembox " ng-repeat = "items in (jslist.newItemArray = (jslist.values | filter:searchquery))" ng-click = "jslist.addToCart($index)"><h5>{{items.item}}</h5></div></div></div><div class="animate-switch layout  pb-5 h-100"  ng-switch-when="listlayout"><div  class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in listhddata">{{hd.name}}</span></div><div class = "h-100 listbody ovflo-y " ><ul class = "list" ><li class = "itemlistrow row" ng-repeat = "items in (jslist.newItemArray = (jslist.values | filter:searchquery))" ng-click = "jslist.addToCart($index)"><span class = "itemname col-6">{{items.item}}</span><span class = "text-center stkleft col-3">{{items.current_stock}}</span><span class = "text-center itemcost col-3">{{items.current_price}}</span></li></ul></div></div></div>',
@@ -20,68 +20,6 @@ app.directive('jslist', ['List', '$rootScope', function (List, $rootScope) {
                     jsonlist.then(function (result) {
                         //console.log(result);
                         scope.jslist.values = result;
-                        /* scope.jslist.values = [
-                             {
-                                 category: "alcohol",
-                                 current_price: "300",
-                                 current_stock: "30",
-                                 description: "can (33cl)",
-                                 discount_available: "",
-                                 discount_criteria: "0",
-                                 discount_rate: "0",
-                                 id: "1",
-                                 item: "heineken",
-                                 last_stock_update: "0000-00-00 00:00:00",
-                                 reg_date: "2018-07-25 13:56:22",
-                                 shelf_item: "yes",
-                                 type: "beer"
-                             },
-                             {
-                                 category: "drinks",
-                                 current_price: "200",
-                                 current_stock: "20",
-                                 description: "plastic (33cl)",
-                                 discount_available: "",
-                                 discount_criteria: "7",
-                                 discount_rate: "25",
-                                 id: "2",
-                                 item: "fanta",
-                                 last_stock_update: "2018-08-10 20:38:06",
-                                 reg_date: "2018-07-25 13:58:25",
-                                 shelf_item: "yes",
-                                 type: "soft drink"
-                             },
-                             {
-                                 category: "snacks",
-                                 current_price: "1200",
-                                 current_stock: null,
-                                 description: "medium",
-                                 discount_available: "",
-                                 discount_criteria: "0",
-                                 discount_rate: "0",
-                                 id: "3",
-                                 item: "sharwama",
-                                 last_stock_update: "0000-00-00 00:00:00",
-                                 reg_date: "2018-07-28 13:34:06",
-                                 shelf_item: "no",
-                                 type: "chicken"
-                             },
-                             {
-                                 category: "snacks",
-                                 current_price: "1000",
-                                 current_stock: null,
-                                 description: "medium",
-                                 discount_available: "",
-                                 discount_criteria: "0",
-                                 discount_rate: "0",
-                                 id: "4",
-                                 item: "hot-dog",
-                                 last_stock_update: "0000-00-00 00:00:00",
-                                 reg_date: "2018-07-28 13:37:18",
-                                 shelf_item: "no",
-                                 type: "beef"
-                             }
-                         ];*/
                     });
                     scope.listhddata = [
                         {
@@ -105,7 +43,7 @@ app.directive('jslist', ['List', '$rootScope', function (List, $rootScope) {
     };
 }]);
 
-app.directive('cartitems', ['$rootScope', function ($rootScope) {
+salesApp.directive('cartitems', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
         template: '<div ng-repeat = "cartItem in cart" class="cartItem-row row align-items-center pt-4"><div class = "hvr-overlay anim"><div class = "w-40 float-right row h-100 align-items-center"><i class = " col-4 fa-2x fa fa-plus blac anim" ng-click = "cartitemsOps.addItemQty($index, cartItem.current_stock, cartItem.editqty)"></i><i class = " col-4 fa-2x blac fa fa-minus anim" ng-click = "cartitemsOps.minusItemQty($index, cartItem.current_stock, cartItem.editqty)"></i><i class = "col-4 blac fa-2x fa fa-times anim" ng-click = "cartitemsOps.removeFromCart($index)"></i></div></div><div class="col-3 m-0  align-items-start" style = "margin-bottom:20px !important;"><div class="cartItem-img"><button class="cartItem-num anim" ng-class = "{\'cartItem-numAlign\' : cartItem.editqty}" ng-style = "{\'background\' : cartitemsOps.aboveStock(cartItem.quantity, cartItem.current_stock, cartItem.editqty) ? \'red\' : \'#49B756\'}" ng-click = "cartItem.editqty =  true; cartitemsOps.activateBlinkCursor($event);"><p ng-class = "{\'gone\' : cartItem.editqty}">{{cartItem.quantity}}</p><input  maxlength = "6" ng-blur = "cartItem.editqty =  false; cartitemsOps.deactivateBlinkCursor($event, $index,cartItem.quantity, cartItem.current_stock); totalcost()"  ng-class = "{\'vanish\' : !cartItem.editqty}" ng-model = "cartItem.quantity" ng-change = "cartitemsOps.calc($index); "/></button></div></div><div class="col-9 m-0 row px-1 h-100 pt-2 align-items-center nav-tabs pb-4"><div class="col-7 row px-0 h-100 align-items-center"><div><h6 class="m-0 font-fam-Montserrat w-100 excerpt font-weight-bold opac-70">{{cartItem.item}}</h6><p class="m-0 font-fam-Myriad opac-50 f-13 excerpt">{{cartItem.description}}</p></div></div><div class="h-100 col-5 row  justify-content-center align-items-center"><h6 class="itemCost h-100 m-0 w-100 text-center font-fam-Montserrat opac-50">{{discount == "Total" ? cartItem.net_cost : cartItem.discounted_net_cost}}</h6></div></div></div>',
@@ -184,7 +122,7 @@ app.directive('cartitems', ['$rootScope', function ($rootScope) {
     };
 }]);
 
-app.directive('ordersgrid', ['$rootScope', function ($rootScope) {
+salesApp.directive('ordersgrid', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
         template: '<div class = "orderRow h-100" ><div ng-click = "order.focus(gridorders.buyer.name, $index)" class = "anim pdiv pointer" ng-repeat = "gridorders in order.list"><div class = \'  anim row justify-content-center align-items-center\'  ng-class = "{\'divfocus\' : order.focused  == gridorders.buyer.name, \'adiv\' : order.focused  != gridorders.buyer.name}"><h6>{{gridorders.buyer.name}}</h6></div></div></div>',
@@ -198,8 +136,6 @@ app.directive('ordersgrid', ['$rootScope', function ($rootScope) {
                     return el
                 });
                 scope.order.list = arr;
-                //scope.order.list = Object.values(scope.order.listarray);
-                //console.log(scope.order.list);
                 scope.order.list.length == 1 ? scope.ordercheck() : null;
                 $(".orderRow").fadeOut(10, function () {
                     $(".orderRow").delay(700).fadeIn(100);
