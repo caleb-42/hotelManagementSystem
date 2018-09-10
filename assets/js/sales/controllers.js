@@ -1,4 +1,4 @@
-salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', function ($rootScope, $scope, $route, jsonPost) {
+salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
         $scope.tabnav = {
             selected: 'Sales',
             navs: {
@@ -13,15 +13,12 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                 $scope.tabnav.selected = navname;
             }
         };
-        $scope.searchbox = {
-            iconhover: true
-        };
         $scope.sales = {
             products: {
                 layout: "listlayout",
                 itemlist: function () {
                     return {
-                        jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {}) /*$scope.sales.products.data*/
+                        jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {}) 
                     }
                 }
             },
@@ -31,14 +28,47 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                     $scope.sales.order.panel = $scope.sales.order.panel ? false : true;
                     $rootScope.$emit("DeselectOrder", {});
                 },
-                orderExist: false,
                 checkOrderExist: function () {
                     $scope.sales.order.orderExist = $scope.sales.order.orderExist ? false : true;
-                }
+                },
+                command: function () {
+                    $scope.sales.order.orderDeselect ? $scope.sales.order.open() : $scope.sales.order.delete();
+                },
+                currentCart : {
+                    
+                },
+                delete: function () {
+                    $rootScope.$emit("deleteorder", {});
+                    $scope.sales.order.orderDeselect = true;
+                    $scope.cart.currentCart = null;
+                    $scope.sales.order.list.splice(parseInt($scope.sales.order.focused), 1);
+                    $scope.cart.currentCart = $scope.cart.waitCart;
+                    $scope.cart.toggleCart();
+                },
+                open: function () {
+                    if ($scope.buyer.customer.selected.name != "Buyer") {
+                        newOrder = {};
+                        checklist = true;
+                        $scope.sales.order.list.forEach(function (element) {
+                            if ($scope.buyer.customer.selected.name == element.buyer.name) {
+                                checklist = false;
+                            }
+                        });
+
+                        if (checklist) {
+                            newOrder.buyer = $scope.buyer.customer.selected;
+                            newOrder.cart = $scope.cart.cartlist.slice(0);
+                            $scope.sales.order.list.push(newOrder);
+                            console.log($scope.sales.order.list);
+                            $rootScope.$emit("neworder", $scope.sales.order.list);
+                        };
+                    }
+                },
+                list: [],
+                orderDeselect: true
             }
         };
-    }])
-    .controller("rightsidebar", ["$rootScope", "$scope", "$route", 'jsonPost', '$filter', function ($rootScope, $scope, $route, jsonPost,$filter) {
+
         $rootScope.$on("addItemToCart", function (evt, params) {
             params.editqty = false;
             params.quantity = 0;
@@ -64,29 +94,29 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
         });
 
         $rootScope.$on("orderSelected", function (evt, params) {
-            if ($scope.surcharge.order.orderSelect) {
-                newOrder = {};
-                newOrder.buyer = $scope.buyer.customer.selected;
-                newOrder.cart = $scope.cart.cartlist.slice(0);
-                $scope.surcharge.order.waitCart = newOrder;
-                $scope.surcharge.order.orderSelect = false;
+            if ($scope.sales.order.orderDeselect) {
+                trolley = {};
+                trolley.buyer = $scope.buyer.customer.selected;
+                trolley.cart = $scope.cart.cartlist.slice();
+                //$scope.sales.order.waitCart = trolley;
+                $scope.cart.waitCart = trolley;
+                $scope.sales.order.orderDeselect = false;
             }
             console.log(params);
-            $scope.surcharge.order.currentCart = null;
-            $scope.surcharge.order.currentCart = params.list;
-            $scope.surcharge.order.focused = params.indx;
-            $scope.surcharge.order.toggleCart();
+            $scope.cart.currentCart = params.list;
+            $scope.sales.order.focused = params.indx;
+            $scope.cart.toggleCart();
         });
         $rootScope.$on("orderDeselected", function (evt, params) {
-            $scope.surcharge.order.orderSelect = true;
+            $scope.sales.order.orderDeselect = true;
             console.log("params");
-            $scope.surcharge.order.currentCart = null;
-            $scope.surcharge.order.currentCart = $scope.surcharge.order.waitCart;
-            $scope.surcharge.order.toggleCart();
+            $scope.cart.currentCart = $scope.cart.waitCart;
+            $scope.cart.toggleCart();
         });
         $scope.$watch("surcharge.discount.type", function (newValue) {
             $scope.surcharge.CalcCosts();
         });
+
         $scope.buyer = {
             showPanel: "search",
             customer: {
@@ -148,7 +178,6 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                         $scope.buyer.customer.customerList.push(jsonForm);
                         $scope.buyer.customer.selected = jsonForm;;
                     }
-                    //console.log(jsonForm);
                 },
                 getLodgers: function (request, response) {
                     data = [];
@@ -189,9 +218,18 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                 }
             }
         };
+
         $scope.cart = {
-            cartlist: []
+            cartlist: [],
+            toggleCart: function () {
+                $scope.buyer.customer.selected = $scope.cart.currentCart.buyer;
+                $scope.cart.cartlist = $scope.cart.currentCart.cart;
+                console.log( $scope.cart.currentCart);
+                $scope.surcharge.CalcCosts();
+            },
+            currentCart : {}
         };
+
         $scope.surcharge = {
             TotalItemCost: 0,
             CalcCosts: function () {
@@ -214,7 +252,7 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                             discount = (parseInt(discount_rate) / 100) * tot;
                             discountedCost = tot - discount;
 
-                            $scope.surcharge.order.currentCart.total = {
+                            $scope.cart.currentCart.total = {
                                 transaction_discount : parseInt(discount_rate),
                                 total_cost: cost,
                                 discounted_total_cost : discountedCost,
@@ -225,7 +263,7 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                         } 
                         else {
                             Total = tot;
-                            $scope.surcharge.order.currentCart.total = {
+                            $scope.cart.currentCart.total = {
                                 transaction_discount : 0,
                                 total_cost: Total,
                                 discounted_total_cost : Total,
@@ -247,68 +285,20 @@ salesApp.controller("primehd", ["$rootScope", "$scope", "$route", 'jsonPost', fu
             discount: {
                 type: "Total",
             },
-            reciept : {
-                
-            },
-            order: {
-                command: function () {
-                    $scope.surcharge.order.orderSelect ? $scope.surcharge.order.open() : $scope.surcharge.order.delete();
-                },
-                currentCart : {
-                    
-                },
-                delete: function () {
-                    $rootScope.$emit("deleteorder", {});
-                    $scope.surcharge.order.orderSelect = true;
-                    $scope.surcharge.order.currentCart = null;
-                    $scope.surcharge.order.list.splice(parseInt($scope.surcharge.order.focused), 1);
-                    $scope.surcharge.order.currentCart = $scope.surcharge.order.waitCart;
-                    $scope.surcharge.order.toggleCart();
-                },
-                open: function () {
-                    if ($scope.buyer.customer.selected.name != "Buyer") {
-                        newOrder = {};
-                        checklist = true;
-                        $scope.surcharge.order.list.forEach(function (element) {
-                            if ($scope.buyer.customer.selected.name == element.buyer.name) {
-                                checklist = false;
-                            }
-                        });
-
-                        if (checklist) {
-                            newOrder.buyer = $scope.buyer.customer.selected;
-                            newOrder.cart = $scope.cart.cartlist.slice(0);
-                            $scope.surcharge.order.list.push(newOrder);
-                            console.log($scope.surcharge.order.list);
-                            $rootScope.$emit("neworder", $scope.surcharge.order.list);
-                        };
-                    }
-                },
-                list: [],
-                toggleCart: function () {
-                    $scope.buyer.customer.selected = $scope.surcharge.order.currentCart.buyer;
-                    $scope.cart.cartlist = $scope.surcharge.order.currentCart.cart;
-                    console.log( $scope.surcharge.order.currentCart);
-                    $scope.surcharge.CalcCosts();
-                },
-                orderSelect: true
-            },
             payment : {
                 preview : function (){
-                    $scope.surcharge.order.currentCart.buyer =  $scope.buyer.customer.selected;
-                    $scope.surcharge.order.currentCart.cart = JSON.parse(JSON.stringify($scope.cart.cartlist));
-                    $scope.surcharge.reciept.customer = $scope.buyer.customer.selected.name;
-                    $scope.surcharge.reciept.sales_rep = $rootScope.settings.user;
-                    //reciept.customer_ref = ;
-                    $scope.surcharge.reciept.transaction_discount = $scope.surcharge.order.currentCart.total.transaction_discount;
-                    $scope.surcharge.reciept.discount_type = $scope.surcharge.discount.type;
-                    $scope.surcharge.order.currentCart.total.transaction_discount;
-                    //reciept.amount_paid = ;
-                    $scope.surcharge.reciept.total_cost = $scope.surcharge.order.currentCart.total.total_cost;
-                    $scope.surcharge.reciept.discount_amount = $scope.surcharge.order.currentCart.total.discount_amount;
-                    $scope.surcharge.reciept.discounted_total_cost = $scope.surcharge.order.currentCart.total.discounted_total_cost;
-                    //reciept.pay_method = ;
-                    $scope.surcharge.reciept.item_list = $scope.surcharge.order.currentCart.cart;
+                    $scope.cart.currentCart.buyer =  $scope.buyer.customer.selected;
+                    $scope.cart.currentCart.cart = JSON.parse(JSON.stringify($scope.cart.cartlist));
+                    $scope.surcharge.reciept = {
+                        customer : $scope.cart.currentCart.buyer,
+                        sales_rep : $rootScope.settings.user,
+                        transaction_discount : $scope.cart.currentCart.total.transaction_discount,
+                        discount_type : $scope.surcharge.discount.type,
+                        total_cost : $scope.cart.currentCart.total.total_cost,
+                        discount_amount : $scope.cart.currentCart.total.discount_amount,
+                        discounted_total_cost : $scope.cart.currentCart.total.discounted_total_cost,
+                        item_list : $scope.cart.currentCart.cart
+                    }
                     console.log($scope.surcharge.reciept);
                 }
             }

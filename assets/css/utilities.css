@@ -33,6 +33,9 @@
 .text-bold{
     font-weight: 500;
 }
+.text-light{
+    font-weight: 300;
+}
 li.actparent{
     box-shadow:  200px 200px 20px rgba(0,0,0, .5) inset;
     color: white !important;
@@ -73,6 +76,10 @@ li{
 }
 .choral{
     color: #d9534f !important;
+}
+
+.choralback{
+    background: #d9534f !important;
 }
 .zindex{
     z-index: 200 !important;
