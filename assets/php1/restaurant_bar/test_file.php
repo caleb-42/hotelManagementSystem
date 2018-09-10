@@ -1,23 +1,39 @@
 <?php
- include "../settings/connect.php";  //database name = $dbConn
-$item_list = ["sharwama", "heineken", "hot-dog", "fanta"];
+$servername = "localhost";
+$username = "root";
+$password = "webplay";
+$dbname = "myDB";
 
- $no_of_items = count($item_list); // Items listed on bill
- for ($i=0; $i <$no_of_items; $i++) { 
-	$stock_items[$i] = $item_list[$i];
- }
- $stock_items = '("' . implode('","' , $stock_items) . '")';
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-/* stock check*/
- $select_items_query = "SELECT current_stock, item, id FROM restaurant_items WHERE item IN " . $stock_items . " ORDER BY item";
-//$select_items_query = "SELECT current_stock FROM restaurant_items WHERE item = 'fanta'";
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
+// prepare and bind
+$stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $firstname, $lastname, $email);
 
- $select_items_result = mysqli_query($dbConn, $select_items_query);
+// set parameters and execute
+$firstname = "John";
+$lastname = "Doe";
+$email = "john@example.com";
+$stmt->execute();
 
- for ($i=0; $row = mysqli_fetch_array($select_items_result); $i++) { 
- 	echo $row["current_stock"] ." ". $row["item"] . " $i <br>";
- }
+$firstname = "Mary";
+$lastname = "Moe";
+$email = "mary@example.com";
+$stmt->execute();
 
- /* stock check*/
+$firstname = "Julie";
+$lastname = "Dooley";
+$email = "julie@example.com";
+$stmt->execute();
+
+echo "New records created successfully";
+
+$stmt->close();
+$conn->close();
 ?>
