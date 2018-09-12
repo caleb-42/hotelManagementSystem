@@ -34,10 +34,3 @@ app.factory('jsonPost', ['$http', function($http){
         }
     }
 }]);
-/*Uncaught Error: [$rootScope:infdig] http://errors.angularjs.org/1.2.32/$rootScope/infdig?p0=10&p1=%5B%5D
-at angular.js:36
-at h.$digest (angular.js:12742)
-at h.$apply (angular.js:12968)
-at l (angular.js:8479)
-at w (angular.js:8693)
-at XMLHttpRequest.y.onreadystatechange (angular.js:8632)*/

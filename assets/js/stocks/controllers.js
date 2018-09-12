@@ -19,10 +19,19 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         },
-        addProduct : function(jsonprod){
+        addProduct: function (jsonprod) {
+            jsonprod.discount_rate = 0;
+            jsonprod.discount_criteria = 0;
+            jsonprod.discount_available = "";
             console.log("new product", jsonprod);
+            jsonPost.data("assets/php1/restaurant_bar/admin/add_item.php", {
+                new_item: jsonprod
+            }).then(function (response) {
+                console.log(response);
+                $scope.stocks.jslist.createList();
+            });
         },
-        updateProduct : function(jsonprod){
+        updateProduct: function (jsonprod) {
             console.log("new product", jsonprod);
         }
         /* croppie : {
@@ -35,8 +44,8 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
         } */
     };
     $scope.details = {
-        discount:{
-            selected_discount : "item"
+        discount: {
+            selected_discount: "item"
         }
     }
 
