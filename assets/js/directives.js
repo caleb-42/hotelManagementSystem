@@ -143,7 +143,7 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             }
             addProduct = function () {
                 jsonForm = $(".addProductForm").serializeObject();
-                scope.stocks.addProduct(scope.stocks.jslist.selectedObj);
+                scope.stocks.addProduct(jsonForm);
             };
             
             if (scope.sidebarnav.navig.activeNav == "Sales") {
