@@ -29,10 +29,7 @@ $connector = new WindowsPrintConnector($printName);
 $printer = new Printer($connector);
 
 //$sales_details = $_POST["sales_details"];
-$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item_name":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay"}, {"item_name":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay"}, {"item_name":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay"}]}';
-
-
-
+$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item_name":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"no", "new_stock": 0}]}';
 /*sales_details is the json string from the front-end the keys contain aspects of the
 transaction */
 $sales_details = json_decode($sales_details, true);
@@ -76,15 +73,17 @@ $select_items_query->bind_param("s", $item); // continue from here
 
  for ($i=0; $i<$no_of_items; $i++) { 
  	$item = $item_list[$i]["item_name"];
- 	var_dump($item);
+ 	$item_qty = $item_list[$i]["quantity"];
  	$select_items_query->execute();
  	$select_items_query->bind_result($item_stock, $item_item, $item_shelf, $item_id);
  	$select_items_query->fetch();
  	if (($item_list[$i]["quantity"] > intval($item_stock)) && ($item_shelf == "yes")) {
  		$select_items_query->close();
  		die("The quantity of " . $item . " requested is more than stock quantity");
+ 	} else if (($item_list[$i]["quantity"] <= intval($item_stock)) && ($item_shelf == "yes")) {
+ 		$item_list[$i]["new_stock"] = intval($item_stock) - $item_qty;
  	}
- 	echo "$item";
+ 	echo "<br>$item";
  }
  $select_items_query->close();
  /* stock check*/
@@ -94,12 +93,7 @@ $insert_into_sales = $conn->prepare("INSERT INTO restaurant_sales (sales_ref, it
 
 $insert_into_sales->bind_param("sssiiiiiis", $txn_ref, $item, $type, $item_qty, $unit_cost, $net_cost, $discount_rate, $discounted_net_cost, $discount_amount, $sold_by);
 
-$select_item_stock = $conn->prepare("SELECT current_stock, shelf_item FROM restaurant_items WHERE item = ?");
-$select_item_stock->bind_param("s", $item);
-
-$update_stock_query = $conn->prepare("UPDATE restaurant_items SET current_stock = ? WHERE item = ? AND shelf_item = 'yes'");
-$update_stock_query->bind_param("is", $new_stock, $item);
-echo "$no_of_items";
+echo "<br>$no_of_items";
 
 for ($i=0; $i <$no_of_items ; $i++) { 
 	echo "<br>$i";
@@ -115,29 +109,31 @@ for ($i=0; $i <$no_of_items ; $i++) {
 	echo "<br>$item";
 
 	$insert_into_sales->execute();
+}
+$insert_into_sales->close();
 
-	$select_item_stock->execute();
-	$select_item_stock->bind_result($item_stock, $shelf_item);
-	$select_item_stock->fetch();
+$update_stock_query = $conn->prepare("UPDATE restaurant_items SET current_stock = ? WHERE item = ? AND shelf_item = 'yes'");
+$update_stock_query->bind_param("is", $new_stock, $item);
+for ($i=0; $i <$no_of_items ; $i++) {
+	$item = $item_list[$i]["item_name"];
+	$item_qty = $item_list[$i]["quantity"];
+	$shelf_item = $item_list[$i]["shelf_item"];
 	if ($shelf_item == "yes") {
-		$new_stock = $item_stock - $item_qty;
+		$new_stock = $item_list[$i]["new_stock"];
+		echo "<br>$new_stock";
 		$update_stock_query->execute();
 		echo "<br>Update Attempted";
 	}
 }
-$insert_into_sales->close();
-$select_item_stock->close();
 $update_stock_query->close();
 
 /*Record sales of individual items*/
 
 /*Record Transaction*/
 if ($amount_paid) {
-	$date_of_payment = ", date_of_payment";
-	$time_of_payment = ", CURRENT_TIMESTAMP";
+	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, txn_worth, customer_id, date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref', CURRENT_TIMESTAMP)";
 } else {
-	$date_of_payment = "";
-	$time_of_payment = "";
+	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, txn_worth, customer_id) VALUES('$txn_ref', $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref')";
 }
 
 if ($amount_balance == 0) {
@@ -146,11 +142,12 @@ if ($amount_balance == 0) {
 	$payment_status = "UNBALANCED";
 }
 
-$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, txn_worth, customer_id $date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_balance, $discounted_total_cost, $customer_ref $time_of_payment)";
 $payment_record_result = mysqli_query($dbConn, $payment_record_query);
 
-$txn_insert_query = "INSERT INTO restaurant_txn (txn_ref, total_items, total_cost, transaction_discount, discounted_total_cost, deposited, balance, customer_ref, pay_method, payment_status, sales_rep) VALUES('$txn_ref', $no_of_items, $total_cost, $transaction_discount, $discounted_total_cost, $amount_paid, $amount_balance, $customer_ref, '$pay_method', '$payment_status', '$sales_rep')";
+var_dump($customer_ref);
+$txn_insert_query = "INSERT INTO restaurant_txn (txn_ref, total_items, total_cost, transaction_discount, discounted_total_cost, deposited, balance, customer_ref, pay_method, payment_status, sales_rep) VALUES('$txn_ref', $no_of_items, $total_cost, $transaction_discount, $discounted_total_cost, $amount_paid, $amount_balance, '$customer_ref', '$pay_method', '$payment_status', '$sales_rep')";
 $txn_insert_result = mysqli_query($dbConn, $txn_insert_query);
+var_dump($txn_insert_result);
 
 /*Receipt printer initialization, initial parameters set*/
 
