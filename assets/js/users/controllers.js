@@ -1,9 +1,9 @@
-stocksApp.controller("stocks", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope,  jsonPost, $filter) {
+usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.tabnav = {
-        selected: 'Products',
+        selected: 'Users',
         navs: {
             nav1: {
-                name: 'Products'
+                name: 'Users'
             },
             /*nav2: {
                 name: 'History'
@@ -13,13 +13,13 @@ stocksApp.controller("stocks", ["$rootScope", "$scope",  'jsonPost','$filter', f
             $scope.tabnav.selected = navname;
         }
     };
-    $scope.stocks = {
+    $scope.users = {
         itemlist: function () {
             return {
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         },
-        addProduct: function (jsonprod) {
+        addUser: function (jsonprod) {
             jsonprod.discount_rate = 0;
             jsonprod.discount_criteria = 0;
             jsonprod.discount_available = "";
@@ -33,35 +33,10 @@ stocksApp.controller("stocks", ["$rootScope", "$scope",  'jsonPost','$filter', f
                 $scope.stocks.jslist.createList();
             });
         },
-        updateProduct: function (jsonprod) {
+        updateUser: function (jsonprod) {
             console.log("new product", jsonprod);
         }
-        /* croppie : {
-            inputImage: "/assets/img/4.png",
-            outputImage: null,
-
-            onUpdate: function (data) {
-                //console.log(data);
-            }
-        } */
     };
-    $scope.details = {
-        discount: {
-            selected_discount: "item"
-        }
-    }
 
 
 }]);
-
-/* function ExampleCtrl() {
-    var vm = this;
-
-    vm.inputImage = "./././assets/img/4.png";
-    vm.outputImage = null;
-
-    vm.onUpdate = function(data) {
-        //console.log(data);
-    };
-}
-stocksApp.controller('ExampleCtrl', [ExampleCtrl]); */
