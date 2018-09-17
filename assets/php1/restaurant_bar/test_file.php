@@ -1,39 +1,43 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "webplay";
-$dbname = "myDB";
+include "../settings/connect.php"; //$database handler $dbConn or $conn
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$del_discounts = '{"discounts": [{"discount_item": "sprite", "id": 5, "lower_limit": 1000, "upper_limit": 2000}, {"discount_item": "hot-dog", "id": 4, "lower_limit": 1200, "upper_limit": 3000}, {"discount_item": "sprite", "id": 5, "lower_limit": 2000, "upper_limit": 3000}, {"discount_item": "hot-dog", "id": 5, "lower_limit": 3000, "upper_limit": 5000}]}';
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$discounts = json_decode($del_discounts, true);
+$del_array = $discounts["discounts"];
+$no_of_discounts = count($del_array);
+
+$unique_keys = [];
+
+var_dump($del_array);
+
+for ($i=0; $i < $no_of_discounts; $i++) { 
+	if (!(in_array($del_array[$i]["discount_item"], $unique_keys))) {
+		$unique_keys[] = $del_array[$i]["discount_item"];
+	} 
 }
 
-// prepare and bind
-$stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $firstname, $lastname, $email);
+var_dump($unique_keys);
 
-// set parameters and execute
-$firstname = "John";
-$lastname = "Doe";
-$email = "john@example.com";
-$stmt->execute();
+$test_arr = [];
+$test_arr[0][0] = 5;
+$test_arr[0][1] = 6;
+$test_arr[1][0] = 6;
+$test_arr[2][0] = 6;
+$test_arr[2][1] = 6;
+$test_arr[2][2] = 6;
+$test_arr[3][0] = 6;
+$test_arr[3][1] = 6;
+$test_arr[3][2] = 6;
 
-$firstname = "Mary";
-$lastname = "Moe";
-$email = "mary@example.com";
-$stmt->execute();
+echo count($test_arr[2]);
 
-$firstname = "Julie";
-$lastname = "Dooley";
-$email = "julie@example.com";
-$stmt->execute();
 
-echo "New records created successfully";
 
-$stmt->close();
-$conn->close();
+
+var_dump($test_arr[0][0]);
+
+//$unique_del_array = array_unique($del_array);
+
+//var_dump($unique_del_array);
 ?>

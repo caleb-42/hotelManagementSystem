@@ -18,6 +18,8 @@ $discount_available = $new_item["discount_available"];
 $shelf_item = $new_item["shelf_item"];
 $current_stock = $new_item["current_stock"];
 
+$msg_response="";
+
 if ($item == "" || $type == "" || $category == "" || $description == "" || $current_price == "") {
 	$msg_response = "The fields 'Item name', 'Type', 'Category', 'Description' and 'Current Price' are all compulsory";
 	die($msg_response);
