@@ -7,6 +7,7 @@ $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
+$msg_response = "";
 
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
@@ -31,12 +32,12 @@ function generateHash($password) {
 
 $hashedPassword = generateHash($user_pass);
 
-$add_user_query = "INSERT INTO restaurant_users (user_name, lower_limit, upper_limit, discount_item, discount_value) VALUES ('$discount_name', $lower_limit, $upper_limit, '$discount_item', $discount_value)";
+$add_user_query = "INSERT INTO restaurant_users (user_name, user, role, password) VALUES ('$user_name', '$user', '$role', '$hashedPassword')";
 
 $add_user_result = mysqli_query($dbConn, $add_user_query);
 
-if ($add_discount_result) {
-	$msg_response = $discount_name ." was successfully added as a discount scheme";
+if ($add_user_result) {
+	$msg_response = $user_name ." was successfully added as a restaurant application user";
 }
 
 echo $msg_response;

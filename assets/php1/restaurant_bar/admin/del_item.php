@@ -6,7 +6,8 @@ $del_items = json_decode($_POST["del_items"], true);
 
 $deleted = [];
 
-$items = json_decode($del_items, true);
+//$items = json_decode($del_items, true);
+$items = $del_items;
 $del_array = $items["items"];
 var_dump($del_array);
 $no_of_items = count($del_array);

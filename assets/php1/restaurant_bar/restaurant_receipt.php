@@ -68,7 +68,7 @@ $no_of_items = count($item_list); // Items listed on bill
 
 /* stock check*/
 $select_items_query = $conn->prepare("SELECT current_stock, item, shelf_item, id FROM restaurant_items WHERE item = ?");
-var_dump($select_items_query);
+
 $select_items_query->bind_param("s", $item); // continue from here
 
  for ($i=0; $i<$no_of_items; $i++) { 
@@ -144,10 +144,10 @@ if ($amount_balance == 0) {
 
 $payment_record_result = mysqli_query($dbConn, $payment_record_query);
 
-var_dump($customer_ref);
+//var_dump($customer_ref);
 $txn_insert_query = "INSERT INTO restaurant_txn (txn_ref, total_items, total_cost, transaction_discount, discounted_total_cost, deposited, balance, customer_ref, pay_method, payment_status, sales_rep) VALUES('$txn_ref', $no_of_items, $total_cost, $transaction_discount, $discounted_total_cost, $amount_paid, $amount_balance, '$customer_ref', '$pay_method', '$payment_status', '$sales_rep')";
 $txn_insert_result = mysqli_query($dbConn, $txn_insert_query);
-var_dump($txn_insert_result);
+//var_dump($txn_insert_result);
 
 /*Receipt printer initialization, initial parameters set*/
 

@@ -69,6 +69,7 @@ var modalTemplate = `
                 </div>
             </div>
 <div ng-if = "settings.modal.active == \'Update Product\'">
+        <form autocomplete="off" class="updateProductForm"> 
             <div class="ml-5 my-4 float-left w-40 inpRead">
                   <div class="w-100">
                         <input class="item form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" value = "rer" name="item" readonly/>
@@ -80,24 +81,25 @@ var modalTemplate = `
                         <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Type" name="type" readonly/>
                     </div>
                     </div>
-                    <form autocomplete="off" class="updateProductForm mr-5 my-4 float-right w-40">
+                    <div class="updateProductForm mr-5 my-4 float-right w-40">
                     <div class="w-100">
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="item" />
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" name="current_stock" />
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" name="current_price" />
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Description" name="description" />
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Category" name="category" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="new_item" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" name="new_current_stock" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" name="new_current_price" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Description" name="new_description" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Category" name="new_category" />
                         <div class="row justify-content-around my-2 align-items-center font-fam-Montserrat">
-                            <h6 class="font-fam-Montserrat-bold choral">Shelf Item</h6><span><input type="radio" id = "yes" value = "yes"  name = "shelf_item"/><label for="yes" class = "f-15 ml-2">Yes</label></span><span><input type="radio" checked value = "no"  name = "shelf_item" id = "no"/><label for="no" class = "f-15 ml-2">No</label></span></div>
+                            <h6 class="font-fam-Montserrat-bold choral">Shelf Item</h6><span><input type="radio" id = "yes" value = "yes"  name = "new_shelf_item"/><label for="yes" class = "f-15 ml-2">Yes</label></span><span><input type="radio" checked value = "no"  name = "new_shelf_item" id = "no"/><label for="no" class = "f-15 ml-2">No</label></span></div>
 
-                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Type" name="type" />
+                        <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Type" name="new_type" />
+                    </div>
                     </div>
                 </form>
                 <div class="modal-footer w-100">
                 <div class="justify-content-center w-100 d-flex flex-column">
                     <div class="py-1 row justify-content-center w-100">
-
-                        <button type="button" class="b-0 btn btn-success" onclick="updateProduct()">
+                    <div ng-class = "{gone : !stocks.updatingProduct}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                        <button type="button" class="{{stocks.updatingProduct ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="updateProduct()" ng-click = "stocks.updatingProduct = true">
                             Update
                         </button>
                     </div>
