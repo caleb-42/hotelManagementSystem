@@ -40,6 +40,13 @@ body {
 .wrapper.toggled .prime-hd {
     width: 69.3%;
 }
+.wrapper.toggled .Users .main-sidebar-right {
+    width: 50.7%;
+}
+
+.wrapper.toggled .Users .prime-hd {
+    width: 49.3%;
+}
 
 .orderRow {
     position: relative;
@@ -139,7 +146,19 @@ body {
     width: 75%;
     float: left;
 }
+.Users .prime-hd {
+    width: 55%;
+    float: left;
+}
 
+.Users .main-sidebar-right {
+    width: 45%;
+    float: right;
+    background: #eee;
+    height: 91hv !important;
+    position: relative;
+    /*border-left: .5px solid rgba(0,0,0,.2);*/
+}
 .main-sidebar-right {
     width: 25%;
     float: right;
@@ -242,6 +261,31 @@ body {
 .prime-body {
     padding-right: 12px;
 }
+.Users .sidebar-body{
+    /*height: 600px;
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;*/
+    height: 100%;
+}
+.Users .main-sidebar-right .sidebar-body .details {
+    width: 100%;
+    background: #fff;
+    height: 350px !important;
+    position: relative;
+    right: 0;
+}
+
+.Users .main-sidebar-right .sidebar-body .sessions{
+    width: 100%;
+    background: #fff;
+    height: 90vh;
+    position: relative;
+    right: 0;
+    margin-bottom: 10px;
+}
+/* */
 .Stocks .sidebar-body{
     /*height: 600px;
     position: relative;
@@ -465,7 +509,6 @@ body {
     border: none;
     outline: inherit;
 }
-
 .itemlistrow {
     width: 100%;
     padding: 12px 0px;
@@ -473,6 +516,11 @@ body {
     border-bottom: 1px solid #ccc;
 }
 productlist li.actparent{
+    color: white !important;
+    /*box-shadow:  200px 200px 20px rgba(217, 83, 79, .9) inset !important;*/
+    box-shadow:  200px 200px 20px rgba(54, 165, 67, .8) inset !important;
+}
+userlist li.actparent{
     color: white !important;
     /*box-shadow:  200px 200px 20px rgba(217, 83, 79, .9) inset !important;*/
     box-shadow:  200px 200px 20px rgba(54, 165, 67, .8) inset !important;

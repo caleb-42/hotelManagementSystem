@@ -60,8 +60,8 @@ var modalTemplate = `
                 <div class="modal-footer w-100">
                 <div class="justify-content-center w-100 d-flex flex-column">
                     <div class="py-1 row justify-content-center w-100">
-
-                        <button type="button" class="b-0 btn btn-success" onclick="addProduct()">
+                        <div ng-class = "{gone : !stocks.addingProduct}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                        <button type="button" class="{{stocks.addingProduct ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="addProduct()" ng-click = "stocks.addingProduct = true">
                             Add
                         </button>
                     </div>
@@ -102,6 +102,48 @@ var modalTemplate = `
                         </button>
                     </div>
                 </div>
+                </div>
+            </div>
+
+            <div ng-if = "settings.modal.active == \'Discount\'">
+                <div class = "w-100" ng-if = "settings.modal.name == \'Update Discount\'">
+                    <div class="p-4 w-100">
+                    <div class= "float-left w-45 inpRead row m-0">
+                      <input class="discnt form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" readonly/>
+                      <input class="uplimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" readonly/>
+                      <input class="lowlimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" readonly/>
+                    </div>
+                    <form class= "float-right w-45 updateDiscount row m-0">
+                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "discnt"/>
+                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "uplimit"/>
+                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lowlimit"/>
+                    </form>
+                    </div>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <button type="button" class="b-0 btn btn-success" onclick="UpdateDiscount()">
+                                    {{settings.modal.name | limitTo:6}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "w-100" ng-if = "settings.modal.name == \'Add Discount\'">
+                    <form class= "p-4 w-100 updateDiscount row justify-content-center m-0">
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "discnt"/>
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "uplimit"/>
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lowlimit"/>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <button type="button" class="b-0 btn btn-success" onclick="UpdateDiscount()">
+                                    {{settings.modal.name | limitTo:3}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

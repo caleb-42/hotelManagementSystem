@@ -258,8 +258,14 @@ button.btnnone{
 .h-90{
     height: 90% !important;
 }
+.h-80{
+    height: 80% !important;
+}
 .h-70{
     height: 70% !important;
+}
+.h-50{
+    height: 50% !important;
 }
 .h-30{
     height: 30% !important;
@@ -267,8 +273,11 @@ button.btnnone{
 .h-20{
     height: 20% !important;
 }
+.h-15{
+    height: 15% !important;
+}
 .h-10{
-    height: 20% !important;
+    height: 10% !important;
 }
 .h-0{
     height: 0 !important;
@@ -285,6 +294,18 @@ button.btnnone{
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+}
+.anim-fast{
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.anim-slow{
+    -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
 }
 @keyframes fadeInFromNone{
     from {opacity: 0;}

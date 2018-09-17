@@ -1,7 +1,7 @@
 <?php /*require_once "assets/php/includes/start_session.php" ;
 require_once "assets/php/includes/functions.php";
 confirm_logged_in();*/
-$templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","History"=>""]
+$templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","Users"=>"./assets/js/users/usersPartial.php","History"=>""]
 ?>
 
 <!doctype html>
@@ -55,6 +55,8 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <script src="./assets/js/sales/controllers.js"></script>
     <script src="./assets/js/stocks/directives.js"></script>
     <script src="./assets/js/stocks/controllers.js"></script>
+    <script src="./assets/js/users/directives.js"></script>
+    <script src="./assets/js/users/controllers.js"></script>
     <script src="./vendors/node_modules/ng-croppie/unminified/ng-croppie.js"></script>
 </head>
 
@@ -62,7 +64,7 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
 
     <div class="wrapper anim"  ng-controller="appctrl" ng-class = "{'toggled' : sidebarnav.menuicon.active}">
         <div class="sidebarleft anim">
-            <div class="h-10 menuicon w-100 ml-3 pl-1 py-4">
+            <div class="h-15 menuicon w-100 ml-3 pl-1 py-4">
                 <div class="hamburger hamburger--minus p-0" ng-click="sidebarnav.menuicon.toggleactive()" ng-class="{'is-active':sidebarnav.menuicon.active}">
                     <div class="hamburger-box">
                         <div class="hamburger-inner"></div>
