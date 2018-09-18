@@ -1,9 +1,9 @@
 <?php
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-//$edit_discounts = json_decode($_POST["edit_discounts"], true);
+$edit_discounts = json_decode($_POST["edit_discounts"], true);
 
-$edit_discounts = '{"discount_name": "sprite+45", "discount_item": "sprite", "discount_id":10, "lower_limit":4500, "upper_limit":8000, "discount_value":50}';
+//$edit_discounts = '{"discount_name": "sprite+45", "discount_item": "sprite", "discount_id":10, "lower_limit":4500, "upper_limit":8000, "discount_value":50}';
 
 $edit_discounts = json_decode($edit_discounts, true);
 

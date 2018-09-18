@@ -8,17 +8,17 @@ $update_item = json_decode($_POST["update_item"], true);
 // var_dump($update_item);
 
 $id = $update_item["id"];
-$old_name = $update_item["old_name"];
-$item = $update_item["item"];
-$type = $update_item["type"];
-$category = $update_item["category"];
-$description = $update_item["description"];
-$current_price = $update_item["current_price"];
-$discount_rate = $update_item["discount_rate"];
-$discount_criteria = $update_item["discount_criteria"];
-$discount_available = $update_item["discount_available"];
-$shelf_item = $update_item["shelf_item"];
-$current_stock = $update_item["current_stock"];
+$old_name = $update_item["item"];
+$item = $update_item["new_item"] ? $update_item["new_item"] : $update_item["item"];
+$type = $update_item["new_type"] ? $update_item["new_type"] : $update_item["type"];
+$category = $update_item["new_category"] ? $update_item["new_category"] : $update_item["category"];
+$description = $update_item["new_description"] ? $update_item["new_description"] : $update_item["description"];
+$current_price = $update_item["new_current_price"] ? $update_item["new_current_price"] : $update_item["current_price"];
+$discount_rate = $update_item["new_discount_rate"] ? $update_item["new_discount_rate"] : $update_item["discount_rate"];
+$discount_criteria = $update_item["new_discount_criteria"] ? $update_item["new_discount_criteria"] : $update_item["discount_criteria"];
+$discount_available = $update_item["new_discount_available"] ? $update_item["new_discount_available"] : $update_item["discount_available"];
+$shelf_item = $update_item["new_shelf_item"] ? $update_item["new_shelf_item"] : $update_item["shelf_item"];
+$current_stock = $update_item["new_current_stock"] ? $update_item["new_current_stock"] : $update_item["current_stock"];
 
 $msg_response="";
 
