@@ -9,11 +9,11 @@
     $discounts_array = [];
 
     if (mysqli_num_rows($discounts_result) > 0){
- 	  while($rows = mysqli_fetch_assoc($discounts_result)) {
- 		$discounts_array[] = $rows;
- 	  }
- 	  $get_discounts_json = json_encode($discounts_array);
- 	  return $get_discounts_json;
+ 	    while($rows = mysqli_fetch_assoc($discounts_result)) {
+ 		    $discounts_array[] = $rows;
+ 	    }
+ 	    $get_discounts_json = json_encode($discounts_array);
+ 	    return $get_discounts_json;
     }
   }
 

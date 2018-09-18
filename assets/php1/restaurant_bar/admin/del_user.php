@@ -2,19 +2,19 @@
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
 $del_users = json_decode($_POST["del_users"], true);
-//$del_users = '{"user_names": [{"user_name": "sprite", "id": 5}, {"user_name": "hot-dog", "id": 4}]}';
+//$del_users = '{"users": [{"user_name": "vivian", "id": 1}, {"user_name": "wendy", "id": 2}]}';
 
 $deleted = [];
 
-$users = json_decode($del_users, true);
-$del_array = $users["users"];
-var_dump($del_array);
+//$del_users = json_decode($del_users, true);
+$del_array = $del_users["users"];
+//var_dump($del_array);
 $no_of_users = count($del_array);
 
 $delete_users_query = $conn->prepare("DELETE FROM restaurant_users WHERE user_name = ? AND id = ?");
 $delete_users_query->bind_param("si", $user_name, $user_name_id);
 
-for ($i=0; $i < $no_of_user_names; $i++) { 
+for ($i=0; $i < $no_of_users; $i++) { 
  	$user_name = $del_array[$i]["user_name"];
  	$user_name_id = $del_array[$i]["id"];
  	$delete_users_query->execute();
