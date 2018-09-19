@@ -20,8 +20,8 @@ $current_stock = $new_item["current_stock"];
 
 $msg_response="";
 
-if ($item == "" || $type == "" || $category == "" || $description == "" || $current_price == "") {
-	$msg_response = "The fields 'Item name', 'Type', 'Category', 'Description' and 'Current Price' are all compulsory";
+if ($item == "" || $current_price == "") {
+	$msg_response = "The fields 'Item name' and 'Current Price' are compulsory";
 	die($msg_response);
 }
 
