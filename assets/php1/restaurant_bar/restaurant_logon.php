@@ -15,11 +15,11 @@ function verify($password, $hashedPassword) {
 $username = $_POST["username"];
 $password = $_POST["password"];
 
-$stmt = $conn->prepare("SELECT password FROM restaurant_users WHERE user_name=?");
+$stmt = $conn->prepare("SELECT password, role FROM restaurant_users WHERE user_name=?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 
-$stmt->bind_result($hashed);
+$stmt->bind_result($hashed, $role);
 while ($stmt->fetch()) {
 	$hashedPassword = $hashed;
 }
@@ -31,11 +31,18 @@ if (!verify($password, $hashedPassword)) {
 	$password = "";
 	header("Location:  ../../../logon.php?output=Login failed, please retry with a valid username and password");
 } else {
-	$sql_insert_login = "INSERT INTO users_session (username, logged_out, user_role) VALUES ('$username', 0, 'User')";
-	mysqli_query($conn, $sql_insert_login);
-	session_id(4);
+	$sql_log_out = "SELECT * FROM restaurant_sessions WHERE user_name = '$user_name' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
+	$sql_log_out_result = mysqli_query($dbConn, $sql_log_out);
+	if (mysqli_num_rows($sql_log_out) > 0) {
+		$update_log_out = "UPDATE restaurant_sessions SET logged_on_state = 'TERMINATED' WHERE user_name= '$user_name' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
+		$update_log_out_result = mysqli_query($dbConn, $update_log_out);
+	}
+	$sql_insert_login = "INSERT INTO restaurant_sessions (user_name, role) VALUES ('$username', '$role')";
+	mysqli_query($dbConn, $sql_insert_login);
 	session_start();
-	$_SESSION["user"] = $username;
+	$_SESSION["user_name"] = $username;
+	$_SESSION["user"] = $user;
+	$_SESSION["role"] = $role;
 	header("Location: ../../../index.php");
 }
 ?>
