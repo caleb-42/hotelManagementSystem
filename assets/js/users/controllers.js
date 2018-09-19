@@ -16,7 +16,7 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
     $scope.users = {
         itemlist: function () {
             return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/list_users.php", {})
             }
         },
         addUser: function (jsonprod) {
