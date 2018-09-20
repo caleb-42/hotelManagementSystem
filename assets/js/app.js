@@ -11,7 +11,7 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
     }
     $scope.sidebarnav = {
         navig: {
-            activeNav: "Sales",
+            activeNav: "Users",
             mkactiveNav: function (nav) {
                 $scope.sidebarnav.navig.activeNav = nav;
             },

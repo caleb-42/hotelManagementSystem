@@ -68,9 +68,9 @@ var modalTemplate = `
                 </div>
                 </div>
             </div>
-<div ng-if = "settings.modal.active == \'Update Product\'">
-        <form autocomplete="off" class="updateProductForm"> 
-            <div class="ml-5 my-4 float-left w-40 inpRead">
+            <div ng-if = "settings.modal.active == \'Update Product\'">
+            <form autocomplete="off" class="updateProductForm"> 
+                <div class="ml-5 my-4 float-left w-40 inpRead">
                   <div class="w-100">
                         <input class="item form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" value = "rer" name="item" readonly/>
                         <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" name="current_stock" readonly/>
@@ -110,16 +110,16 @@ var modalTemplate = `
             <div ng-if = "settings.modal.active == \'Discount\'">
                 <div class = "w-100" ng-if = "settings.modal.name == \'Update Discount\'">
                     <div class="p-4 w-100">
-                    <div class= "float-left w-45 inpRead row m-0">
-                      <input class="discnt form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" readonly/>
-                      <input class="uplimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" readonly/>
-                      <input class="lowlimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" readonly/>
-                    </div>
-                    <form class= "float-right w-45 updateDiscount row m-0">
-                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "discnt"/>
-                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "uplimit"/>
-                      <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lowlimit"/>
-                    </form>
+                        <div class= "float-left w-45 inpRead row m-0">
+                            <input class="discnt form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" readonly/>
+                            <input class="uplimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" readonly/>
+                            <input class="lowlimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" readonly/>
+                        </div>
+                        <form class= "float-right w-45 updateDiscount row m-0">
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "discnt"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "uplimit"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lowlimit"/>
+                        </form>
                     </div>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
@@ -149,14 +149,45 @@ var modalTemplate = `
                 </div>
             </div>
 
-</div>
-</div>
+            <div class="w-100" ng-if="settings.modal.active == \'User\'">
+                <div class="w-100" ng-if="settings.modal.name == \'Add User\'">
+                    <form class="p-4 w-100 addUserForm row justify-content-center m-0">
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="user" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Username" name="user_name" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Password" name="user_pass" />
+                        <div class="row justify-content-between w-50">
+                            <span>
+                                <input type="radio" id = "admin" value = "admin"  name = "role"/>
+                                <label for="admin" class = "f-15 ml-2">Admin</label>
+                            </span>
+                            <span>
+                                <input type="radio" checked value = "user"  name = "role" id = "user"/>
+                                <label for="user" class = "f-15 ml-2">User</label>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <button type="button" class="b-0 btn btn-success" onclick="addUser()">
+                                    {{settings.modal.name | limitTo:3}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--....... User End ......... -->
+
+        </div>
+    </div>
 </div>`
 
 app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jsonPost, $filter) {
     return {
         restrict: 'A',
         template: modalTemplate,
+        // templateUrl: 'assetsmodals.html',
         scope: false,
         link: function (scope, element, attrs) {
 
@@ -184,12 +215,16 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             updateProduct = function () {
                 jsonForm = $(".updateProductForm").serializeObject();
                 scope.stocks.updateProduct(jsonForm);
-            }
+            };
             addProduct = function () {
                 jsonForm = $(".addProductForm").serializeObject();
                 scope.stocks.addProduct(jsonForm);
             };
-            
+            addUser = function () {
+                jsonForm = $(".addUserForm").serializeObject();
+                console.log(scope.users);
+                scope.users.addUser(jsonForm);
+            };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {
                     jsonForm = $(".custform").serializeObject();

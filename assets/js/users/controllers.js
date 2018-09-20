@@ -19,17 +19,15 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/list_users.php", {})
             }
         },
+        name: "ejjsdv",
         addUser: function (jsonprod) {
-            jsonprod.discount_rate = 0;
-            jsonprod.discount_criteria = 0;
-            jsonprod.discount_available = "";
-            console.log("new product", jsonprod);
+            console.log("new user", jsonprod);
 
-            jsonPost.data("assets/php1/restaurant_bar/admin/add_item.php", {
-                new_item: $filter('json')(jsonprod)
+            jsonPost.data("assets/php1/restaurant_bar/admin/add_user.php", {
+                new_user: $filter('json')(jsonprod)
             }).then(function (response) {
                 console.log(response);
-                $scope.stocks.addingProduct = false;
+                $scope.stocks.adding = false;
                 $scope.stocks.jslist.createList();
             });
         },
