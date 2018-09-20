@@ -1,4 +1,4 @@
-<?php include_once ("assets/php/login.php");
+<?php /* include_once ("assets/php/login.php") */;
 date_default_timezone_set('Africa/Lagos');
 $date=date("D M d, Y g:i a");
 ?>
@@ -54,7 +54,7 @@ $date=date("D M d, Y g:i a");
                             </div>-->
                         </div>
                         <div class="row justify-content-center w-100" style="margin-top:-56px !important;" >
-                            <p id="output" class="str text-center " style="opacity:1; font-size:17px; font-weight: 700" ><?php echo "<script type = 'text/javascript'>
+                            <p id="output" class="str text-center " style="opacity:1; font-size:17px; font-weight: 700" ><?php /* echo "<script type = 'text/javascript'>
             jQuery(function(){
             jQuery('#sendGif').toggleClass('notvisible');
             if('$output' != ''){
@@ -68,7 +68,7 @@ $date=date("D M d, Y g:i a");
             jQuery('#output').text('');
             });
             jQuery('.btn').prop('disabled', false);}
-            });</script>" ?></p>
+            });</script>" */ ?></p>
                         </div>
                     </div>
                    
