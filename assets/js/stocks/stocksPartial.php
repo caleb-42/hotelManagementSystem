@@ -63,22 +63,7 @@
                     </div>
 
                 </div>
-                <div ng-switch on = "details.discount.selected_discount" class = "w-100 h-70 px-3 discountlist">
-
-                    <div ng-switch-when = "item" class = "w-100">
-                    
-                    <ul>
-                        <li class = "row w-100 b-1 py-4" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
-                            <div class = "col-4"><div class = "center text-center btn-success"><h4 class = "py-2 m-0">12%</h4></div></div>
-                            <div class = "col-8 text-right dark font-weight-bold pr-4 "><h4 class = "m-0">{{3150 | nairacurrency}}</h4></div>
-                        </li>
-                    </ul>
-                    </div>
-                    <div ng-switch-when = "total">
-                    total
-                    </div>
-                
-                </div>
+                <discountlist></discountlist>
                 <div class="row w-100 justify-content-around">
                 <button class="btn w-40 btn-success f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Add Discount</button>
                 <button class="btn w-40 btn-danger f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Delete Discount</button>

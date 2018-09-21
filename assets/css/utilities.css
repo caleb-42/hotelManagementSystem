@@ -159,7 +159,7 @@ input::placeholder {
     visibility:hidden;
 }
 .gone{
-    display: none;
+    display: none !important;
 }
 .vanish {
     opacity: 0;

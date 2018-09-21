@@ -27,7 +27,7 @@ if ($user == "" || $role == "" || $user_name == "") {
 	die($msg_response);
 }
 
-if ($old_name != $user) {
+if ($old_user_name != $user_name) {
 	$duplicate_check_query = "SELECT * FROM restaurant_users WHERE user = '$user' AND role = '$role' AND user_name = '$user_name'";
     $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 

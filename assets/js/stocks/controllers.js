@@ -72,7 +72,28 @@ stocksApp.controller("stocks", ["$rootScope", "$scope",  'jsonPost','$filter', f
     };
     $scope.details = {
         discount: {
-            selected_discount: "item"
+            selected_discount: "item",
+            item : {
+                itemlist: function () {
+                    return {
+                        jsonfunc: jsonPost.data("assets/php1/restaurant_bar/list_discount.php", {})
+                    }
+                },
+                addDiscount: function (jsondiscount) {
+                    jsondiscount.discount_item = $scope.stocks.jslist.selectedObj.item;
+                    console.log("new discount", jsondiscount);
+        
+                    jsonPost.data("assets/php1/restaurant_bar/admin/add_discount.php", {
+                        new_discount: $filter('json')(jsondiscount)
+                    }).then(function (response) {
+                        $scope.details.discount.jslist.toggleOut();
+                        console.log(response);
+                        $scope.details.discount.adding = false;
+                        $scope.details.discount.jslist.createList();
+                        $scope.details.discount.jslist.toggleIn();
+                    });
+                }
+            }
         }
     }
 

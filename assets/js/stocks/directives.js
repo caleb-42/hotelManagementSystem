@@ -69,3 +69,55 @@ app.directive('productlist', ['$rootScope', '$filter', function ($rootScope, $fi
     };
 }]);
 
+app.directive('discountlist', ['$rootScope', '$filter', function ($rootScope, $filter) {
+    return {
+        restrict: 'E',
+        template: `
+        <div ng-switch on = "details.discount.selected_discount" class = "w-100 h-70 px-3 discountlist">
+
+                    <div ng-switch-when = "item" class = "w-100">
+                    
+                    <ul>
+                        <li class = "row w-100 b-1 py-4" ng-repeat="discnt in "  ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
+                            <div class = "col-4"><div class = "center text-center btn-success"><h4 class = "py-2 m-0">12%</h4></div></div>
+                            <div class = "col-8 text-right dark font-weight-bold pr-4 "><h4 class = "m-0">{{3150 | nairacurrency}}</h4></div>
+                        </li>
+                    </ul>
+                    </div>
+                    <div ng-switch-when = "total">
+                    total
+                    </div>
+                
+                </div>
+        `,
+        scope: false,
+
+        link: function (scope, element, attrs) {
+            var jslistObj;
+            scope.details.discount.jslist = {
+                createList: function () {
+                    listdetails = scope.details.discount.itemlist();
+                    jsonlist = listdetails.jsonfunc;
+                    jsonlist.then(function (result) {
+                        console.log(result);
+                        scope.details.discount.jslist.values = result;
+                        scope.details.discount.jslist.selected = null;
+                    });
+                },
+                select: function (index, id) {
+                    scope.details.discount.jslist.selected = id;
+                    scope.details.discount.jslist.selectedObj = scope.details.discount.jslist.newItemArray[index];
+                    console.log(scope.details.discount.jslist.selectedObj);
+                },
+                toggleOut : function(){
+                    $(".discountlist").fadeOut(200);
+                },
+                toggleIn : function(){
+                    $(".discountlist").delay(500).fadeIn(200);
+                }
+            }
+            scope.stocks.jslist.createList();
+        }
+    };
+}]);
+

@@ -132,15 +132,16 @@ var modalTemplate = `
                     </div>
                 </div>
                 <div class = "w-100" ng-if = "settings.modal.name == \'Add Discount\'">
-                    <form class= "p-4 w-100 updateDiscount row justify-content-center m-0">
-                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "discnt"/>
-                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "uplimit"/>
-                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lowlimit"/>
+                    <form class= "p-4 w-100 addDiscount row justify-content-center m-0">
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name" name = "discount_name"/>
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "lower_limit"/>
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "upper_limit"/>
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" name = "discount_value"/>
                     </form>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <button type="button" class="b-0 btn btn-success" onclick="UpdateDiscount()">
+                                <button type="button" class="b-0 btn btn-success" onclick="addDiscount()">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -171,6 +172,40 @@ var modalTemplate = `
                             <div class="py-1 row justify-content-center w-100">
                                 <button type="button" class="b-0 btn btn-success" onclick="addUser()">
                                     {{settings.modal.name | limitTo:3}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100" ng-if="settings.modal.name == \'Update User\'">
+                    <form autocomplete="off" class="updateUserForm p-4 w-100"> 
+                        <div class= "float-left w-45 inpRead row m-0">
+                            <input class="user form-control font-fam-Montserrat text-center d-block my-4" placeholder="User" name = "user" readonly/>
+                            <input class="user-name form-control font-fam-Montserrat text-center d-block my-4" placeholder="Username" name = "user_name" readonly/>
+                            <input class="role form-control font-fam-Montserrat text-center d-block my-4" placeholder="Role" name = "role" readonly/>
+                            <input class="password form-control font-fam-Montserrat text-center d-block my-4" placeholder="Password" name = "pass" readonly/>
+                        </div>
+                        <div class= "float-right w-45 row m-0 justify-content-center">
+                            <input class="user form-control font-fam-Montserrat text-center d-block my-4" placeholder="User" name = "new_user"/>
+                            <input class="user-name form-control font-fam-Montserrat text-center d-block my-4" placeholder="Username" name = "new_user_name"/>
+                            <div class="row justify-content-between w-50 py-4">
+                            <span class = "py-1">
+                                <input type="radio" id = "admin" value = "admin"  name = "new_role"/>
+                                <label for="admin" class = "f-15 ml-2">Admin</label>
+                            </span>
+                            <span class = "py-1">
+                                <input type="radio" checked value = "user"  name = "new_role" id = "user"/>
+                                <label for="user" class = "f-15 ml-2">User</label>
+                            </span>
+                            </div>
+                            <input class="password form-control font-fam-Montserrat text-center d-block my-4" placeholder="Password" name = "new_password"/>
+                        </div>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <button type="button" class="b-0 btn btn-success" onclick="updateUser()">
+                                    {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>
                         </div>
@@ -210,6 +245,9 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 if ($rootScope.settings.modal.active == "Update Product") {
                     console.log(scope.stocks);
                     loadJson2Form(scope.stocks.jslist.selectedObj, '.inpRead');
+                }else if ($rootScope.settings.modal.name == "Update User") {
+                    console.log(scope.users);
+                    loadJson2Form(scope.users.jslist.selectedObj, '.inpRead');
                 }
             });
             updateProduct = function () {
@@ -224,6 +262,14 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 jsonForm = $(".addUserForm").serializeObject();
                 console.log(scope.users);
                 scope.users.addUser(jsonForm);
+            };
+            updateUser = function () {
+                jsonForm = $(".updateUserForm").serializeObject();
+                scope.users.updateUser(jsonForm);
+            };
+            addDiscount = function (){
+                jsonForm = $(".addDiscount").serializeObject();
+                scope.details.discount.item.addDiscount(jsonForm);
             };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {
