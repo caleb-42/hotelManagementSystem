@@ -123,8 +123,9 @@ var modalTemplate = `
                     </div>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
-                            <div class="py-1 row justify-content-center w-100">
-                                <button type="button" class="b-0 btn btn-success" onclick="UpdateDiscount()">
+                                <div class="py-1 row justify-content-center w-100">
+                                <div ng-class = "{gone : !details.discount.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{details.discount.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="UpdateDiscount()" ng-click = "details.discount.adding = true">
                                     {{settings.modal.name | limitTo:6}}
                                 </button>
                             </div>
@@ -141,7 +142,8 @@ var modalTemplate = `
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <button type="button" class="b-0 btn btn-success" onclick="addDiscount()">
+                                <div ng-class = "{gone : !details.discount.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{details.discount.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="addDiscount()" ng-click = "details.discount.adding = true">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -170,7 +172,8 @@ var modalTemplate = `
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <button type="button" class="b-0 btn btn-success" onclick="addUser()">
+                                <div ng-class = "{gone : !users.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{users.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="addUser()" ng-click = "users.adding = true">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -204,7 +207,9 @@ var modalTemplate = `
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <button type="button" class="b-0 btn btn-success" onclick="updateUser()">
+                                <div ng-class = "{gone : !users.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                            
+                                <button type="button" class="{{users.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="updateUser()" ng-click = "users.adding = true">
                                     {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>
@@ -269,7 +274,7 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             };
             addDiscount = function (){
                 jsonForm = $(".addDiscount").serializeObject();
-                scope.details.discount.item.addDiscount(jsonForm);
+                scope.details.discount.addDiscount(scope.details.discount.selected_discount, jsonForm);
             };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {

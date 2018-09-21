@@ -73,19 +73,24 @@ app.directive('discountlist', ['$rootScope', '$filter', function ($rootScope, $f
     return {
         restrict: 'E',
         template: `
-        <div ng-switch on = "details.discount.selected_discount" class = "w-100 h-70 px-3 discountlist">
+        <div ng-switch on = "details.discount.selected_discount" class = "w-100 h-70 ovflo-y px-3 mb-2 discountlist">
 
                     <div ng-switch-when = "item" class = "w-100">
                     
                     <ul>
-                        <li class = "row w-100 b-1 py-4" ng-repeat="discnt in "  ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
-                            <div class = "col-4"><div class = "center text-center btn-success"><h4 class = "py-2 m-0">12%</h4></div></div>
-                            <div class = "col-8 text-right dark font-weight-bold pr-4 "><h4 class = "m-0">{{3150 | nairacurrency}}</h4></div>
-                        </li>
+                        <!--<li class = "row w-100 b-1 py-4" ng-repeat="discnt in details.discount.jslist.values"  ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
+                            <div class = "col-4"><div class = "center text-center btn-info"><h4 class = "py-2 m-0">{{discnt.discount_value}}%</h4></div></div>
+                            <div class = "col-8 text-right dark pr-4 "><div><h5 class = "font-weight-bold">{{discnt.discount_name}}</h5><p class = "w-100 f-14 m-0">{{discnt.lower_limit | nairacurrency}} - {{discnt.upper_limit | nairacurrency}}</p></div></div>
+                        </li>-->
                     </ul>
                     </div>
                     <div ng-switch-when = "total">
-                    total
+                    <ul>
+                        <li class = "row w-100 b-1 py-4" ng-repeat="discnt in details.discount.jslist.values"  ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
+                            <div class = "col-4"><div class = "center text-center btn-info"><h4 class = "py-2 m-0">{{discnt.discount_value}}%</h4></div></div>
+                            <div class = "col-8 text-right dark pr-4 "><div><h5 class = "font-weight-bold">{{discnt.discount_name}}</h5><p class = "w-100 f-14 m-0">{{discnt.lower_limit | nairacurrency}} - {{discnt.upper_limit | nairacurrency}}</p></div></div>
+                        </li>
+                    </ul>
                     </div>
                 
                 </div>
@@ -96,7 +101,7 @@ app.directive('discountlist', ['$rootScope', '$filter', function ($rootScope, $f
             var jslistObj;
             scope.details.discount.jslist = {
                 createList: function () {
-                    listdetails = scope.details.discount.itemlist();
+                    listdetails = scope.details.discount.itemlist(scope.details.discount.selected_discount);
                     jsonlist = listdetails.jsonfunc;
                     jsonlist.then(function (result) {
                         console.log(result);
@@ -116,7 +121,7 @@ app.directive('discountlist', ['$rootScope', '$filter', function ($rootScope, $f
                     $(".discountlist").delay(500).fadeIn(200);
                 }
             }
-            scope.stocks.jslist.createList();
+            scope.details.discount.jslist.createList();
         }
     };
 }]);

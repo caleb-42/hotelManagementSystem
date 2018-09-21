@@ -38,7 +38,7 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
             }).then(function (response) {
                 $scope.users.jslist.toggleOut();
                 console.log(response);
-                $scope.users.updatingProduct = false;
+                $scope.users.adding = false;
                 $scope.users.jslist.createList();
                 $scope.users.jslist.toggleIn();
             });

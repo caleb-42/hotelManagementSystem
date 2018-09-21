@@ -147,6 +147,12 @@ $payment_record_result = mysqli_query($dbConn, $payment_record_query);
 //var_dump($customer_ref);
 $txn_insert_query = "INSERT INTO restaurant_txn (txn_ref, total_items, total_cost, transaction_discount, discounted_total_cost, deposited, balance, customer_ref, pay_method, payment_status, sales_rep) VALUES('$txn_ref', $no_of_items, $total_cost, $transaction_discount, $discounted_total_cost, $amount_paid, $amount_balance, '$customer_ref', '$pay_method', '$payment_status', '$sales_rep')";
 $txn_insert_result = mysqli_query($dbConn, $txn_insert_query);
+
+if ($customer != "") {
+	$customer_txn_query = "INSERT INTO customer_transactions (customer_ref, section, transaction_ref) VALUES('$customer_ref', 'RESTAURANT', '$txn_ref')";
+	$customer_txn_result = mysqli_query($dbConn, $customer_txn_query);
+}
+
 //var_dump($txn_insert_result);
 
 /*Receipt printer initialization, initial parameters set*/
