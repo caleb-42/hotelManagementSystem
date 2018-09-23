@@ -7,22 +7,12 @@ $edit_discounts = json_decode($_POST["edit_discounts"], true);
 
 $edit_discounts = json_decode($edit_discounts, true);
 
-$discount_name = $edit_discounts["discount_name"];
-echo $discount_name . "<br>";
-$lower_limit = $edit_discounts["lower_limit"];
-echo $lower_limit . "<br>";
-$lower_limit = intval($lower_limit);
-$upper_limit = $edit_discounts["upper_limit"];
-$upper_limit = intval($upper_limit);
-echo $upper_limit . "<br>";
-$discount_item = $edit_discounts["discount_item"];
-echo $discount_item . "<br>";
-$discount_value = $edit_discounts["discount_value"];
-$discount_value = intval($discount_value);
-echo $discount_value . "<br>";
-$discount_id = $edit_discounts["discount_id"];
-$discount_id = intval($discount_id);
-echo $discount_id . "<br>";
+$discount_name = $edit_discounts["new_discount_name"] ? $edit_discounts["new_discount_name"] : $edit_discounts["discount_name"];
+$lower_limit = $edit_discounts["new_lower_limit"] ? $edit_discounts["new_lower_limit"] : $edit_discounts["lower_limit"];
+$upper_limit = $edit_discounts["new_upper_limit"] ? $edit_discounts["new_upper_limit"] : $edit_discounts["upper_limit"];
+$discount_item = $edit_discounts["new_discount_item"] ? $edit_discounts["new_discount_item"] : $edit_discounts["discount_item"];
+$discount_value = $edit_discounts["new_discount_value"] ? $edit_discounts["new_discount_value"] : $edit_discounts["discount_value"];
+$discount_id = $edit_discounts["new_discount_id"] ? $edit_discounts["new_discount_id"] : $edit_discounts["discount_id"];
 
 /*Deleting obsolete discounts*/
 

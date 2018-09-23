@@ -1,0 +1,45 @@
+<?php
+include "../settings/connect.php";  //database name = $dbConn
+
+$payment_details = json_decode($_POST["payment_details"], true);
+
+$trasaction_ref = $payment_details["trasaction_ref"];
+$means_of_payment = $payment_details["means_of_payment"];
+$amount_paid = $payment_details["amount_paid"];
+
+$last_payment_id_query = "SELECT MAX(id) AS id FROM restaurant_payments WHERE restaurant_txn = '$trasaction_ref'";
+$last_payment_id_result = mysqli_query($dbConn, $last_payment_id_query);
+
+$payment_id_row = mysqli_fetch_array($last_payment_id_result);
+$payment_id = intval($payment_id_row["id"]);
+
+$last_payment = "SELECT * FROM restaurant_payments WHERE id = $payment_id";
+$last_payment_result = mysqli_query($dbConn, $last_payment);
+
+$last_payment_details = mysqli_fetch_assoc($last_payment_result);
+$new_balance = intval($last_payment_result["amount_balance"]) - $amount_paid;
+
+$txn_date = $last_payment_result["txn_date"];
+$net_paid = intval($last_payment_result["net_paid"]) + $amount_paid;
+$txn_worth = intval($last_payment_result["txn_worth"]);
+$customer_id = $last_payment_result["customer_id"];
+
+$udpate_payment = "INSERT INTO restaurant_payments (restaurant_txn, txn_date, amount_paid, date_of_payment, amount_balance, net_paid, txn_worth, customer_id, means_of_payment) VALUES ('$trasaction_ref', '$txn_date', $amount_paid, CURRENT_TIMESTAMP, $new_balance, $net_paid, $txn_worth, '$customer_id', '$means_of_payment')";
+
+$update_payment_result = mysqli_query($dbConn, $udpate_payment);
+
+if (!($new_balance)) {
+	$payment_status = "PAID FULL";
+} else {
+	$payment_status = "UNBALANCED";
+}
+
+$update_txn = "UPDATE restaurant_txn SET payment_status = '$payment_status', deposited = $net_paid, balance = $new_balance WHERE txn_ref ='$trasaction_ref'";
+$update_txn_result = mysqli_query($dbConn, $update_txn);
+
+if ($update_txn_result && $update_payment_result) {
+	echo "SUCCESS";
+} else {
+	echo "FAILED";
+}
+?>

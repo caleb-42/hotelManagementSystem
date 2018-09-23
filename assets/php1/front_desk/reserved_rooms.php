@@ -1,7 +1,7 @@
 <?php
  include "../settings/connect.php"; //$database handler $dbConn or $conn
 
-  $get_rooms_sql = "SELECT * FROM frontdesk_rooms WHERE booked = 'YES'";
+  $get_rooms_sql = "SELECT * FROM frontdesk_rooms WHERE reserved = 'YES'";
   $get_rooms_result = mysqli_query($dbConn, $get_rooms_sql);
   $get_rooms_array = [];
 
