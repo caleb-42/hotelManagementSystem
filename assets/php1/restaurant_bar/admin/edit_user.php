@@ -44,9 +44,14 @@ if ($password) {
 
 $update_user_result = mysqli_query($dbConn, $update_user_query);
 
-if ($update_user_result) {
-	$msg_response = $user . " was successfully updated";
-} 
+if($update_user_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY UPDATED";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
+}
 
-echo $msg_response;
+$response_message = json_encode($msg_response);
+echo $response_message;
 ?>

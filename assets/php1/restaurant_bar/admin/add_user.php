@@ -36,9 +36,15 @@ $add_user_query = "INSERT INTO restaurant_users (user_name, user, role, password
 
 $add_user_result = mysqli_query($dbConn, $add_user_query);
 
-if ($add_user_result) {
-	$msg_response = $user_name ." was successfully added as a restaurant application user";
+if($add_user_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY ADDED";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
 }
 
-echo $msg_response;
+$response_message = json_encode($msg_response);
+echo $response_message;
+?>
 ?>
