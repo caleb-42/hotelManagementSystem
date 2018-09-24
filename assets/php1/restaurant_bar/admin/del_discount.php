@@ -77,7 +77,17 @@ $update_discount_query->close();
 /*Updating the discount table to match with deleted discounts*/
 
 $deleted_discounts = json_encode($deleted);
-echo $deleted_discounts;
+if(count($deleted)){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY DELETED";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
+}
+
+$response_message = json_encode($msg_response);
+echo $response_message;
+?>
 
 
 ?>

@@ -117,7 +117,9 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 }).then(function (response) {
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
-                    $rootScope.settings.modal.msg = response;
+                    json = JSON.parse(response);
+                    $rootScope.settings.modal.msg = json[1];
+                    json[0] == "OUTPUT" ? settings.modal.close() : null;
                     $scope.details.discount.adding = false;
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();

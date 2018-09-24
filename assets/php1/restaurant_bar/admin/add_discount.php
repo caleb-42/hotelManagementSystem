@@ -51,11 +51,14 @@ $add_discount_query = "INSERT INTO restaurant_discount (discount_name, lower_lim
 
 $add_discount_result = mysqli_query($dbConn, $add_discount_query);
 
-if ($add_discount_result) {
-	$msg_response = $discount_name ." was successfully added as a discount scheme";
+if($add_discount_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY ADDED";
 } else {
-	$msg_response = "Somethign went wrong while trying to create " . $discount_name . " discount scheme, Please check the discount parameters";
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
 }
 
-echo $msg_response;
+$response_message = json_encode($msg_response);
+echo $response_message;
 ?>

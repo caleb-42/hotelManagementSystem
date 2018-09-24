@@ -326,7 +326,9 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                     }
                 }
             }
-
+            $rootScope.settings.modal.close = function () {
+                $(".modal .close").trigger("click");
+            }
             $('.modal').on('hidden.bs.modal', function(){
                 $rootScope.settings.modal.active = ""
             });

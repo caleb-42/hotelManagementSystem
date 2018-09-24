@@ -41,9 +41,15 @@ if ($current_stock) {
 
 $add_item_result = mysqli_query($dbConn, $add_item_query);
 
-if ($add_item_result) {
-	$msg_response = $item . " was successfully added to menu database";
-} 
+if($add_item_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY ADDED";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
+}
 
-echo $msg_response;
+$response_message = json_encode($msg_response);
+echo $response_message;
+?>
 ?>

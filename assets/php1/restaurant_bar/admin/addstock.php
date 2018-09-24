@@ -52,11 +52,15 @@ if ($update_item_stock_result == true) {
 $insert_stock_entry_query = "INSERT INTO restaurant_stock (txn_id, txn_ref, item, item_id, category, prev_stock, quantity, route, new_stock) VALUES ($stock_tnx_id, '$stock_tnx_ref', '$item', $item_id, '$category', $previous_stock, $quantity, 'added', $new_stock)";
 $insert_stock_entry_result = mysqli_query($dbConn, $insert_stock_entry_query);
 
-if ($insert_stock_entry_result) {
-	$insert_msg = "Stock transaction successfully recorded";
+if($insert_stock_entry_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY ADDED";
 } else {
-	$insert_msg = "Something went wrong recording stock transaction";
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
 }
 
-echo '{"update_msg": "'. $update_msg. '", "insert_msg": "'.$insert_msg.' "}'
+$response_message = json_encode($msg_response);
+echo $response_message;
+?>
 ?>

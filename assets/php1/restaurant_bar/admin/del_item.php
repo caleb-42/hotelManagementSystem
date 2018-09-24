@@ -20,6 +20,16 @@ for ($i=0; $i < $no_of_items; $i++) {
  	$deleted[] = $item;
 }
 $deleted_items = json_encode($deleted);
-echo $deleted_items;
+
+if(count($deleted)){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESSFULLY DELETED";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
+}
+
+$response_message = json_encode($msg_response);
+echo $response_message;
 
 ?>
