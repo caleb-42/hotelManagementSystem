@@ -290,7 +290,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.cart.currentCart.buyer =  $scope.buyer.customer.selected;
                     $scope.cart.currentCart.cart = JSON.parse(JSON.stringify($scope.cart.cartlist));
                     $scope.surcharge.reciept = {
-                        customer : $scope.cart.currentCart.buyer,
+                        customer : $scope.cart.currentCart.buyer.name,
                         sales_rep : $rootScope.settings.user,
                         transaction_discount : $scope.cart.currentCart.total.transaction_discount,
                         discount_type : $scope.surcharge.discount.type,

@@ -1,4 +1,4 @@
-stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', function ($rootScope, $scope, $route, jsonPost) {
+stocksApp.controller("stocks", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope,  jsonPost, $filter) {
     $scope.tabnav = {
         selected: 'Products',
         navs: {
@@ -19,11 +19,41 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         },
-        addProduct : function(jsonprod){
+        addProduct: function (jsonprod) {
+            jsonprod.discount_rate = 0;
+            jsonprod.discount_criteria = 0;
+            jsonprod.discount_available = "";
             console.log("new product", jsonprod);
+
+            jsonPost.data("assets/php1/restaurant_bar/admin/add_item.php", {
+                new_item: $filter('json')(jsonprod)
+            }).then(function (response) {
+                console.log(response);
+                $scope.stocks.addingProduct = false;
+                $scope.stocks.jslist.createList();
+            });
         },
-        updateProduct : function(jsonprod){
+        updateProduct: function (jsonprod) {
+            jsonprod.id = $scope.stocks.jslist.selected;
             console.log("new product", jsonprod);
+            jsonPost.data("assets/php1/restaurant_bar/admin/edit_item.php", {
+                update_item: $filter('json')(jsonprod)
+            }).then(function (response) {
+                console.log(response);
+                $scope.stocks.updatingProduct = false;
+                $scope.stocks.jslist.createList();
+            });
+        },
+        deleteProduct: function () {
+            jsonprod = {};
+            jsonprod.items = [$scope.stocks.jslist.selectedObj];
+            console.log("new product", jsonprod);
+            jsonPost.data("assets/php1/restaurant_bar/admin/del_item.php", {
+                del_items: $filter('json')(jsonprod)
+            }).then(function (response) {
+                console.log(response);
+                $scope.stocks.jslist.createList();
+            });
         }
         /* croppie : {
             inputImage: "/assets/img/4.png",
@@ -35,8 +65,8 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", "$route", 'jsonPost', fu
         } */
     };
     $scope.details = {
-        discount:{
-            selected_discount : "item"
+        discount: {
+            selected_discount: "item"
         }
     }
 

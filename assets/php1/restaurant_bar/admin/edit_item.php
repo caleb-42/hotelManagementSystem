@@ -1,4 +1,5 @@
 <?php
+sleep(2);
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
 $update_item = json_decode($_POST["update_item"], true);
@@ -38,7 +39,7 @@ if ($old_name != $item) {
 }
 
 
-	$update_item_query = "UPDATE restaurant_items SET item = '$item', type = '$type', category = '$category', description = '$description', current_price = $current_price, discount_rate = $discount_rate, discount_available = '$discount_available', shelf_item = '$shelf_item' WHERE id = $id";
+	$update_item_query = "UPDATE restaurant_items SET item = '$item', type = '$type', category = '$category', description = '$description', current_price = $current_price, shelf_item = '$shelf_item' WHERE id = $id";
 
 $update_item_result = mysqli_query($dbConn, $update_item_query);
 
