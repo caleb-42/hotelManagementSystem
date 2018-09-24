@@ -7,7 +7,7 @@ $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
-$msg_response = "";
+$msg_response = "$user_name profile was not successfully added";
 
 
 if ($user_name == "" || $role == "" || $user_pass == "") {

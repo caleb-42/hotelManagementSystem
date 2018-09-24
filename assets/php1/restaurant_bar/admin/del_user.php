@@ -8,7 +8,6 @@ $deleted = [];
 
 //$del_users = json_decode($del_users, true);
 $del_array = $del_users["users"];
-//var_dump($del_array);
 $no_of_users = count($del_array);
 
 $delete_users_query = $conn->prepare("DELETE FROM restaurant_users WHERE user_name = ? AND id = ?");
