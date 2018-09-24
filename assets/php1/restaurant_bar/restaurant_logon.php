@@ -30,19 +30,18 @@ $stmt->close();
 if (!verify($password, $hashedPassword)) {
 	$username = "";
 	$password = "";
-	header("Location:  ../../../logIn.php?output=Login failed, please retry with a valid username and password");
+	header("Location:  ../../../login.php?output=Login failed, please retry with a valid username and password");
 } else {
-	$sql_log_out = "SELECT * FROM restaurant_sessions WHERE user_name = '$user_name' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
+	$sql_log_out = "SELECT * FROM restaurant_sessions WHERE user_name = '$username' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 	$sql_log_out_result = mysqli_query($dbConn, $sql_log_out);
 	if (mysqli_num_rows($sql_log_out) > 0) {
-		$update_log_out = "UPDATE restaurant_sessions SET logged_on_state = 'TERMINATED' WHERE user_name= '$user_name' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
+		$update_log_out = "UPDATE restaurant_sessions SET logged_on_state = 'TERMINATED' WHERE user_name= '$username' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 		$update_log_out_result = mysqli_query($dbConn, $update_log_out);
 	}
 	$sql_insert_login = "INSERT INTO restaurant_sessions (user_name, role) VALUES ('$username', '$role')";
 	mysqli_query($dbConn, $sql_insert_login);
 	session_start();
 	$_SESSION["user_name"] = $username;
-	$_SESSION["user"] = $user;
 	$_SESSION["role"] = $role;
 	header("Location: ../../../index.php");
 }

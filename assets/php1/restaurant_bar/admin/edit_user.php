@@ -5,7 +5,6 @@ $update_user = json_decode($_POST["update_user"], true);
 
 // $update_user = '{"user": "sprite", "type": "soft-drink", "category": "drinks", "description": "plastic (33cl)", "current_price": 200, "discount_rate": 0, "discount_criteria":0, "discount_available":"no", "shelf_user": "yes", "current_stock": 50}';
 // $update_user = json_decode($update_user, true);
-// var_dump($update_user);
 function generateHash($password) {
 	if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
 		$salt = '$2y$11$' . substr(md5(uniqid(rand(), true)), 0, 22);

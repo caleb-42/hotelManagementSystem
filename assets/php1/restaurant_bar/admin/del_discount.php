@@ -2,7 +2,7 @@
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
 $del_discounts = json_decode($_POST["del_discounts"], true);
-/* $del_discounts = '{"discounts": [{"discount_item": "sprite", "id": 6, "lower_limit": 2500, "upper_limit": 3000}, {"discount_item": "sprite", "id": 9, "lower_limit": 4000, "upper_limit": 4500}]}'; */
+// $del_discounts = '{"discounts": [{"discount_item": "sprite", "id": 6, "lower_limit": 2500, "upper_limit": 3000}, {"discount_item": "sprite", "id": 9, "lower_limit": 4000, "upper_limit": 4500}]}';
 
 $deleted = [];
 $unique_keys = [];
@@ -20,7 +20,6 @@ for ($i=0; $i < $no_of_discounts; $i++) {
  	$discount_id = $del_array[$i]["id"];
  	$delete_discounts_query->execute();
  	$deleted[] = $discount;
- 	echo "<br>DELETED";
 }
 $delete_discounts_query->close();
 
@@ -54,7 +53,6 @@ for ($i=0; $i < $no_of_items; $i++) {
 		$ux++;
 	}
 	$updated_discounts[$i][$ux - 1]["upper_limit"] = 0;
-	echo "<br>CREATED";
 }
 $select_discount_query->close();
 /*creating an array of discount updates to make*/
@@ -73,14 +71,12 @@ for ($i=0; $i < $no_of_items; $i++) {
 	    $update_id = $updated_discounts[$i][$ux]["id"];
 	    $update_discount_query->execute();
 	}
-	echo "<br>UPDATED";
 }
 $update_discount_query->close();
 
 /*Updating the discount table to match with deleted discounts*/
 
 $deleted_discounts = json_encode($deleted);
-echo "<br>";
 echo $deleted_discounts;
 
 

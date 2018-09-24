@@ -8,7 +8,6 @@ $items = json_decode($_POST["del_items"], true);
 $deleted = [];
 
 $del_array = $items["items"];
-//var_dump($del_array);
 $no_of_items = count($del_array);
 
 $delete_items_query = $conn->prepare("DELETE FROM restaurant_items WHERE item = ? AND id = ?");
