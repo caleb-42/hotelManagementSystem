@@ -1,17 +1,17 @@
 <div ng-controller="users">
     <div class="prime-hd anim">
         <div class="statusbar grn row  align-items-end pl-1">
-            <div class="tabnav col-7 row">
+            <div class="tabnav col-5 row">
                 <button ng-repeat='nav in tabnav.navs' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected}">
                 <h5>{{nav.name}}</h5>
             </button>
             </div>
             <!--tabnav end-->
-            <div class="searchbox col-5 h-100 row  align-items-end pb-1" ng-mouseleave="searchbox.iconhover = true">
-                <div class="col-10">
+            <div class="searchbox col-7 h-100 row  align-items-end pb-1">
+            <div class="col-8">
                     <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
                 <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
-                <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2" ng-mouseover="searchbox.iconhover = false"></div>
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" ng-mouseenter="settings.log = false;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" class = "anim btn w-100 pointer font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
             </div>
 
         </div>

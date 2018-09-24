@@ -20,17 +20,17 @@ body {
     overflow: hidden;
     background: #eee;
 }
-
+/* 
 .wrapper {
     padding-left: 80px;
-}
+} */
 
 .wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 250px !important;
 }
 
 .wrapper.toggled .sidebarleft {
-    width: 250px;
+    width: 250px !important;
 }
 
 .wrapper.toggled .main-sidebar-right {
@@ -110,7 +110,7 @@ body {
 }
 
 .sidebarleft {
-    width: 80px;
+    /* width: 80px; */
     position: fixed;
     z-index: 1000;
     left: 0;

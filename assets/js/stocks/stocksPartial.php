@@ -7,11 +7,11 @@
             </button>
             </div>
             <!--tabnav end-->
-            <div class="searchbox col-5 h-100 row  align-items-end pb-1" ng-mouseleave="searchbox.iconhover = true">
-                <div class="col-10">
+            <div class="searchbox col-5 h-100 row  align-items-end pb-1" >
+                <div class="col-8">
                     <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
                 <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
-                <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2" ng-mouseover="searchbox.iconhover = false"></div>
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" ng-mouseenter="settings.log = false;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" class = "anim btn w-100 font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
             </div>
 
         </div>
@@ -55,18 +55,18 @@
                 </div>
                 <div class = "discount text-center">
                 <div class = "row header">
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'item'" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'item'; details.discount.jslist.createList()" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
                         <h6>Item Discount</h6>
                     </div>
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'total'" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'total'; details.discount.jslist.createList()" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
                         <h6>Total Discount</h6>
                     </div>
 
                 </div>
-                <discountlist></discountlist>
-                <div class="row w-100 justify-content-around">
+                <discountlist class = "discntfade"></discountlist>
+                <div class="row w-100 justify-content-around discntfade">
                 <button class="btn w-40 btn-success f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Add Discount</button>
-                <button class="btn w-40 btn-danger f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Delete Discount</button>
+                <button class="btn w-40 btn-danger f-14" ng-click="details.discount.deleteDiscount()" ng-disabled= "!details.discount.jslist.selected">Delete Discount</button>
                 </div>
             </div>
             </div>

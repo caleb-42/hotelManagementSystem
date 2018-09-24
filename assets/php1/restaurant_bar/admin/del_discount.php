@@ -1,18 +1,18 @@
 <?php
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-//$del_discounts = json_decode($_POST["del_discounts"], true);
-$del_discounts = '{"discounts": [{"discount_item": "sprite", "id": 6, "lower_limit": 2500, "upper_limit": 3000}, {"discount_item": "sprite", "id": 9, "lower_limit": 4000, "upper_limit": 4500}]}';
+$del_discounts = json_decode($_POST["del_discounts"], true);
+/* $del_discounts = '{"discounts": [{"discount_item": "sprite", "id": 6, "lower_limit": 2500, "upper_limit": 3000}, {"discount_item": "sprite", "id": 9, "lower_limit": 4000, "upper_limit": 4500}]}'; */
 
 $deleted = [];
 $unique_keys = [];
 
-$discounts = json_decode($del_discounts, true);
+$discounts = $del_discounts;
 $del_array = $discounts["discounts"];
 $no_of_discounts = count($del_array);
 
 $delete_discounts_query = $conn->prepare("DELETE FROM restaurant_discount WHERE id = ?");
-var_dump($delete_discounts_query);
+//var_dump($delete_discounts_query);
 $delete_discounts_query->bind_param("i", $discount_id);
 
 for ($i=0; $i < $no_of_discounts; $i++) { 

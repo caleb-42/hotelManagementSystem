@@ -26,6 +26,7 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
                 new_user: $filter('json')(jsonprod)
             }).then(function (response) {
                 console.log(response);
+                $rootScope.settings.modal.msg = response;
                 $scope.users.adding = false;
                 $scope.users.jslist.createList();
             });
@@ -38,6 +39,7 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
             }).then(function (response) {
                 $scope.users.jslist.toggleOut();
                 console.log(response);
+                $rootScope.settings.modal.msg = response;
                 $scope.users.adding = false;
                 $scope.users.jslist.createList();
                 $scope.users.jslist.toggleIn();

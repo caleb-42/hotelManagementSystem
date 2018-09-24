@@ -30,6 +30,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             }).then(function (response) {
                 $scope.stocks.jslist.toggleOut();
                 console.log(response);
+                $rootScope.settings.modal.msg = response;
                 $scope.stocks.addingProduct = false;
                 $scope.stocks.jslist.createList();
                 $scope.stocks.jslist.toggleIn();
@@ -43,6 +44,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             }).then(function (response) {
                 $scope.stocks.jslist.toggleOut();
                 console.log(response);
+                $rootScope.settings.modal.msg = response;
                 $scope.stocks.updatingProduct = false;
                 $scope.stocks.jslist.createList();
                 $scope.stocks.jslist.toggleIn();
@@ -74,23 +76,62 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
         discount: {
             selected_discount: "item",
             itemlist: function (type) {
-                discnt = type == "total" ? "list_discount" : "list_discount";
-                url = "assets/php1/restaurant_bar/admin/" + discnt + ".php";
+                if(type == "total"){
+                    prod ="all";
+                }else{
+                    prod = $scope.stocks.jslist.selectedObj ? $scope.stocks.jslist.selectedObj.item : "sprite"
+                }
+                url = "assets/php1/restaurant_bar/admin/list_discount.php";
                 return {
-                    jsonfunc: jsonPost.data(url, {})
+                    jsonfunc: jsonPost.data(url, {
+                        item: prod
+                    })
                 }
             },
             addDiscount: function (jsondiscount, type) {
-                jsondiscount.discount_item = $scope.stocks.jslist.selectedObj.item;
+                prod = type == "total" ? "all" : $scope.stocks.jslist.selectedObj.item;
+                jsondiscount.discount_item = prod;
                 console.log("new discount", jsondiscount);
-                discnt = type == "total" ? "add_discount" : "add_discount";
-                url = "assets/php1/restaurant_bar/admin/" + discnt + ".php";
+                url = "assets/php1/restaurant_bar/admin/add_discount.php";
                 jsonPost.data(url, {
                     new_discount: $filter('json')(jsondiscount)
                 }).then(function (response) {
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
+                    $rootScope.settings.modal.msg = response;
                     $scope.details.discount.adding = false;
+                    $scope.details.discount.jslist.createList();
+                    $scope.details.discount.jslist.toggleIn();
+                });
+            },
+            updateDiscount: function (jsondiscount, type) {
+                prod = type == "total" ? "all" : $scope.stocks.jslist.selectedObj.item;
+
+                jsondiscount.discount_item = prod;
+                
+                jsondiscount.discount_id = $scope.details.discount.jslist.selected;
+                console.log("new discount", jsondiscount);
+                url = "assets/php1/restaurant_bar/admin/edit_discount.php";
+                jsonPost.data(url, {
+                    edit_discounts: $filter('json')(jsondiscount)
+                }).then(function (response) {
+                    $scope.details.discount.jslist.toggleOut();
+                    console.log(response);
+                    $rootScope.settings.modal.msg = response;
+                    $scope.details.discount.adding = false;
+                    $scope.details.discount.jslist.createList();
+                    $scope.details.discount.jslist.toggleIn();
+                });
+            },
+            deleteDiscount: function () {
+                jsondiscnt = {};
+                jsondiscnt.discounts = [$scope.details.discount.jslist.selectedObj];
+                console.log("new discount", jsondiscnt);
+                jsonPost.data("assets/php1/restaurant_bar/admin/del_discount.php", {
+                    del_discounts: $filter('json')(jsondiscnt)
+                }).then(function (response) {
+                    $scope.details.discount.jslist.toggleOut();
+                    console.log(response);
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();
                 });

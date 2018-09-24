@@ -5,13 +5,20 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
         modal: {
             active: "",
             name: "",
-            size: ""
+            size: "",
+            msg: ""
         },
-        user: ""
+        userDefinition : function(user, role){
+            $rootScope.settings.user = user;
+            $rootScope.settings.role = role;
+        },
+        user: "",
+        role : "",
+        log : true
     }
     $scope.sidebarnav = {
         navig: {
-            activeNav: "Stocks",
+            activeNav: "Sales",
             mkactiveNav: function (nav) {
                 $scope.sidebarnav.navig.activeNav = nav;
             },

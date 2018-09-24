@@ -8,9 +8,10 @@
         </div>
         <!--tabnav end-->
         <div class="searchbox col-5 h-100 row  align-items-end pb-1">
-            <div class="col-10">
-                <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
-            <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2"></div>
+        <div class="col-8">
+                    <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
+                <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" ng-mouseenter="settings.log = false;" class = "anim btn w-100 font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
         </div>
 
     </div>

@@ -1,4 +1,5 @@
 <?php
+sleep(3);
 include "../settings/connect.php";  //database name = $dbConn
 
 function generateHash($password) {
@@ -29,7 +30,7 @@ $stmt->close();
 if (!verify($password, $hashedPassword)) {
 	$username = "";
 	$password = "";
-	header("Location:  ../../../logon.php?output=Login failed, please retry with a valid username and password");
+	header("Location:  ../../../logIn.php?output=Login failed, please retry with a valid username and password");
 } else {
 	$sql_log_out = "SELECT * FROM restaurant_sessions WHERE user_name = '$user_name' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 	$sql_log_out_result = mysqli_query($dbConn, $sql_log_out);
