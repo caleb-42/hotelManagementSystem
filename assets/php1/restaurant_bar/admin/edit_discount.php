@@ -3,8 +3,6 @@ include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
 $edit_discounts = json_decode($_POST["edit_discounts"], true);
 
-$edit_discounts = json_decode($edit_discounts, true);
-
 $discount_name = $edit_discounts["new_discount_name"] ? $edit_discounts["new_discount_name"] : $edit_discounts["discount_name"];
 $lower_limit = $edit_discounts["new_lower_limit"] != "" ? $edit_discounts["new_lower_limit"] : $edit_discounts["lower_limit"];
 $upper_limit = $edit_discounts["new_upper_limit"] != "" ? $edit_discounts["new_upper_limit"] : $edit_discounts["upper_limit"];
