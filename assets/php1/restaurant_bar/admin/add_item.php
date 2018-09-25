@@ -51,5 +51,4 @@ if($add_item_result){
 
 $response_message = json_encode($msg_response);
 echo $response_message;
-
 ?>

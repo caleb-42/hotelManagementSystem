@@ -37,6 +37,16 @@ if (!($new_balance)) {
 $update_txn = "UPDATE restaurant_txn SET payment_status = '$payment_status', deposited = $net_paid, balance = $new_balance WHERE txn_ref ='$trasaction_ref'";
 $update_txn_result = mysqli_query($dbConn, $update_txn);
 
+$get_outstanding_query = "SELECT * FROM restaurant_customers WHERE customer_id = '$customer_id'";
+$get_outstanding_result = mysqli_query($dbConn, $get_outstanding_query);
+
+$get_outstanding_details = mysqli_fetch_assoc($get_outstanding_result);
+$new_outstanding = intval($get_outstanding_details["outstanding_balance"]) - $amount_paid;
+
+
+$update_customer_outstanding = "UPDATE restaurant_customers SET outstanding_balance = $new_outstanding";
+$update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+
 if ($update_txn_result && $update_payment_result) {
 	echo "SUCCESS";
 } else {

@@ -55,6 +55,7 @@ app.directive('productlist', ['$rootScope', '$filter', function ($rootScope, $fi
                 select: function (index, id) {
                     scope.stocks.jslist.selected = id;
                     scope.stocks.jslist.selectedObj = scope.stocks.jslist.newItemArray[index];
+                    scope.details.discount.selected_discount = 'item';
                     console.log(scope.stocks.jslist.selectedObj);
                 },
                 toggleOut: function () {

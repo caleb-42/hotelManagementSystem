@@ -55,10 +55,10 @@
                 </div>
                 <div class = "discount text-center">
                 <div class = "row header">
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'item'; details.discount.jslist.createList()" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.select_discount('item');" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
                         <h6>Item Discount</h6>
                     </div>
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'total'; details.discount.jslist.createList()" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.select_discount('total');" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
                         <h6>Total Discount</h6>
                     </div>
 

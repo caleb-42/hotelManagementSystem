@@ -329,11 +329,13 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 }
             }
             $rootScope.settings.modal.close = function () {
-                $rootScope.settings.modal.msg = "";
-                $(".modal input").val("");
-                setTimeout(function(){
-                    $(".modal .close").trigger("click");
-                }, 3000);
+                $(".report").fadeIn(300, function () {
+                    $(".report").delay(3000).fadeOut(300, function(){
+                        $(".modal .close").trigger("click");
+                        $rootScope.settings.modal.msg = "";
+                        $(".modal input").val("");
+                    });
+                });
             }
             $('.modal').on('hidden.bs.modal', function(){
                 $rootScope.settings.modal.active = ""
