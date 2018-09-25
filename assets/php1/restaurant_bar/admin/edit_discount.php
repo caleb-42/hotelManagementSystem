@@ -8,7 +8,7 @@ $lower_limit = $edit_discounts["new_lower_limit"] != "" ? $edit_discounts["new_l
 $upper_limit = $edit_discounts["new_upper_limit"] != "" ? $edit_discounts["new_upper_limit"] : $edit_discounts["upper_limit"];
 $discount_item = $edit_discounts["new_discount_item"] ? $edit_discounts["new_discount_item"] : $edit_discounts["discount_item"];
 $discount_value = $edit_discounts["new_discount_value"] ? $edit_discounts["new_discount_value"] : $edit_discounts["discount_value"];
-$discount_id = $edit_discounts["new_discount_id"] ? $edit_discounts["new_discount_id"] : $edit_discounts["discount_id"];
+$discount_id = $edit_discounts["discount_id"];
 
 /*Deleting obsolete discounts*/
 
