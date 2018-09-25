@@ -10,9 +10,9 @@ $new_room = json_decode($_POST["new_room"], true);
 $room_number = $new_room["room_number"];
 $room_rate = $new_room["room_rate"];
 $category = $new_room["category"];
-$occupancy = $new_room["occupancy"];
+$occupancy = 0;
 $current_guest_id = "";
-$extra_guests = $new_room["extra_guests"];
+$extra_guests = 0;
 $booked = "NO";
 $booked_on = TIMESTAMP("0000-00-00",  "00:00:00");
 $booked_expires = TIMESTAMP("0000-00-00",  "00:00:00");
@@ -27,7 +27,7 @@ if ($room_number == "" || $room_rate == "") {
 	die($msg_response);
 }
 
-$duplicate_check_query = "SELECT * FROM frontdesk_rooms WHERE room_number = '$room_number' AND type = '$type' AND description = '$description'";
+$duplicate_check_query = "SELECT * FROM frontdesk_rooms WHERE room_number = '$room_number' AND category = '$category'";
 $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
 if (mysqli_num_rows($duplicate_check_result) > 0) {
