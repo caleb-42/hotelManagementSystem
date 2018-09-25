@@ -30,7 +30,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             }).then(function (response) {
                 $scope.stocks.jslist.toggleOut();
                 console.log(response);
-                $rootScope.settings.modal.msg = response;
+                $rootScope.settings.modal.msgprompt(response);
                 $scope.stocks.addingProduct = false;
                 $scope.stocks.jslist.createList();
                 $scope.stocks.jslist.toggleIn();
@@ -44,7 +44,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             }).then(function (response) {
                 $scope.stocks.jslist.toggleOut();
                 console.log(response);
-                $rootScope.settings.modal.msg = response;
+                $rootScope.settings.modal.msgprompt(response);
                 $scope.stocks.updatingProduct = false;
                 $scope.stocks.jslist.createList();
                 $scope.stocks.jslist.toggleIn();
@@ -98,7 +98,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 }).then(function (response) {
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
-                    $rootScope.settings.modal.msg = response;
+                    $rootScope.settings.modal.msgprompt(response);
                     $scope.details.discount.adding = false;
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();
@@ -117,9 +117,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 }).then(function (response) {
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
-                    json = JSON.parse(response);
-                    $rootScope.settings.modal.msg = json[1];
-                    json[0] == "OUTPUT" ? settings.modal.close() : null;
+                    $rootScope.settings.modal.msgprompt(response);
                     $scope.details.discount.adding = false;
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();

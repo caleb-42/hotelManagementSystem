@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp','ngCroppie']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp', 'ngCroppie']);
 
 app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope) {
     $rootScope.settings = {
@@ -6,15 +6,29 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
             active: "",
             name: "",
             size: "",
-            msg: ""
+            msg: "",
+            msgprompt: function (arr) {
+                if (typeof (arr) == "string") {
+                    $rootScope.settings.modal.msg = "BACKEND CODE ERROR";
+                    $rootScope.settings.modal.msgcolor = "choral";
+                } else {
+                    $rootScope.settings.modal.msg = arr[1];
+                    if(arr[0] == "OUTPUT"){
+                        $rootScope.settings.modal.msgcolor = "green";
+                        $rootScope.settings.modal.close()
+                    }else{
+                        $rootScope.settings.modal.msgcolor = "choral";
+                    }
+                }
+            }
         },
-        userDefinition : function(user, role){
+        userDefinition: function (user, role) {
             $rootScope.settings.user = user;
             $rootScope.settings.role = role;
         },
         user: "",
-        role : "",
-        log : true
+        role: "",
+        log: true
     }
     $scope.sidebarnav = {
         navig: {

@@ -65,7 +65,7 @@ var modalTemplate = `
                             Add
                         </button>
                     </div>
-                    <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
+                    <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                 </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@ var modalTemplate = `
                             Update
                         </button>
                     </div>
-                    <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
+                    <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                 </div>
                 </div>
             </div>
@@ -113,13 +113,15 @@ var modalTemplate = `
                 <div class = "w-100" ng-if = "settings.modal.name == \'Update Discount\'">
                     <form autocomplete="off" class="updateDiscount p-4 w-100">
                         <div class= "float-left w-45 inpRead row m-0">
-                            <input class="discnt form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" readonly name = "discount_name"/>
+                            <input class="discntitem form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Item" readonly name = "discount_item"/>
+                            <input class="discntname form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name" readonly name = "discount_name"/>
                             <input class="uplimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" readonly name = "upper_limit"/>
                             <input class="lowlimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" readonly name = "lower_limit"/>
                             <input class="discountvalue form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" name = "discount_value" readonly/>
                         </div>
                         <div class= "float-right w-45 row m-0">
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount" name = "new_discount_name"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Item" name = "new_discount_item"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name" name = "new_discount_name"/>
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "new_upper_limit"/>
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "new_lower_limit"/>
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" name = "new_discount_value"/>
@@ -133,8 +135,8 @@ var modalTemplate = `
                                     {{settings.modal.name | limitTo:6}}
                                 </button>
                             </div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                         </div>
-                        <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
                     </div>
                 </div>
                 <div class = "w-100" ng-if = "settings.modal.name == \'Add Discount\'">
@@ -152,8 +154,8 @@ var modalTemplate = `
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                         </div>
-                        <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
                     </div>
                 </div>
             </div>
@@ -183,9 +185,9 @@ var modalTemplate = `
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                         </div>
                         
-                        <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
                     </div>
                 </div>
                 <div class="w-100" ng-if="settings.modal.name == \'Update User\'">
@@ -221,7 +223,7 @@ var modalTemplate = `
                                     {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>
-                            <div class="row pt-3 justify-content-center"><p class = "report f-14">{{settings.modal.msg}}</p></div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +329,11 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 }
             }
             $rootScope.settings.modal.close = function () {
-                $(".modal .close").trigger("click");
+                $rootScope.settings.modal.msg = "";
+                $(".modal input").val("");
+                setTimeout(function(){
+                    $(".modal .close").trigger("click");
+                }, 3000);
             }
             $('.modal').on('hidden.bs.modal', function(){
                 $rootScope.settings.modal.active = ""

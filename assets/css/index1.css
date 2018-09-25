@@ -530,7 +530,9 @@ userlist li.actparent{
     color: #333;
     padding: 10px 0px;
 }
-
+.report{
+    font-weight: 500;
+}
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
