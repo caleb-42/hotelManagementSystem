@@ -7,20 +7,23 @@ $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
-$msg_response = "$user_name profile was not successfully added";
 
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
-	$msg_response = "The fields 'User name', 'Role', and 'Password' are all compulsory";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "THE FIELDS 'USERNAME', 'ROLE', AND 'PASSWORD' ARE ALL COMPULSORY";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 $duplicate_check_query = "SELECT * FROM restaurant_users WHERE user_name = '$user_name'";
 $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
 if (mysqli_num_rows($duplicate_check_result) > 0) {
-	$msg_response = "This user name is already taken";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "THIS USERNAME IS ALREADY TAKEN";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 function generateHash($password) {
@@ -46,5 +49,4 @@ if($add_user_result){
 
 $response_message = json_encode($msg_response);
 echo $response_message;
-?>
 ?>

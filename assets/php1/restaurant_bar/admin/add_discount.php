@@ -15,25 +15,31 @@ $discount_value = intval($discount_value);
 //$new_discount = '{"discount_name": "Twelve Percent", "lower_limit": 5, "upper_limit": }';
 
 
-if ($discount_name == "" || $lower_limit == "" || $upper_limit == "" || $discount_item == "" || $discount_value == "") {
-	$msg_response = "The fields 'Discount name', 'Lower limit', 'Upper limit', 'Discount item' and 'Discount value' are all compulsory";
-	die($msg_response);
+if ($discount_name == "" || $lower_limit == "" || $upper_limit == "" || $discount_item == "" || $discount_value == "") {	
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "The fields 'Discount name', 'Lower limit', 'Upper limit', 'Discount item' and 'Discount value' are all compulsory";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 $duplicate_check_query = "SELECT * FROM restaurant_discount WHERE discount_value = $discount_value AND lower_limit = $lower_limit AND upper_limit = $upper_limit AND discount_item = '$discount_item'";
 $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
 if (mysqli_num_rows($duplicate_check_result) > 0) {
-	$msg_response = "A similar discount scheme already exists, please adjust your discount parameters";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "A similar discount scheme already exists, please adjust your discount parameters";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 $duplicate_check_query = "SELECT * FROM restaurant_discount WHERE discount_name = '$discount_name'";
 $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
 if (mysqli_num_rows($duplicate_check_result) > 0) {
-	$msg_response = "The name '". $discount_name . "' is already in use for another discount scheme";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "The name '". $discount_name . "' is already in use for another discount scheme";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 $lower_limit_check_query = "SELECT * FROM restaurant_discount WHERE discount_item = '$discount_item' AND lower_limit < $lower_limit ORDER BY lower_limit DESC";

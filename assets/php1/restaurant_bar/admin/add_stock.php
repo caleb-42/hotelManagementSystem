@@ -5,7 +5,6 @@ $new_stock = json_decode($_POST["new_stock"], true);
 
 //$test_stock = '{"item": "fanta", "item_id": 2, "category": "drinks", "quantity": 20}';
 //$new_stock = json_decode($test_stock, true);
-var_dump($new_stock);
 
 $item = $new_stock["item"];
 $item_id = intval($new_stock["item_id"]);
@@ -23,12 +22,10 @@ if (mysqli_num_rows($last_stock_result) <= 0) {
 	$row = mysqli_fetch_assoc($last_stock_result);
 	$stock_tnx_id = intval($row["txn_id"]) + 1;
 	$stock_tnx_ref = $item . "_" . $item_id . "_" . str_pad($stock_tnx_id, 5, '0', STR_PAD_LEFT);
-} 
-var_dump($stock_tnx_id);
+}
 
 $get_current_stock_query = "SELECT current_stock FROM restaurant_items WHERE item = '$item' AND id = $item_id";
 $get_current_stock_result = mysqli_query($dbConn, $get_current_stock_query);
-var_dump($get_current_stock_result);
 
 if (mysqli_num_rows($get_current_stock_result) > 0) {
 	while ($rows = mysqli_fetch_assoc($get_current_stock_result)) {
@@ -62,5 +59,4 @@ if($insert_stock_entry_result){
 
 $response_message = json_encode($msg_response);
 echo $response_message;
-?>
 ?>
