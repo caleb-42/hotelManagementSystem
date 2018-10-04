@@ -48,8 +48,8 @@ var modalTemplate = `
 <div ng-if = "settings.modal.active == \'Add Product\'">
                 <form autocomplete="off" class="addProductForm mx-5 my-4">
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="item" />
-                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" name="current_stock" />
-                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" name="current_price" />
+                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" type = "number" name="current_stock" />
+                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" type = "number" name="current_price" />
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Description" name="description" />
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Category" name="category" />
                     <div class="row justify-content-around my-2 align-items-center font-fam-Montserrat">
@@ -60,8 +60,8 @@ var modalTemplate = `
                 <div class="modal-footer w-100">
                 <div class="justify-content-center w-100 d-flex flex-column">
                     <div class="py-1 row justify-content-center w-100">
-                        <div ng-class = "{gone : !stocks.addingProduct}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
-                        <button type="button" class="{{stocks.addingProduct ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="addProduct()" ng-click = "stocks.addingProduct = true">
+                        <div ng-class = "{gone : !productstock.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                        <button type="button" class="{{productstock.adding ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="addProduct()" ng-click = "productstock.adding = true">
                             Add
                         </button>
                     </div>
@@ -99,13 +99,61 @@ var modalTemplate = `
                 <div class="modal-footer w-100">
                 <div class="justify-content-center w-100 d-flex flex-column">
                     <div class="py-1 row justify-content-center w-100">
-                    <div ng-class = "{gone : !stocks.updatingProduct}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
-                        <button type="button" class="{{stocks.updatingProduct ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="updateProduct()" ng-click = "stocks.updatingProduct = true">
+                    <div ng-class = "{gone : !productstock.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                        <button type="button" class="{{productstock.adding ? \'gone\' : \'\'}} b-0 btn btn-success my-3" onclick="updateProduct()" ng-click = "productstock.adding = true">
                             Update
                         </button>
                     </div>
                     <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
                 </div>
+                </div>
+            </div>
+
+            <div ng-if = "settings.modal.active == \'Stock\'">
+                <!--<div class = "w-100" ng-if = "settings.modal.name == \'Update Discount\'">
+                    <form autocomplete="off" class="updateDiscount p-4 w-100">
+                        <div class= "float-left w-45 inpRead row m-0">
+                            <input class="discntitem form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Item" readonly name = "discount_item"/>
+                            <input class="discntname form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name" readonly name = "discount_name"/>
+                            <input class="uplimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" readonly name = "upper_limit"/>
+                            <input class="lowlimit form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" readonly name = "lower_limit"/>
+                            <input class="discountvalue form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" name = "discount_value" readonly/>
+                        </div>
+                        <div class= "float-right w-45 row m-0">
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Item" name = "new_discount_item"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name" name = "new_discount_name"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" name = "new_upper_limit"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" name = "new_lower_limit"/>
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" name = "new_discount_value"/>
+                        </div>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                                <div class="py-1 row justify-content-center w-100">
+                                <div ng-class = "{gone : !details.discount.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{details.discount.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="updateDiscount()" ng-click = "details.discount.adding = true">
+                                    {{settings.modal.name | limitTo:6}}
+                                </button>
+                            </div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class = "w-100" ng-if = "settings.modal.name == \'Add Stock\'">
+                    <form class= "p-4 w-100 addStockForm row justify-content-center m-0">
+                      <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Stock No" name = "quantity"/>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <div ng-class = "{gone : !stock.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{stock.adding ? \'gone\' : \'\'}} b-0 btn btn-success" onclick="addStock()" ng-click = "stock.adding = true">
+                                    {{settings.modal.name | limitTo:3}}
+                                </button>
+                            </div>
+                            <div class="row pt-3 justify-content-center"><p class = "{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -259,8 +307,8 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             }
             $('.modal').on("shown.bs.modal", function () {
                 if ($rootScope.settings.modal.active == "Update Product") {
-                    console.log(scope.stocks);
-                    loadJson2Form(scope.stocks.jslist.selectedObj, '.inpRead');
+                    console.log(scope.productstock);
+                    loadJson2Form(scope.productstock.jslist.selectedObj, '.inpRead');
                 }else if ($rootScope.settings.modal.name == "Update User") {
                     console.log(scope.users);
                     loadJson2Form(scope.users.jslist.selectedObj, '.inpRead');
@@ -271,12 +319,16 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             });
             updateProduct = function () {
                 jsonForm = $(".updateProductForm").serializeObject();
-                scope.stocks.updateProduct(jsonForm);
+                scope.productstock.updateProduct(jsonForm);
             };
             addProduct = function () {
                 jsonForm = $(".addProductForm").serializeObject();
-                scope.stocks.addProduct(jsonForm);
+                scope.productstock.addProduct(jsonForm);
             };
+            addStock = function (){
+                jsonForm = $(".addStockForm").serializeObject();
+                scope.stock.addStock(jsonForm);
+            }
             addUser = function () {
                 jsonForm = $(".addUserForm").serializeObject();
                 console.log(scope.users);

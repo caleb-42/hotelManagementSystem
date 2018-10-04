@@ -13,7 +13,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             $scope.tabnav.selected = navname;
         }
     };
-    $scope.stocks = {
+    $scope.productstock = {
         itemlist: function () {
             return {
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
@@ -28,41 +28,102 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
             jsonPost.data("assets/php1/restaurant_bar/admin/add_item.php", {
                 new_item: $filter('json')(jsonprod)
             }).then(function (response) {
-                $scope.stocks.jslist.toggleOut();
+                $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.stocks.addingProduct = false;
-                $scope.stocks.jslist.createList();
-                $scope.stocks.jslist.toggleIn();
+                $scope.productstock.adding = false;
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
             });
         },
         updateProduct: function (jsonprod) {
-            jsonprod.id = $scope.stocks.jslist.selected;
+            jsonprod.id = $scope.productstock.jslist.selected;
             console.log("new product", jsonprod);
             jsonPost.data("assets/php1/restaurant_bar/admin/edit_item.php", {
                 update_item: $filter('json')(jsonprod)
             }).then(function (response) {
-                $scope.stocks.jslist.toggleOut();
+                $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.stocks.updatingProduct = false;
-                $scope.stocks.jslist.createList();
-                $scope.stocks.jslist.toggleIn();
+                $scope.productstock.adding = false;
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
             });
         },
         deleteProduct: function () {
             jsonprod = {};
-            jsonprod.items = [$scope.stocks.jslist.selectedObj];
+            jsonprod.items = [$scope.productstock.jslist.selectedObj];
             console.log("new product", jsonprod);
             jsonPost.data("assets/php1/restaurant_bar/admin/del_item.php", {
                 del_items: $filter('json')(jsonprod)
             }).then(function (response) {
-                $scope.stocks.jslist.toggleOut();
+                $scope.productstock.jslist.toggleOut();
                 console.log(response);
-                $scope.stocks.jslist.createList();
-                $scope.stocks.jslist.toggleIn();
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
             });
         }
+        /* croppie : {
+            inputImage: "/assets/img/4.png",
+            outputImage: null,
+
+            onUpdate: function (data) {
+                //console.log(data);
+            }
+        } */
+    };
+    $scope.stock = {
+        /* itemlist: function () {
+            return {
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
+            }
+        }, */
+        addStock: function (jsonstock) {
+            jsonstock.item_id = $scope.productstock.jslist.selectedObj.id;
+            
+            jsonstock.item = $scope.productstock.jslist.selectedObj.item;
+            
+            jsonstock.category = $scope.productstock.jslist.selectedObj.category;
+            
+            console.log("new stock", jsonstock);
+            jsonPost.data("assets/php1/restaurant_bar/admin/add_stock.php", {
+                new_stock: $filter('json')(jsonstock)
+            }).then(function (response) {
+                $scope.productstock.jslist.toggleOut();
+                console.log(response);
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.stock.adding = false;
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
+            });
+        },
+        /* updateStock: function (jsonstock) {
+            jsonstock.id = $scope.productstock.jslist.selected;
+            console.log("new product", jsonstock);
+            jsonPost.data("assets/php1/restaurant_bar/admin/edit_item.php", {
+                update_item: $filter('json')(jsonstock)
+            }).then(function (response) {
+                $scope.productstock.jslist.toggleOut();
+                console.log(response);
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.productstock.adding = false;
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
+            });
+        },
+        deleteStock: function () {
+            jsonstock = {};
+            jsonstock.items = [$scope.productstock.jslist.selectedObj];
+            console.log("new product", jsonstock);
+            jsonPost.data("assets/php1/restaurant_bar/admin/del_item.php", {
+                del_items: $filter('json')(jsonstock)
+            }).then(function (response) {
+                $scope.productstock.jslist.toggleOut();
+                console.log(response);
+                $scope.productstock.jslist.createList();
+                $scope.productstock.jslist.toggleIn();
+            });
+        } */
         /* croppie : {
             inputImage: "/assets/img/4.png",
             outputImage: null,
@@ -83,7 +144,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 if(type == "total"){
                     prod ="all";
                 }else{
-                    prod = $scope.stocks.jslist.selectedObj ? $scope.stocks.jslist.selectedObj.item : "sprite"
+                    prod = $scope.productstock.jslist.selectedObj ? $scope.productstock.jslist.selectedObj.item : "sprite"
                 }
                 url = "assets/php1/restaurant_bar/admin/list_discount.php";
                 return {
@@ -93,7 +154,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 }
             },
             addDiscount: function (jsondiscount, type) {
-                prod = type == "total" ? "all" : $scope.stocks.jslist.selectedObj.item;
+                prod = type == "total" ? "all" : $scope.productstock.jslist.selectedObj.item;
                 jsondiscount.discount_item = prod;
                 console.log("new discount", jsondiscount);
                 url = "assets/php1/restaurant_bar/admin/add_discount.php";
@@ -109,7 +170,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 });
             },
             updateDiscount: function (jsondiscount, type) {
-                prod = type == "total" ? "all" : $scope.stocks.jslist.selectedObj.item;
+                prod = type == "total" ? "all" : $scope.productstock.jslist.selectedObj.item;
 
                 jsondiscount.discount_item = prod;
                 

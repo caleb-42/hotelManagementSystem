@@ -7,8 +7,8 @@ $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
-$msg_response = "$user_name profile was not successfully added";
-
+$msg_response = "{$user_name} profile was not successfully added";
+echo $user_name;
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
 	$msg_response = "The fields 'User name', 'Role', and 'Password' are all compulsory";
@@ -46,5 +46,4 @@ if($add_user_result){
 
 $response_message = json_encode($msg_response);
 echo $response_message;
-?>
 ?>

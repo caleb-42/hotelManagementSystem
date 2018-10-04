@@ -60,4 +60,12 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
         }
     };
 
+    $scope.sessions = {
+        itemlist: function () {
+            return {
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_sessions.php", {})
+            }
+        }
+    }
+
 }]);

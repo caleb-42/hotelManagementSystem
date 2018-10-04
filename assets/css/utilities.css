@@ -165,6 +165,9 @@ input::placeholder {
 .gone{
     display: none !important;
 }
+.notgone{
+    display: block !important;
+}
 .vanish {
     opacity: 0;
     /*display:none;*/

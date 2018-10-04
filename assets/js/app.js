@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp', 'ngCroppie']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp', 'recordsApp', 'ngCroppie']);
 
 app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope) {
     $rootScope.settings = {
@@ -56,7 +56,7 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
                     innerHtml: '',
                 },
                 {
-                    name: "History",
+                    name: "Records",
                     listClass: "anim",
                     iconClass: "mr-3 fa fa-history",
                     innerHtml: '',
@@ -75,3 +75,4 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
 var salesApp = angular.module('salesApp', []);
 var stocksApp = angular.module('stocksApp', []);
 var usersApp = angular.module('usersApp', []);
+var recordsApp = angular.module('recordsApp', []);

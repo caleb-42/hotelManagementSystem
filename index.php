@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_name'])){
     header("Location: logIn.php");
 }
 
-$templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","Users"=>"./assets/js/users/usersPartial.php","History"=>""]
+$templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","Users"=>"./assets/js/users/usersPartial.php","Records"=>"./assets/js/records/recordsPartial.php"]
 ?>
 
 <!doctype html>
@@ -62,6 +62,8 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <script src="./assets/js/stocks/controllers.js"></script>
     <script src="./assets/js/users/directives.js"></script>
     <script src="./assets/js/users/controllers.js"></script>
+    <script src="./assets/js/records/directives.js"></script>
+    <script src="./assets/js/records/controllers.js"></script>
     <script src="./vendors/node_modules/ng-croppie/unminified/ng-croppie.js"></script>
 </head>
 

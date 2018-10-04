@@ -38,8 +38,9 @@
         <!--statusbar for main-sidebar-right end -->
         <div class="sidebar-body" ng-switch on="tabnav.selected">
             <div ng-switch-default>
-                <div class = "sessions">
-                
+                <div class = "sessions p-4 w-100">
+                    
+                <sessionlist></sessionlist>
                 </div>
             </div>            
         </div>
