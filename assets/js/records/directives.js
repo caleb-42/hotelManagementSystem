@@ -135,7 +135,7 @@ app.directive('stockhistorylist', ['$rootScope', function ($rootScope) {
 app.directive('customerslist', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
-        template: '<!--<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))"><span class = "text-center tranxref col-2">{{hist.txn_ref}}</span><span class = "text-center item col-1">{{hist.item}}</span><span class = "text-center prevstk col-2">{{hist.prev_stock}}</span><span class = "text-center qty col-1">{{hist.quantity}}</span><span class = "text-center newstk col-2">{{hist.new_stock}}</span><span class = "text-center cat col-2">{{hist.category}}</span><span class = "text-center tranxdate col-2">{{hist.txn_date}}</span></li></ul></div></div>-->aaa',
+        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))" ng-click = "customers.jslist.select($index, hist.id);" ng-class = "{\'actparent\' : customers.jslist.selected == hist.id}"><span class = "text-left custref col-2">{{hist.customer_ref}}</span><span class = "text-center fname col-3">{{hist.first_name}}</span><span class = "text-center lname col-3">{{hist.last_name}}</span><span class = "text-center outbal col-4">{{hist.outstanding_balance}}</span></li></ul></div></div>',
 
         scope: false,
 
@@ -159,30 +159,23 @@ app.directive('customerslist', ['$rootScope', function ($rootScope) {
                         },
                         {
                             name: "Firstname",
-                            width: "col-1",
+                            width: "col-3",
                         },
                         {
                             name: "Lastname",
-                            width: "col-2",
+                            width: "col-3",
                         },
                         {
-                            name: "Quantity",
-                            width: "col-1",
-                        },
-                        {
-                            name: "New Stock",
-                            width: "col-2",
-                        },
-                        {
-                            name: "Category",
-                            width: "col-2",
-                        },
-                        {
-                            name: "Tranx Date",
-                            width: "col-2",
+                            name: "Oustanding Bal",
+                            width: "col-4",
                         }
                     ];
-                }
+                },
+                select: function (index, id) {
+                    scope.customers.jslist.selected = id;
+                    scope.customers.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
+                    console.log(scope.customers.jslist.selectedObj);
+                },
             }
             scope.customers.jslist.createList();
         }

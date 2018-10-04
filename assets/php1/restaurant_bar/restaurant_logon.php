@@ -34,7 +34,7 @@ if (!verify($password, $hashedPassword)) {
 } else {
 	$sql_log_out = "SELECT * FROM restaurant_sessions WHERE user_name = '$username' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 	$sql_log_out_result = mysqli_query($dbConn, $sql_log_out);
-	if (mysqli_num_rows($sql_log_out) > 0) {
+	if (mysqli_num_rows($sql_log_out_result) > 0) {
 		$update_log_out = "UPDATE restaurant_sessions SET logged_on_state = 'TERMINATED' WHERE user_name= '$username' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 		$update_log_out_result = mysqli_query($dbConn, $update_log_out);
 	}
