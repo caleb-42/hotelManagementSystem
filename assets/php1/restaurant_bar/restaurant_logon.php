@@ -38,7 +38,7 @@ if (!verify($password, $hashedPassword)) {
 		$update_log_out = "UPDATE restaurant_sessions SET logged_on_state = 'TERMINATED' WHERE user_name= '$username' AND role = '$role' AND logged_on_state = 'LOGGED IN'";
 		$update_log_out_result = mysqli_query($dbConn, $update_log_out);
 	}
-	$sql_insert_login = "INSERT INTO restaurant_sessions (user_name, role) VALUES ('$username', '$role')";
+	$sql_insert_login = "INSERT INTO restaurant_sessions (user_name, role, logged_on_state) VALUES ('$username', '$role', 'LOGGED IN')";
 	mysqli_query($dbConn, $sql_insert_login);
 	session_start();
 	$_SESSION["user_name"] = $username;

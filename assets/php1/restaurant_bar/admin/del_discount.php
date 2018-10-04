@@ -88,6 +88,3 @@ if(count($deleted)){
 $response_message = json_encode($msg_response);
 echo $response_message;
 ?>
-
-
-?>
