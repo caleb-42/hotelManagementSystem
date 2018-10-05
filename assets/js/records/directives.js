@@ -132,10 +132,10 @@ app.directive('stockhistorylist', ['$rootScope', function ($rootScope) {
     };
 }]);
 
-app.directive('customerslist', ['$rootScope', function ($rootScope) {
+app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $filter) {
     return {
         restrict: 'E',
-        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))" ng-click = "customers.jslist.select($index, hist.id);" ng-class = "{\'actparent\' : customers.jslist.selected == hist.id}"><span class = "text-left custref col-2">{{hist.customer_ref}}</span><span class = "text-center fname col-3">{{hist.first_name}}</span><span class = "text-center lname col-3">{{hist.last_name}}</span><span class = "text-center outbal col-4">{{hist.outstanding_balance}}</span></li></ul></div></div>',
+        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))" ng-click = "customers.jslist.select($index, hist.customer_id);" ng-class = "{\'actparent\' : customers.jslist.selected == hist.customer_id}"><span class = "text-left custid {{customers.listhddata[0].width}}">{{hist.customer_id}}</span><span class = "text-center fname {{customers.listhddata[1].width}}">{{hist.full_name}}</span><span class = "text-center phone {{customers.listhddata[2].width}}">{{hist.phone_number}}</span><span class = "text-center address {{customers.listhddata[3].width}}">{{hist.contact_address}}</span><span class = "text-center gender {{customers.listhddata[4].width}}">{{hist.gender}}</span><span class = "text-center outbal {{customers.listhddata[5].width}}">{{hist.outstanding_balance}}</span></li></ul></div></div>',
 
         scope: false,
 
@@ -154,24 +154,35 @@ app.directive('customerslist', ['$rootScope', function ($rootScope) {
                     });
                     scope.customers.listhddata = [
                         {
-                            name: "Cust Ref",
+                            name: "Cust ID",
                             width: "col-2",
                         },
                         {
-                            name: "Firstname",
-                            width: "col-3",
+                            name: "Name",
+                            width: "col-2",
                         },
                         {
-                            name: "Lastname",
-                            width: "col-3",
+                            name: "Phone",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Address",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Gender",
+                            width: "col-1",
                         },
                         {
                             name: "Oustanding Bal",
-                            width: "col-4",
+                            width: "col-3",
                         }
                     ];
                 },
                 select: function (index, id) {
+                    if($filter('limitTo')(id, 3) == 'LOD'){
+                        return;
+                    }
                     scope.customers.jslist.selected = id;
                     scope.customers.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
                     console.log(scope.customers.jslist.selectedObj);

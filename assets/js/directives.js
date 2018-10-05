@@ -62,6 +62,16 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 jsonForm = $(".updateDiscount").serializeObject();
                 scope.details.discount.updateDiscount(jsonForm,scope.details.discount.selected_discount);
             };
+            addCustomer = function (form){
+                if(form == '.addCustomersForm'){
+                    jsonForm = $(form).serializeObject();
+                    scope.details.discount.addDiscount(jsonForm,scope.details.discount.selected_discount );
+                }
+            };
+            updateCustomer = function () {
+                jsonForm = $(".updateDiscount").serializeObject();
+                scope.details.discount.updateDiscount(jsonForm,scope.details.discount.selected_discount);
+            };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {
                     jsonForm = $(".custform").serializeObject();

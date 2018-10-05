@@ -206,15 +206,3 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
 
 
 }]);
-
-/* function ExampleCtrl() {
-    var vm = this;
-
-    vm.inputImage = "./././assets/img/4.png";
-    vm.outputImage = null;
-
-    vm.onUpdate = function(data) {
-        //console.log(data);
-    };
-}
-stocksApp.controller('ExampleCtrl', [ExampleCtrl]); */
