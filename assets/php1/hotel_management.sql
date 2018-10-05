@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2018 at 07:15 PM
+-- Generation Time: Oct 04, 2018 at 03:57 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -63,15 +63,16 @@ CREATE TABLE IF NOT EXISTS `frontdesk_guests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `guest_id` varchar(300) NOT NULL,
   `guest_name` varchar(100) NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `extra_guests` int(11) NOT NULL,
-  `room_category` varchar(150) NOT NULL,
-  `current_room_no` int(11) NOT NULL,
+  `guest_type_gender` varchar(200) NOT NULL,
+  `phone_number` varchar(100) NOT NULL DEFAULT '',
+  `contact_address` varchar(300) NOT NULL DEFAULT '',
+  `total_rooms_booked` int(11) NOT NULL,
   `check_in_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `check_out_date` timestamp NOT NULL,
-  `room_cost` int(11) NOT NULL,
-  `room_deposit` int(11) NOT NULL,
-  `room_balance` int(11) NOT NULL,
+  `booking_cost` int(11) NOT NULL,
+  `deposit` int(11) NOT NULL,
+  `balance` int(11) NOT NULL,
+  `restaurant_outstanding` int(11) NOT NULL,
   `checked_out` varchar(50) NOT NULL,
   `visit_count` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)

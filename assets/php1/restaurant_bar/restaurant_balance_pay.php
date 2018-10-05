@@ -43,9 +43,14 @@ $get_outstanding_result = mysqli_query($dbConn, $get_outstanding_query);
 $get_outstanding_details = mysqli_fetch_assoc($get_outstanding_result);
 $new_outstanding = intval($get_outstanding_details["outstanding_balance"]) - $amount_paid;
 
+if (substr($customer_ref, 0, 3) == "LOD") {
+	$update_customer_outstanding = "UPDATE frontdesk_guests SET restaurant_outstanding = restaurant_outstanding - $amount_paid WHERE guest_id  = '$customer_id'";
+    $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+} else {
+	$update_customer_outstanding = "UPDATE restaurant_customers SET outstanding_balance = $new_outstanding WHERE customer_id = '$customer_id'";
+    $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+}
 
-$update_customer_outstanding = "UPDATE restaurant_customers SET outstanding_balance = $new_outstanding";
-$update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
 
 if ($update_txn_result && $update_payment_result) {
 	echo "SUCCESS";

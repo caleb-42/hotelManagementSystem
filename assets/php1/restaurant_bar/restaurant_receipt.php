@@ -149,8 +149,17 @@ $txn_insert_query = "INSERT INTO restaurant_txn (txn_ref, total_items, total_cos
 $txn_insert_result = mysqli_query($dbConn, $txn_insert_query);
 
 if ($customer != "") {
-	$customer_txn_query = "INSERT INTO customer_transactions (customer_ref, section, transaction_ref) VALUES('$customer_ref', 'RESTAURANT', '$txn_ref')";
-	$customer_txn_result = mysqli_query($dbConn, $customer_txn_query);
+	if (substr($customer_ref, 0, 3) == "LOD") {
+	   $customer_txn_query = "INSERT INTO frontdesk_customer_transactions (customer_ref, section, transaction_ref) VALUES('$customer_ref', 'RESTAURANT', '$txn_ref')";
+	   $customer_txn_result = mysqli_query($dbConn, $customer_txn_query);
+
+	   $guest_outstanding_query = "UPDATE frontdesk_guests SET restaurant_outstanding = restaurant_outstanding + $amount_balance WHERE guest_id = '$customer_ref'";
+	   $guest_outstanding_result = mysqli_query($dbConn, $guest_outstanding_query);
+    } else {
+    	$customer_outstanding_query = "UPDATE restaurant_customers SET outstanding_balance = outstanding_balance + $amount_balance WHERE customer_id = '$customer_ref'";
+	   $customer_outstanding_result = mysqli_query($dbConn, $customer_outstanding_query);
+    }
+
 }
 
 //var_dump($txn_insert_result);
