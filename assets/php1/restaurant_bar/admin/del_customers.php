@@ -1,8 +1,8 @@
 <?php
-include "../settings/connect.php"; //$database handler $dbConn or $conn
+include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
 $del_customers = json_decode($_POST["del_customers"], true);
-//$del_customers = '{"customers": [{"full_name": "vivian", "id": 1}, {"full_name": "wendy", "id": 2}]}';
+//$del_customers = '{"customers": [{"full_name": "Ewere", "id": 3}, {"full_name": "Ewere", "id": 4}]}';
 
 $deleted = [];
 
