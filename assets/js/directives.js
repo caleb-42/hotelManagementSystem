@@ -31,6 +31,9 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 }else if ($rootScope.settings.modal.name == "Update Discount") {
                     console.log(scope.details.discount);
                     loadJson2Form(scope.details.discount.jslist.selectedObj, '.inpRead');
+                }else if ($rootScope.settings.modal.name == "Update Customer") {
+                    console.log(scope.customers);
+                    loadJson2Form(scope.customers.jslist.selectedObj, '.inpRead');
                 }
             });
             updateProduct = function () {
@@ -59,6 +62,16 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 scope.details.discount.addDiscount(jsonForm,scope.details.discount.selected_discount );
             };
             updateDiscount = function () {
+                jsonForm = $(".updateDiscount").serializeObject();
+                scope.details.discount.updateDiscount(jsonForm,scope.details.discount.selected_discount);
+            };
+            addCustomer = function (form){
+                if(form == '.addCustomersForm'){
+                    jsonForm = $(form).serializeObject();
+                    scope.customers.addCustomer(jsonForm);
+                }
+            };
+            updateCustomer = function () {
                 jsonForm = $(".updateDiscount").serializeObject();
                 scope.details.discount.updateDiscount(jsonForm,scope.details.discount.selected_discount);
             };
