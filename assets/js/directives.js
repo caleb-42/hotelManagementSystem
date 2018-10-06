@@ -72,21 +72,21 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 }
             };
             updateCustomer = function () {
-                jsonForm = $(".updateDiscount").serializeObject();
-                scope.details.discount.updateDiscount(jsonForm,scope.details.discount.selected_discount);
+                jsonForm = $(".updateCustomersForm").serializeObject();
+                scope.customers.updateCustomer(jsonForm);
             };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {
                     jsonForm = $(".custform").serializeObject();
                     jsonForm.type = a;
-                    jsonForm.bal = 0;
-                    jsonForm = $("[name = name]").val() == "" ? scope.buyer.customer.selectedDefault : jsonForm;
+                    jsonForm.outstanding_balance = 0;
+                    jsonForm = $("[name = full_name]").val() == "" ? scope.buyer.customer.selectedDefault : jsonForm;
                     $('#Customer').modal('hide');
                     return jsonForm;
                 }
                 $rootScope.activateAutoComplete = function (a) {
                     /*scope.buyer.customer.new.sex = "female";*/
-                        console.log("json1[p].sex");
+                        console.log("json1[p].gender");
                     if (!$(a).autocomplete("instance")) {
                         $(a.currentTarget).autocomplete({
                             source: scope.buyer.customer.getLodgers,
@@ -94,12 +94,12 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                             select: function (event, ui) {
                                 for (var p = 0; p < json1.length; p++) {
                                     // console.log(json1[p].name, ui.item.label);
-                                    if (json1[p].name == ui.item.label) {
-                                        $("input[name = phone]").val(json1[p].phone);
-                                        $("input[name = address]").val(json1[p].address);
+                                    if (json1[p].full_name == ui.item.label) {
+                                        $("input[name = phone_number]").val(json1[p].phone_number);
+                                        $("input[name = contact_address]").val(json1[p].contact_address);
                                         $("input[name = room]").val(json1[p].room);
-                                        console.log(json1[p].sex);
-                                        scope.buyer.customer.new.sex = json1[p].sex;
+                                        console.log(json1[p].gender);
+                                        scope.buyer.customer.new.gender = json1[p].gender;
                                         scope.$apply();
                                         /*$("input[name = sex]").val();*/
                                     }

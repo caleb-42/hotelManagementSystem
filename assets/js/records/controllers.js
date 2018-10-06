@@ -55,7 +55,8 @@ recordsApp.controller("customers", ["$rootScope", "$scope",  'jsonPost','$filter
     $scope.customers = {
         itemlist: function () {
             return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_customers.php", {})
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_customers.php", {}),
+                /* jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_customers.php", {}) */
             }
         },
         addCustomer: function (jsoncust) {
@@ -68,6 +69,31 @@ recordsApp.controller("customers", ["$rootScope", "$scope",  'jsonPost','$filter
                 $rootScope.settings.modal.msgprompt(response);
                 $scope.customers.adding = false;
                 $scope.customers.jslist.createList();
+            });
+        },
+        updateCustomer: function (jsoncust) {
+            console.log("new cust", jsoncust);
+            jsoncust.customer_id = $scope.customers.jslist.selected;
+            jsonPost.data("assets/php1/restaurant_bar/update_customer.php", {
+                update_customer: $filter('json')(jsoncust)
+            }).then(function (response) {
+                console.log(response);
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.customers.adding = false;
+                $scope.customers.jslist.createList();
+            });
+        },
+        deleteCustomer: function () {
+            jsoncust = {};
+            jsoncust.customers = [$scope.customers.jslist.selectedObj];
+            console.log("new users", jsoncust);
+            jsonPost.data("assets/php1/restaurant_bar/admin/del_customers.php", {
+                del_customers: $filter('json')(jsoncust)
+            }).then(function (response) {
+                //$scope.customers.jslist.toggleOut();
+                console.log(response);
+                $scope.customers.jslist.createList();
+                //$scope.customers.jslist.toggleIn();
             });
         }
     }

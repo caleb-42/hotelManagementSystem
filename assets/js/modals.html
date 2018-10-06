@@ -11,34 +11,44 @@
             <div ng-if="settings.modal.active == 'customer'">
                 <div class="BuyerPanel px-4 my-4 w-100" ng-switch on='buyer.showPanel'>
                     <div ng-switch-when='addnew' class="addNew">
-                        <div class="d-block w-100 text-center buysec"><i class="fa  d-inline-block {{buyer.customer.new.sex == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></i></div>
-                        <form autocomplete="off" class="custform w-100 text-center mt-2 px-5 "><input class=" form-control font-fam-Montserrat w-50 mt-4 text-center d-inline-block mx-3"
-                                placeholder="Name" name="name" ng-focus="activateAutoComplete($event)" /><input class="form-control font-fam-Montserrat w-50 mt-4 text-center d-inline-block mx-3"
-                                placeholder="Phone Number" name="phone" /><input class="form-control font-fam-Montserrat w-50 mt-4 text-center d-inline-block mx-3"
-                                placeholder="Address" name="address" /><input type="number" onkeydown="javascript: return event.keyCode !=69"
-                                class="form-control font-fam-Montserrat w-50 mt-4 text-center d-inline-block mx-3"
-                                placeholder="Room" name="room" />
-                            <div class="w-50 d-inline-block px-5 mt-3"><span class="float-left"><input type="radio" id="male"
-                                        name="sex" value="male" ng-model="buyer.customer.new.sex" /><label class="ml-2 d-inline-block pointer"
-                                        for="male">Male</label></span><span class="float-right"><input type="radio" id="female"
-                                        name="sex" value="female" ng-model="buyer.customer.new.sex" /><label class="ml-2 d-inline-block pointer"
-                                        for="female">Female</label></span></div>
+                        <div class="d-block w-100 text-center buysec"><i class="fa  d-inline-block {{buyer.customer.new.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></i></div>
+                        <form autocomplete="off" class="custform w-100 text-center mt-2 px-5 ">
+                            <input class=" form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block" placeholder="Name" name="full_name" ng-focus="activateAutoComplete($event)" />
+                            <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
+                            placeholder="Phone Number" name="phone_number" />
+                            <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
+                            placeholder="Address" name="contact_address" />
+                            <!-- <input type="number" onkeydown="javascript: return event.keyCode !=69"
+                            class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
+                            placeholder="Room" name="room" /> -->
+                            <div class="w-100 d-inline-block px-5 mt-3">
+                                <span class="float-left">
+                                    <input type="radio" id="male" name="gender" value="male" ng-model="buyer.customer.new.gender" />
+                                    <label class="ml-2 d-inline-block pointer" for="male">Male</label>
+                                </span>
+                                <span class="float-right">
+                                    <input type="radio" id="female" name="gender" value="female" ng-model="buyer.customer.new.gender" />
+                                    <label class="ml-2 d-inline-block pointer" for="female">Female</label>
+                                </span>
+                            </div>
                         </form>
                     </div>
                     <div ng-switch-when='search' class="customerPanel font-fam-Montserrat">
                         <div class="searchPanel float-left w-50 pl-2 pr-3">
-                            <div><input class="form-control customer-search m-0 w-100" ng-model="searchquery" /></div>
+                            <div>
+                                <input placeholder="Search" class="form-control customer-search m-0 w-100" ng-model="searchquery" />
+                            </div>
                             <div class="custlist w-100 mt-3 pb-4">
                                 <div class="custlisthd w-100 px-3 py-1 wht grn">
-                                    <div class="d-inline-block w-75">Name</div>
+                                    <div class="d-inline-block w-70">Name</div>
                                     <div class="d-inline-block w-25">Balance</div>
                                 </div>
                                 <div class="ul-con h-100" style="overflow-y:auto;">
                                     <ul class="w-100">
-                                        <li ng-click="buyer.customer.selectCustomer(cust)" ng-style="{'background' : cust.name == buyer.customer.selected.name ? '#ccc': null}"
+                                        <li ng-click="buyer.customer.selectCustomer(cust)" ng-style="{'background' : cust.full_name == buyer.customer.selected.full_name ? '#ccc': null}"
                                             ng-repeat="cust in buyer.customer.customerList | filter:searchquery" class="w-100 px-3 py-1 f-13">
-                                            <div class="d-inline-block w-75">{{cust.name}}</div>
-                                            <div class="d-inline-block w-25">{{cust.bal}}</div>
+                                            <div class="d-inline-block w-70">{{cust.full_name}}</div>
+                                            <div class="d-inline-block w-25">{{cust.outstanding_balance}}</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -46,16 +56,16 @@
                         </div>
                         <div class="historyPanel float-right w-50 pl-3 pr-2">
                             <div class="w-100 row justify-content-between align-items-center">
-                                <div class="col-4 buysec"><i class="fa {{buyer.customer.selected.sex == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></i></div>
-                                <h3 class="col-8">{{buyer.customer.selected.name}}</h3>
+                                <div class="col-4 buysec"><i class="fa {{buyer.customer.selected.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></i></div>
+                                <h3 class="col-8">{{buyer.customer.selected.full_name}}</h3>
                             </div>
                             <div class="row w-100">
-                                <div class="col-4 my-3 opac-50  pl-4">Room</div>
-                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.room}}</div>
+                                <!-- <div class="col-4 my-3 opac-50  pl-4">Room</div>
+                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.room}}</div> -->
                                 <div class="col-4 my-3 opac-50  pl-4">Phone</div>
-                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.phone}}</div>
+                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.phone_number}}</div>
                                 <div class="col-4 my-3 opac-50  pl-4">Address</div>
-                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.address}}</div>
+                                <div class="col-8 my-3 opac-50 ">{{buyer.customer.selected.contact_address}}</div>
                             </div>
                         </div>
                         <div class="clr"></div>
@@ -63,13 +73,12 @@
                 </div>
                 <div class="modal-footer w-100">
                     <div class="justify-content-center w-100 d-flex flex-column">
-                        <div class="py-1 align-self-center row justify-content-between w-40"><button type="button"
-                                class="b-0 btn btn-warning" ng-click="buyer.customer.selected = buyer.showPanel == 'addnew' ? buyer.customer.jsonform('visitor') : buyer.customer.selectedDefault">{{buyer.showPanel
-                                == 'addnew' ? 'Select' : 'Reset'}}</button><button type="button" ng-class="{'gone': buyer.showPanel != 'addnew'}"
-                                class="b-0 btn btn-success" ng-click="buyer.customer.makeCustomer()">Add</button><button
-                                type="button" class="btn b-0 {{buyer.showPanel == 'addnew' ? 'btn-danger' : 'btn-info'}}"
-                                ng-click="buyer.showPanel = buyer.showPanel == 'addnew' ? 'search' : 'addnew'">{{buyer.showPanel
-                                == 'addnew' ? 'Search' : 'New'}}</button></div>
+                        <div class="py-1 align-self-center row justify-content-between w-70">
+                            <button type="button" class="b-0 btn btn-warning" ng-click="buyer.customer.selected = buyer.showPanel == 'addnew' ? buyer.customer.jsonform('visitor') : buyer.customer.selectedDefault">{{buyer.showPanel == 'addnew' ? 'Select' : 'Reset'}}</button>
+                            <button type="button" ng-class="{'gone': buyer.showPanel != 'addnew'}"
+                            class="b-0 btn btn-success" ng-click="buyer.customer.makeCustomer()">Add</button>
+                            <button type="button" class="btn b-0 {{buyer.showPanel == 'addnew' ? 'btn-danger' : 'btn-info'}}" ng-click="buyer.showPanel = buyer.showPanel == 'addnew' ? 'search' : 'addnew';settings.modal.size = buyer.showPanel == 'addnew' ? 'md' : 'lg'; buyer.customer.makeCustomerList(); ">{{buyer.showPanel == 'addnew' ? 'Search' : 'New'}}</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -507,7 +516,7 @@
                                         height="70px" /></div>
 
                                 <button type="button" class="{{customers.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="updateUser()" ng-click="customers.adding = true">
+                                    onclick="updateCustomer()" ng-click="customers.adding = true">
                                     {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>

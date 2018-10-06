@@ -14,13 +14,47 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             }
         };
         $scope.sales = {
+            makeCustomerList : function (){
+                cp = jsonPost.data("assets/php1/restaurant_bar/restaurant_customer.php", {});
+                    cp.then(function(result){
+                        if(!result){
+                            return;
+                        }
+                        result.forEach(function(elm){
+                            elm.type = 'customer';
+                            elm.room = 'none';
+                        });
+                        $scope.sales.cust_list = result;
+                        console.log($scope.sales.cust_list);
+                    });
+                    /* gp = jsonPost.data("assets/php1/front_desk/list_guests.php", {});
+                    gp.then(function(result){
+                        if(!result){
+                            return;
+                        }
+                        cust_list = [];
+                        result.forEach(function(elm){
+                            obj = {};
+                            obj.customer_id = elm.guest_id;
+                            obj.full_name = elm.guest_name;
+                            obj.gender = elm.guest_type_gender;
+                            obj.phone_number = elm.contact_address;
+                            obj.contact_address = elm.contact_address;
+                            obj.outstanding_balance = elm.restaurant_outstanding;
+                            cust_list.push(obj);
+                        });
+                        $scope.sales.lodger_list = cust_list;
+                        console.log($scope.sales.lodger_list);
+                    }); */
+            },
             products: {
                 layout: "listlayout",
                 itemlist: function () {
+                    $scope.sales.makeCustomerList();
                     return {
-                        jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {}) 
+                        jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
                     }
-                }
+                },
             },
             order: {
                 panel: false,
@@ -46,11 +80,11 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.cart.toggleCart();
                 },
                 open: function () {
-                    if ($scope.buyer.customer.selected.name != "Buyer") {
+                    if ($scope.buyer.customer.selected.full_name != "Buyer") {
                         newOrder = {};
                         checklist = true;
                         $scope.sales.order.list.forEach(function (element) {
-                            if ($scope.buyer.customer.selected.name == element.buyer.name) {
+                            if ($scope.buyer.customer.selected.full_name == element.buyer.full_name) {
                                 checklist = false;
                             }
                         });
@@ -75,7 +109,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             params.net_cost = 0;
             params.discounted_net_cost = 0;
             params.discount_amount = 0;
-           /* params.sold_by = $rootScope.settings.user;*/
+            params.sold_by = $rootScope.settings.user;
             /*console.log(params);*/
             itemInList = false;
             $scope.cart.cartlist.forEach(function (element) {
@@ -121,61 +155,43 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             showPanel: "search",
             customer: {
                 new: {
-                    sex: "male"
+                    gender: "male"
                 },
                 selectedDefault: {
-                    name: "Buyer",
-                    sex: 'male',
+                    full_name: "Buyer",
+                    gender: 'male',
                     type: "visitor",
-                    bal: "0"
+                    outstanding_balance: "0"
                 },
                 selected: {
-                    name: "Buyer",
-                    sex: 'male',
+                    full_name: "Buyer",
+                    gender: 'male',
                     type: "visitor",
-                    bal: "0"
+                    outstanding_balance: "0"
                 },
                 selectCustomer: function (cust) {
                     $scope.buyer.customer.selected = cust;
                     console.log($scope.buyer.customer.selected);
                 },
-                customerList: [
-                    {
-                        name: "tego",
-                        phone: "08130249102",
-                        address: "",
-                        bal: 1350,
-                        sex: "male",
-                        room: 5,
-                        type: "customer"
-                    },
-                    {
-                        name: "ewere",
-                        phone: "08130249102",
-                        address: "",
-                        bal: 1350,
-                        sex: "male",
-                        room: 16,
-                        type: "customer"
-                    },
-                    {
-                        name: "janet",
-                        phone: "08130249102",
-                        address: "",
-                        bal: 1350,
-                        sex: "female",
-                        room: 7,
-                        type: "customer"
-                    }
-                ],
+                makeCustomerList: function (){
+                    $scope.buyer.customer.customerList = $scope.sales.cust_list;
+                    console.log($scope.buyer.customer.customerList);
+                },
+                /* customerList, */
                 makeCustomer : function () {
                     jsonForm = $scope.buyer.customer.jsonform("customer");
-                    if (jsonForm.name == "Buyer") {
+                    if (jsonForm.full_name == "Buyer") {
                         return 0;
                     }
     
                     if ($scope.buyer.showPanel == "addnew") {
-                        $scope.buyer.customer.customerList.push(jsonForm);
+                        //$scope.buyer.customer.customerList.push(jsonForm);
+                        jsonPost.data("assets/php1/restaurant_bar/add_customer.php", {
+                            new_customer: $filter('json')(jsonForm)
+                        }).then(function(result){
+                            console.log(result);
+                            $scope.sales.makeCustomerList();
+                        });
                         $scope.buyer.customer.selected = jsonForm;;
                     }
                 },
@@ -183,36 +199,36 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     data = [];
                     json1 = [
                         {
-                            name: "martins",
-                            phone: "08130249102",
-                            address: "",
-                            bal: 1350,
-                            sex: "male",
+                            full_name: "martins",
+                            phone_number: "08130249102",
+                            contact_address: "",
+                            outstanding_balance: 1350,
+                            gender: "male",
                             room: 5,
                             type: "customer"
                         },
                         {
-                            name: "yoma",
-                            phone: "08130249102",
-                            address: "",
-                            bal: 1350,
-                            sex: "male",
+                            full_name: "yoma",
+                            phone_number: "08130249102",
+                            contact_address: "",
+                            outstanding_balance: 1350,
+                            gender: "male",
                             room: 16,
                             type: "customer"
                         },
                         {
-                            name: "debby",
-                            phone: "08130249102",
-                            address: "",
-                            bal: 1350,
-                            sex: "female",
+                            full_name: "debby",
+                            phone_number: "08130249102",
+                            contact_address: "",
+                            outstanding_balance: 1350,
+                            gender: "female",
                             room: 7,
                             type: "customer"
                         }
                     ];
                     json = $filter('filter')(json1, request.term);
                     for (var a = 0; a < json.length; a++) {
-                        data.push(json[a].name)
+                        data.push(json[a].full_name)
                     }
                     response(data);
                 }
@@ -290,7 +306,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.cart.currentCart.buyer =  $scope.buyer.customer.selected;
                     $scope.cart.currentCart.cart = JSON.parse(JSON.stringify($scope.cart.cartlist));
                     $scope.surcharge.reciept = {
-                        customer : $scope.cart.currentCart.buyer.name,
+                        customer : $scope.cart.currentCart.buyer.full_name,
                         sales_rep : $rootScope.settings.user,
                         transaction_discount : $scope.cart.currentCart.total.transaction_discount,
                         discount_type : $scope.surcharge.discount.type,

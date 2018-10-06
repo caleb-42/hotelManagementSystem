@@ -1,5 +1,5 @@
-<div ng-controller="records">
-    <div class="prime-hd anim {{tabnav.selected == 'Customers' ? null : 'w-100'}}">
+<div ng-controller="records"> <!-- {{tabnav.selected == 'Customers' ? null : 'w-100'}} -->
+    <div class="prime-hd anim w-100">
         <div class="statusbar grn row  align-items-end pl-1">
             <div class="tabnav col-7 row">
                 <button ng-repeat='nav in tabnav.navs' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected}">
@@ -41,7 +41,7 @@
                             <div class="my-4">
                                 <button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Add Customer'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button>
                                 <button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Update Customer'; settings.modal.size = 'lg'; " ng-disabled="!customers.jslist.selected">Update</button>
-                                <button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-click="customers.deleteUser()"  ng-disabled="!customers.jslist.selected">Delete</button>
+                                <button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-click="customers.deleteCustomer()"  ng-disabled="!customers.jslist.selected">Delete</button>
                             </div>
                         </div>
                         <customerslist></customerslist> 
@@ -51,8 +51,8 @@
             </div>
         </div>
     </div>
-    <!--statusbar for primehd end-->
-    <div class="main-sidebar-right hs-100 anim {{tabnav.selected == 'Customers' ? null : 'w-0 gone'}}">
+    <!--statusbar for primehd end--><!-- {{tabnav.selected == 'Customers' ? null : 'w-0 gone'}} -->
+    <div class="main-sidebar-right hs-100 anim ">
         <div class="statusbar grn row align-items-end justify-content-center">
             <h4 class="text-center wht">Details <i class="fa fa-book"></i></h4>
         </div>

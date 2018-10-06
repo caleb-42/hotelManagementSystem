@@ -1,10 +1,10 @@
 <?php
 include "../settings/connect.php"; //$database handler $dbConn or $conn
 
-//$new_customer = json_decode($_POST["new_customer"], true);
+$new_customer = json_decode($_POST["new_customer"], true);
 
-$new_entry = '{"full_name": "Harvey Reynolds", "gender": "male", "phone_number": "08023456789", "contact_address": "20 adesuwa rd. benin"}';
-$new_customer = json_decode($new_entry, true);
+//$new_entry = '{"full_name": "Harvey Reynolds", "gender": "male", "phone_number": "08023456789", "contact_address": "20 adesuwa rd. benin"}';
+//$new_customer = json_decode($new_entry, true);
 
 
 $full_name = mysqli_real_escape_string($dbConn, $new_customer["full_name"]);

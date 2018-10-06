@@ -54,12 +54,14 @@
         <div ng-switch-default>
             <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart' : !sales.order.orderDeselect}">
                 <div class="col-3 m-0" ng-click="buyer.customer.selected = buyer.customer.selectedDefault">
-                    <div class="{{buyer.customer.selected.sex == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
+                    <div class="{{buyer.customer.selected.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
                 </div>
-                <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
-                    <span class="m-0 p-0 buyerbio"><p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.name == buyer.customer.selectedDefault.name ? 'Select Customer' : buyer.customer.selected.name}}</p><p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.name == buyer.customer.selectedDefault.name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
+                <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.customer.makeCustomerList(); buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
+                    <span class="m-0 p-0 buyerbio">
+                        <p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name ? 'Select Customer' : buyer.customer.selected.full_name}}</p>
+                        <p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
                 </div>
-                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
+                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'md' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
                     <i class="fa addicon pointer " ng-if="sales.order.orderDeselect"></i>
                     <h4 class="wht f-13 mt-1" ng-if="!sales.order.orderDeselect">ORDER</h4>
                 </div>

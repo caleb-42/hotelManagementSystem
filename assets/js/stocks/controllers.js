@@ -78,6 +78,17 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
             }
         }, */
+        activateStockModal : function(){
+            if($scope.productstock.jslist.selectedObj.shelf_item == 'no'){
+                $scope.stock.modal = 'none';
+                return
+            }else{
+                $scope.stock.modal = 'modal';
+            }; 
+            $rootScope.settings.modal.active = 'Stock'; 
+            $rootScope.settings.modal.name = 'Add Stock'; 
+            $rootScope.settings.modal.size = 'md';
+        },
         addStock: function (jsonstock) {
             jsonstock.item_id = $scope.productstock.jslist.selectedObj.id;
             

@@ -46,7 +46,7 @@ app.directive('userlist', ['$rootScope', function ($rootScope) {
 app.directive('sessionlist', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
-        template: '<div class = "row h-100 {{users.jslist.selected ? \'gone\' : \'align-items-center\'}} relatv "><h4 class=" text-center w-100 "> Select A User</h4></div><div class = "listcont {{!users.jslist.selected ? \'gone\' : \'notgone\'}}"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in sessions.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "session in sessions.jslist.values"><span class = "username col-4">{{session.user_name}}</span><span class = "text-center login col-4">{{session.logged_on_time}}</span><span class = "text-center logoff col-4">{{session.logged_off_time}}</span></li></ul></div></div>',
+        template: '<div class = "row h-100 {{users.jslist.selected ? \'gone\' : \'align-items-center\'}} relatv "><h4 class=" text-center w-100 "> Select A User</h4></div><div class = "listcont {{!users.jslist.selected ? \'gone\' : \'notgone\'}}"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in sessions.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "session in sessions.jslist.values"><span class = "username col-4">{{session.user_id}}</span><span class = "text-center login col-4">{{session.logged_on_time}}</span><span class = "text-center logoff col-4">{{session.logged_off_time}}</span></li></ul></div></div>',
 
         scope: false,
 
@@ -66,7 +66,7 @@ app.directive('sessionlist', ['$rootScope', function ($rootScope) {
                         }
                         console.log(result);
                         result.forEach(function (element) {
-                            if (element.user_name == scope.users.jslist.selectedObj.user_name && element.role == scope.users.jslist.selectedObj.role) {
+                            if (element.user_name == scope.users.jslist.selectedObj.user_id && element.role == scope.users.jslist.selectedObj.role) {
                                 resultfiltered.push(element);
                                 console.log(element);
                             }else{
@@ -74,7 +74,7 @@ app.directive('sessionlist', ['$rootScope', function ($rootScope) {
                             }
                         });
                         scope.sessions.jslist.values = resultfiltered;
-                        scope.user.jslist.selected = null;
+                        //scope.users.jslist.selected = null;
                     });
                     scope.sessions.listhddata = [
                         {

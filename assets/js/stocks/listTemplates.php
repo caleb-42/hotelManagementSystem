@@ -22,7 +22,7 @@
     <div ng-switch-when = "item" class = "w-100 ">
 
         <ul ng-if = "productstock.jslist.selectedObj">
-            <li class = "row w-100 b-1 py-4 px-3" ng-class = "{\'btn-lytgrn\': details.discount.jslist.selected == discnt.id}" ng-repeat="discnt in details.discount.jslist.values">
+            <li class = "row w-100 b-1 py-4 px-3" ng-class = "{'btn-lytgrn': details.discount.jslist.selected == discnt.id}" ng-repeat="discnt in details.discount.jslist.values">
                 <div class = "col-4"><div class = "center text-center btn-info" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md';details.discount.jslist.select($index, discnt.id); " data-toggle="modal" data-target="#crud"><h4 class = "py-2 m-0">{{discnt.discount_value}}%</h4></div></div>
                 <div class = "col-8 text-right dark pr-4 "><div ng-click = "details.discount.jslist.select($index, discnt.id);"><h5 class = "font-weight-bold">{{discnt.discount_name}}</h5><p class = "w-100 f-14 m-0">{{discnt.lower_limit | nairacurrency}} - {{discnt.upper_limit | nairacurrency}}</p></div></div>
             </li>
@@ -31,7 +31,7 @@
     </div>
     <div ng-switch-when = "total">
         <ul>
-            <li class = "row w-100 b-1 py-4 px-3" ng-class = "{\'btn-lytgrn\': details.discount.jslist.selected == discnt.id}" ng-repeat="discnt in details.discount.jslist.values" >
+            <li class = "row w-100 b-1 py-4 px-3" ng-class = "{'btn-lytgrn': details.discount.jslist.selected == discnt.id}" ng-repeat="discnt in details.discount.jslist.values" >
                 <div class = "col-4">
                     <div class = "center text-center btn-info"  ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md';details.discount.jslist.select($index, discnt.id); " data-toggle="modal" data-target="#crud">
                         <h4 class = "py-2 m-0">{{discnt.discount_value}}%</h4>
