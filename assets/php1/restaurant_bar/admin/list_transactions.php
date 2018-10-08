@@ -1,7 +1,14 @@
 <?php
   include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-  $get_txn_sql = "SELECT * FROM restaurant_txn";
+  if (isset($_POST["txn_ref"])) {
+    $txn_ref = isset($_POST["txn_ref"]);
+  } else {
+    $txn_ref = "";
+  }
+
+  $get_txn_sql = $txn_ref ? "SELECT * FROM restaurant_txn WHERE txn_ref = '$txn_ref'" : "SELECT * FROM restaurant_txn";
+
   $get_txn_result = mysqli_query($dbConn, $get_txn_sql);
   $get_txn_array = [];
 
