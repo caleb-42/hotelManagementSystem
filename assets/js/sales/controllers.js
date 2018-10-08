@@ -162,13 +162,15 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     full_name: "Buyer",
                     gender: 'male',
                     type: "visitor",
-                    outstanding_balance: "0"
+                    outstanding_balance: "0",
+                    customer_id : 'BUYER'
                 },
                 selected: {
                     full_name: "Buyer",
                     gender: 'male',
                     type: "visitor",
-                    outstanding_balance: "0"
+                    outstanding_balance: "0",
+                    customer_id : 'BUYER'
                 },
                 selectCustomer: function (cust) {
                     $scope.buyer.customer.selected = cust;
@@ -321,9 +323,29 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                         total_cost : $scope.cart.currentCart.total.total_cost,
                         discount_amount : $scope.cart.currentCart.total.discount_amount,
                         discounted_total_cost : $scope.cart.currentCart.total.discounted_total_cost,
-                        item_list : $scope.cart.currentCart.cart
+                        item_list : $scope.cart.currentCart.cart,
+                        pay_method : 'Cash'
+                    }
+                },
+                receiptPrint : function(){
+                    if(!$scope.surcharge.reciept.amount_paid){
+                        alert('fill amount paid');
+                        return;
+                    }
+                    if($scope.cart.currentCart.buyer.type == 'customer'){
+                        $scope.buyer.customer.customerList.forEach(function(elm){
+                            console.log(elm);
+                            if(elm.full_name == $scope.surcharge.reciept.customer){
+                                $scope.surcharge.reciept.customer = elm.customer_id;
+                            }
+                        });
+                    }else{
+                        $scope.surcharge.reciept.customer = "BUYER";
                     }
                     console.log($scope.surcharge.reciept);
+                    /* jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
+                        sales_details: $filter('json')($scope.surcharge.reciept)
+                    }) */
                 }
             }
         }

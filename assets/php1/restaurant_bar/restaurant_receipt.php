@@ -29,7 +29,7 @@ $connector = new WindowsPrintConnector($printName);
 $printer = new Printer($connector);
 
 $sales_details = $_POST["sales_details"];
-//$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item_name":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"no", "new_stock": 0}]}';
+//$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"no", "new_stock": 0}]}';
 /*sales_details is the json string from the front-end the keys contain aspects of the
 transaction */
 $sales_details = json_decode($sales_details, true);
@@ -72,7 +72,7 @@ $select_items_query = $conn->prepare("SELECT current_stock, item, shelf_item, id
 $select_items_query->bind_param("s", $item); // continue from here
 
  for ($i=0; $i<$no_of_items; $i++) { 
- 	$item = $item_list[$i]["item_name"];
+ 	$item = $item_list[$i]["item"];
  	$item_qty = $item_list[$i]["quantity"];
  	$select_items_query->execute();
  	$select_items_query->bind_result($item_stock, $item_item, $item_shelf, $item_id);
@@ -97,7 +97,7 @@ echo "<br>$no_of_items";
 
 for ($i=0; $i <$no_of_items ; $i++) { 
 	echo "<br>$i";
-	$item = $item_list[$i]["item_name"];
+	$item = $item_list[$i]["item"];
 	$type = $item_list[$i]["type"];
 	$item_qty = $item_list[$i]["quantity"];
 	$unit_cost = $item_list[$i]["unit_cost"];
@@ -115,7 +115,7 @@ $insert_into_sales->close();
 $update_stock_query = $conn->prepare("UPDATE restaurant_items SET current_stock = ? WHERE item = ? AND shelf_item = 'yes'");
 $update_stock_query->bind_param("is", $new_stock, $item);
 for ($i=0; $i <$no_of_items ; $i++) {
-	$item = $item_list[$i]["item_name"];
+	$item = $item_list[$i]["item"];
 	$item_qty = $item_list[$i]["quantity"];
 	$shelf_item = $item_list[$i]["shelf_item"];
 	if ($shelf_item == "yes") {
@@ -218,23 +218,23 @@ function receipt_body($fprinter, $items_arr, $item_arr_count, $cost_due, $paid_a
 	fwrite($fprinter, "\x0A");
 
 	for ($i=0; $i<$item_arr_count; $i++) {
-		$item_name = $items_arr[$i]["item_name"];
-		if(strlen($item_name) < 17) {
-		  fwrite($fprinter, $item_name);
-		  for ($x=0; $x<(17-strlen($item_name)); $x++){
+		$item = $items_arr[$i]["item"];
+		if(strlen($item) < 17) {
+		  fwrite($fprinter, $item);
+		  for ($x=0; $x<(17-strlen($item)); $x++){
 			fwrite($fprinter, " ");
 		  }
-	    } elseif (strlen($item_name) < 33) {
-	    	$item_name = wordwrap($item_name, 16, "\n", true);
-	    	$array_items = explode("\n", $item_name);
-	    	fwrite($fprinter, $item_name);
+	    } elseif (strlen($item) < 33) {
+	    	$item = wordwrap($item, 16, "\n", true);
+	    	$array_items = explode("\n", $item);
+	    	fwrite($fprinter, $item);
 	    	for ($x=0; $x<(17-strlen($array_items[count($array_items) - 1])); $x++){
 			fwrite($fprinter, " ");
 		  }
 	    } elseif (strlen($products) < 49) {
 	    	$products = wordwrap($products, 16, "\n", true);
 	    	$array_items = explode("\n", $products);
-	    	fwrite($fprinter, $item_name);
+	    	fwrite($fprinter, $item);
 	    	for ($x=0; $x<(17-strlen($array_items[count($array_items) - 1])); $x++){
 			fwrite($fprinter, " ");
 		  }

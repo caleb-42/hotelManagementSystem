@@ -91,39 +91,54 @@
                     <form autocomplete="off" id="recieptForm" class="custform w-100 text-center mt-2 ">
 
                         <div class="buyer w-100">
-                            <h3 class="mb-4 opac-50 mt-3">{{surcharge.reciept.customer.name}}</h3>
+                            <h3 class="mb-4 opac-50 mt-3">{{surcharge.reciept.customer}}</h3>
+
+                            <div class="pay-method">
+                                <select ng-model = "surcharge.reciept.pay_method" class="form-control methpay mx-auto my-4 w-40 f-13"  name="paymethod">
+                                    <option value="Cash">Cash</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="POS">POS</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+    
+                            </div>
 
                             <div class="w-100 px-4 pt-3 choralback row justify-content-around wht">
                                 <span>
-                                    <h6 class="mb-2">Total Cost</h6>
-                                    <p>{{surcharge.reciept.total_cost}}</p>
-                                </span>
-                                <span>
-                                    <h6 class="mb-2">Discount</h6>
-                                    <p>{{surcharge.reciept.discount}}</p>
-                                </span>
-                                <span>
                                     <h6 class="mb-2">Sales Rep</h6>
                                     <p>{{surcharge.reciept.sales_rep}}</p>
+                                </span>
+                                <span>
+                                    <h6 class="mb-2">Discounted Total</h6>
+                                    <p>{{surcharge.reciept.discounted_total_cost}}</p>
                                 </span>
                             </div>
 
                         </div>
 
                         <div class="my-4">
-                            <ul class="w-100 row justify-content-center">
-                                <li ng-repeat="prod in surcharge.reciept.item_list" class="w-75  py-2 f-17 row justify-content-between">
-                                    <h4 class="text-left text-light">{{prod.item}}</h4>
-                                    <h4 class="text-left text-light">{{prod.quantity}}</h4>
-                                </li>
-                            </ul>
+                            <div class=" hs-25 ovflo-y">
+                                <ul class="w-100 row justify-content-center ">
+                                    <li ng-repeat="prod in surcharge.reciept.item_list" class="w-75  py-2 f-17 row justify-content-between">
+                                        <h4 class="text-left text-light">{{prod.item}}</h4>
+                                        <h4 class="text-left text-light">{{prod.quantity}}</h4>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="w-100 row justify-content-between px-4">
+                                <form autocomplete="off">
+                                    <span class="px-3 w-50"><label class = "font-fam-Montserrat-bold opac-50">Paid</label><input ng-change = "surcharge.reciept.outstanding_balance = surcharge.reciept.discounted_total_cost - surcharge.reciept.amount_paid " ng-model = "surcharge.reciept.amount_paid" name = "paid" placeholder = "Amount Paid" class="text-center form-control"/></span>
+                                    <span class="px-3 w-50"><label class = "font-fam-Montserrat-bold opac-50">Balance</label><input ng-model = "surcharge.reciept.outstanding_balance" readonly name = "paid" placeholder = "Balance" class="text-center form-control"/></span>
+                                </form>
+                            </div>
+
                         </div>
                     </form>
                 </div>
 
                 <div class="modal-footer w-100 px-5">
                     <div class="justify-content-center w-100 d-flex flex-column"><button type="button" class="b-0 btn btn-success mx-5"
-                            ng-click="">Pay</button></div>
+                            ng-click="surcharge.payment.receiptPrint(); ">Pay</button></div>
                 </div>
             </div>
             <!--....... Payment End ......... -->
