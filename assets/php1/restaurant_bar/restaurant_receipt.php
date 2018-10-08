@@ -46,7 +46,6 @@ $discounted_total_cost = $sales_details["discounted_total_cost"];
 $pay_method = $sales_details["pay_method"];
 $amount_balance = $discounted_total_cost - $amount_paid;
 $item = "";
-$yes = "yes";
 $new_stock = 0;
 $shelf_item = "";
 //$qty = $sales_details["quantity"]
@@ -62,7 +61,6 @@ if (mysqli_num_rows($last_txn_id_result) <= 0) {
 	$txn_id = $txn_id_row["id"] + 1;
 	$txn_ref = str_pad($txn_id, 5, '0', STR_PAD_LEFT);
 }
-echo "<br>$txn_ref";
 
 $no_of_items = count($item_list); // Items listed on bill
 
@@ -83,7 +81,6 @@ $select_items_query->bind_param("s", $item); // continue from here
  	} else if (($item_list[$i]["quantity"] <= intval($item_stock)) && ($item_shelf == "yes")) {
  		$item_list[$i]["new_stock"] = intval($item_stock) - $item_qty;
  	}
- 	echo "<br>$item";
  }
  $select_items_query->close();
  /* stock check*/
@@ -93,10 +90,7 @@ $insert_into_sales = $conn->prepare("INSERT INTO restaurant_sales (sales_ref, it
 
 $insert_into_sales->bind_param("sssiiiiiis", $txn_ref, $item, $type, $item_qty, $unit_cost, $net_cost, $discount_rate, $discounted_net_cost, $discount_amount, $sold_by);
 
-echo "<br>$no_of_items";
-
 for ($i=0; $i <$no_of_items ; $i++) { 
-	echo "<br>$i";
 	$item = $item_list[$i]["item_name"];
 	$type = $item_list[$i]["type"];
 	$item_qty = $item_list[$i]["quantity"];
@@ -106,8 +100,6 @@ for ($i=0; $i <$no_of_items ; $i++) {
 	$discounted_net_cost = $item_list[$i]["discounted_net_cost"];
 	$discount_amount = $item_list[$i]["discount_amount"];
 	$sold_by = $item_list[$i]["sold_by"];
-	echo "<br>$item";
-
 	$insert_into_sales->execute();
 }
 $insert_into_sales->close();
@@ -120,9 +112,7 @@ for ($i=0; $i <$no_of_items ; $i++) {
 	$shelf_item = $item_list[$i]["shelf_item"];
 	if ($shelf_item == "yes") {
 		$new_stock = $item_list[$i]["new_stock"];
-		echo "<br>$new_stock";
 		$update_stock_query->execute();
-		echo "<br>Update Attempted";
 	}
 }
 $update_stock_query->close();
