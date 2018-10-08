@@ -1,5 +1,4 @@
-<?php include_once ("assets/php/login.php");
-date_default_timezone_set('Africa/Lagos');
+<?php date_default_timezone_set('Africa/Lagos');
 $date=date("D M d, Y g:i a");
 ?>
 <!DOCTYPE html>
@@ -33,7 +32,7 @@ $date=date("D M d, Y g:i a");
     <body>
         <div class="container">
             <div class = "adminform row justify-content-center" style="height: 100vh;">
-                <form autocomplete="off" role="form" method="post" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="align-self-center">
+                <form autocomplete="off" role="form" method="post" action = "assets/php1/restaurant_bar/restaurant_logon.php" class="align-self-center">
                     <div class="formhd text-center px-4 pt-4">
                         <img  class = "" width = 200px height = 70px src = "assets/img/logo.png"/>
                         <h5 class = "Title mb-4 pb-1 mx-5 mt-3 wht font-fam-Calibri">Sales</h5>
@@ -54,7 +53,9 @@ $date=date("D M d, Y g:i a");
                             </div>-->
                         </div>
                         <div class="row justify-content-center w-100" style="margin-top:-56px !important;" >
-                            <p id="output" class="str text-center " style="opacity:1; font-size:17px; font-weight: 700" ><?php echo "<script type = 'text/javascript'>
+                            <p id="output" class="str text-center " style="opacity:1; font-size:17px; font-weight: 700" ><?php $output = ""; if(array_key_exists("output", $_GET)){
+                                $output = $_GET["output"] ? $_GET["output"] : "";
+                            } echo "<script type = 'text/javascript'>
             jQuery(function(){
             jQuery('#sendGif').toggleClass('notvisible');
             if('$output' != ''){
@@ -63,7 +64,7 @@ $date=date("D M d, Y g:i a");
             } else {
                 jQuery('#output').css('color', '#333');
             }
-            jQuery('#output').text('$output').fadeTo('slow', 1).delay(2000)
+            jQuery('#output').text('$output').fadeTo('slow', 1).delay(4000)
             .fadeTo('slow', 0,function(){
             jQuery('#output').text('');
             });

@@ -7,11 +7,11 @@
             </button>
             </div>
             <!--tabnav end-->
-            <div class="searchbox col-5 h-100 row  align-items-end pb-1" ng-mouseleave="searchbox.iconhover = true">
-                <div class="col-10">
+            <div class="searchbox col-5 h-100 row  align-items-end pb-1" >
+                <div class="col-8">
                     <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
                 <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
-                <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2" ng-mouseover="searchbox.iconhover = false"></div>
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" ng-mouseenter="settings.log = false;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" class = "anim btn w-100 font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
             </div>
 
         </div>
@@ -20,7 +20,17 @@
                 <div class="animate-switch Products px-4 h-100" ng-switch-default>
                     <div class="prodlisthd row justify-content-between">
                         <h4 class=" my-4 py-2 font-fam-Montserrat-bold">Manage Products</h4>
-                        <div class="my-4"><button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Add Product'; settings.modal.name = 'Add Product'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Update Product'; settings.modal.name = 'Update Product'; settings.modal.size = 'lg'; " ng-disabled="!stocks.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!stocks.jslist.selected" ng-click = "stocks.deleteProduct()">Delete</button></div>
+                        <div class="my-4 row justify-content-between align-items-center">
+
+                        <div class = "stockcrudbtns my-4 mr-4">
+                        <button class="btn btn-sm btn-primary mx-1 font-fam-Montserrat f-12" ng-disabled="!productstock.jslist.selected" ng-click="stock.activateStockModal();" data-toggle="{{stock.modal}}" data-target="#crud" >Add Stock</button><!-- <button class="btn btn-sm btn-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Update Stock'; settings.modal.name = 'Update Stock'; settings.modal.size = 'lg'; " ng-disabled="!productstock.jslist.selected">Update Stock</button><button class="btn btn-sm btn-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!productstock.jslist.selected" ng-click = "stock.deleteProduct()">Delete Stock</button> -->
+                        </div>
+
+                        <div class = "productcrudbtns my-4 align-items-center ">
+                        <button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Add Product'; settings.modal.name = 'Add Product'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Update Product'; settings.modal.name = 'Update Product'; settings.modal.size = 'lg'; " ng-disabled="!productstock.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!productstock.jslist.selected" ng-click = "productstock.deleteProduct()">Delete</button>
+                        </div>
+
+                        </div>
                     </div>
                     <div class="prodlist h-80">
                         <productlist></productlist>
@@ -55,33 +65,18 @@
                 </div>
                 <div class = "discount text-center">
                 <div class = "row header">
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'item'" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.select_discount('item');" ng-class = "{'btn-warning': details.discount.selected_discount == 'item','dark': details.discount.selected_discount != 'item'}">
                         <h6>Item Discount</h6>
                     </div>
-                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.selected_discount = 'total'" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
+                    <div class = "anim text-center col-6 py-2 pointer font-weight-bold" ng-click = "details.discount.select_discount('total');" ng-class = "{'btn-warning': details.discount.selected_discount == 'total','dark': details.discount.selected_discount != 'total'}">
                         <h6>Total Discount</h6>
                     </div>
 
                 </div>
-                <div ng-switch on = "details.discount.selected_discount" class = "w-100 h-70 px-3 discountlist">
-
-                    <div ng-switch-when = "item" class = "w-100">
-                    
-                    <ul>
-                        <li class = "row w-100 b-1 py-4" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Update Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">
-                            <div class = "col-4"><div class = "center text-center btn-success"><h4 class = "py-2 m-0">12%</h4></div></div>
-                            <div class = "col-8 text-right dark font-weight-bold pr-4 "><h4 class = "m-0">{{3150 | nairacurrency}}</h4></div>
-                        </li>
-                    </ul>
-                    </div>
-                    <div ng-switch-when = "total">
-                    total
-                    </div>
-                
-                </div>
-                <div class="row w-100 justify-content-around">
-                <button class="btn w-40 btn-success f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Add Discount</button>
-                <button class="btn w-40 btn-danger f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud">Delete Discount</button>
+                <discountlist class = "discntfade"></discountlist>
+                <div class="row w-100 justify-content-around discntfade">
+                <button class="btn w-40 btn-success f-14" ng-click="settings.modal.active = 'Discount'; settings.modal.name = 'Add Discount'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" ng-disabled= "!productstock.jslist.selected && details.discount.selected_discount == 'item'">Add Discount</button>
+                <button class="btn w-40 btn-danger f-14" ng-click="details.discount.deleteDiscount()" ng-disabled= "!details.discount.jslist.selected">Delete Discount</button>
                 </div>
             </div>
             </div>

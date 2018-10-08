@@ -1,13 +1,34 @@
-var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp','ngCroppie']);
+var app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngSanitize', 'salesApp', 'stocksApp', 'usersApp', 'recordsApp', 'ngCroppie']);
 
 app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope) {
     $rootScope.settings = {
         modal: {
             active: "",
             name: "",
-            size: ""
+            size: "",
+            msg: "",
+            msgprompt: function (arr) {
+                if (typeof (arr) == "string") {
+                    $rootScope.settings.modal.msg = "BACKEND CODE ERROR";
+                    $rootScope.settings.modal.msgcolor = "choral";
+                } else {
+                    $rootScope.settings.modal.msg = arr[1];
+                    if(arr[0] == "OUTPUT"){
+                        $rootScope.settings.modal.msgcolor = "green";
+                        $rootScope.settings.modal.close()
+                    }else{
+                        $rootScope.settings.modal.msgcolor = "choral";
+                    }
+                }
+            }
         },
-        user: ""
+        userDefinition: function (user, role) {
+            $rootScope.settings.user = user;
+            $rootScope.settings.role = role;
+        },
+        user: "",
+        role: "",
+        log: true
     }
     $scope.sidebarnav = {
         navig: {
@@ -35,7 +56,7 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
                     innerHtml: '',
                 },
                 {
-                    name: "History",
+                    name: "Records",
                     listClass: "anim",
                     iconClass: "mr-3 fa fa-history",
                     innerHtml: '',
@@ -54,3 +75,4 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
 var salesApp = angular.module('salesApp', []);
 var stocksApp = angular.module('stocksApp', []);
 var usersApp = angular.module('usersApp', []);
+var recordsApp = angular.module('recordsApp', []);

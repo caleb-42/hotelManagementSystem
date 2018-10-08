@@ -12,7 +12,7 @@ $no_of_items = count($del_array);
 
 $delete_items_query = $conn->prepare("DELETE FROM restaurant_items WHERE item = ? AND id = ?");
 $delete_items_query->bind_param("si", $item, $item_id);
-
+print_r($del_array);
 for ($i=0; $i < $no_of_items; $i++) { 
  	$item = $del_array[$i]["item"];
  	$item_id = $del_array[$i]["id"];

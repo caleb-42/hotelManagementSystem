@@ -1,17 +1,17 @@
 <div ng-controller="users">
     <div class="prime-hd anim">
         <div class="statusbar grn row  align-items-end pl-1">
-            <div class="tabnav col-7 row">
+            <div class="tabnav col-5 row">
                 <button ng-repeat='nav in tabnav.navs' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected}">
                 <h5>{{nav.name}}</h5>
             </button>
             </div>
             <!--tabnav end-->
-            <div class="searchbox col-5 h-100 row  align-items-end pb-1" ng-mouseleave="searchbox.iconhover = true">
-                <div class="col-10">
+            <div class="searchbox col-7 h-100 row  align-items-end pb-1">
+            <div class="col-8">
                     <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
                 <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
-                <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2" ng-mouseover="searchbox.iconhover = false"></div>
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" ng-mouseenter="settings.log = false;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" class = "anim btn w-100 pointer font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
             </div>
 
         </div>
@@ -20,7 +20,7 @@
                 <div class="animate-switch User px-4 h-100" ng-switch-default>
                     <div class="userlisthd row justify-content-between">
                         <h4 class=" my-4 py-2 font-fam-Montserrat-bold">Manage Users</h4>
-                        <div class="my-4"><button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'User'; settings.modal.name = 'Add User'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'User'; settings.modal.name = 'Update User'; settings.modal.size = 'lg'; " ng-disabled="!stocks.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-disabled="!stocks.jslist.selected">Delete</button></div>
+                        <div class="my-4"><button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'User'; settings.modal.name = 'Add User'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button><button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'User'; settings.modal.name = 'Update User'; settings.modal.size = 'lg'; " ng-disabled="!users.jslist.selected">Update</button><button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-click="users.deleteUser()"  ng-disabled="!users.jslist.selected">Delete</button></div>
                     </div>
                     <div class="userlist h-80">
                         <userlist></userlist>
@@ -38,12 +38,11 @@
         <!--statusbar for main-sidebar-right end -->
         <div class="sidebar-body" ng-switch on="tabnav.selected">
             <div ng-switch-default>
-                <div class = "sessions">
-                
+                <div class = "sessions p-4 w-100">
+                    
+                <sessionlist></sessionlist>
                 </div>
-            </div>
-            </div>
-            
+            </div>            
         </div>
     </div>
     <!--main-sidebar-right end-->

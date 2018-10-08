@@ -20,17 +20,17 @@ body {
     overflow: hidden;
     background: #eee;
 }
-
+/* 
 .wrapper {
     padding-left: 80px;
-}
+} */
 
 .wrapper.toggled {
-    padding-left: 250px;
+    padding-left: 250px !important;
 }
 
 .wrapper.toggled .sidebarleft {
-    width: 250px;
+    width: 250px !important;
 }
 
 .wrapper.toggled .main-sidebar-right {
@@ -110,7 +110,7 @@ body {
 }
 
 .sidebarleft {
-    width: 80px;
+    /* width: 80px; */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -150,7 +150,6 @@ body {
     width: 55%;
     float: left;
 }
-
 .Users .main-sidebar-right {
     width: 45%;
     float: right;
@@ -515,12 +514,7 @@ body {
     font-size: 16px;
     border-bottom: 1px solid #ccc;
 }
-productlist li.actparent{
-    color: white !important;
-    /*box-shadow:  200px 200px 20px rgba(217, 83, 79, .9) inset !important;*/
-    box-shadow:  200px 200px 20px rgba(54, 165, 67, .8) inset !important;
-}
-userlist li.actparent{
+productlist li.actparent, userlist li.actparent, customerslist li.actparent{
     color: white !important;
     /*box-shadow:  200px 200px 20px rgba(217, 83, 79, .9) inset !important;*/
     box-shadow:  200px 200px 20px rgba(54, 165, 67, .8) inset !important;
@@ -530,7 +524,9 @@ userlist li.actparent{
     color: #333;
     padding: 10px 0px;
 }
-
+.report{
+    font-weight: 500;
+}
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {

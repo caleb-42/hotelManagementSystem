@@ -16,27 +16,56 @@ usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', fun
     $scope.users = {
         itemlist: function () {
             return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_items.php", {})
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_users.php", {})
             }
         },
         addUser: function (jsonprod) {
-            jsonprod.discount_rate = 0;
-            jsonprod.discount_criteria = 0;
-            jsonprod.discount_available = "";
-            console.log("new product", jsonprod);
+            console.log("new user", jsonprod);
 
-            jsonPost.data("assets/php1/restaurant_bar/admin/add_item.php", {
-                new_item: $filter('json')(jsonprod)
+            jsonPost.data("assets/php1/restaurant_bar/admin/add_user.php", {
+                new_user: $filter('json')(jsonprod)
             }).then(function (response) {
                 console.log(response);
-                $scope.stocks.addingProduct = false;
-                $scope.stocks.jslist.createList();
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.users.adding = false;
+                $scope.users.jslist.createList();
             });
         },
-        updateUser: function (jsonprod) {
-            console.log("new product", jsonprod);
+        updateUser: function (jsonuser) {
+            jsonuser.id = $scope.users.jslist.selected;
+            console.log("new product", jsonuser);
+            jsonPost.data("assets/php1/restaurant_bar/admin/edit_user.php", {
+                update_user: $filter('json')(jsonuser)
+            }).then(function (response) {
+                $scope.users.jslist.toggleOut();
+                console.log(response);
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.users.adding = false;
+                $scope.users.jslist.createList();
+                $scope.users.jslist.toggleIn();
+            });
+        },
+        deleteUser: function () {
+            jsonuser = {};
+            jsonuser.users = [$scope.users.jslist.selectedObj];
+            console.log("new users", jsonuser);
+            jsonPost.data("assets/php1/restaurant_bar/admin/del_user.php", {
+                del_users: $filter('json')(jsonuser)
+            }).then(function (response) {
+                $scope.users.jslist.toggleOut();
+                console.log(response);
+                $scope.users.jslist.createList();
+                $scope.users.jslist.toggleIn();
+            });
         }
     };
 
+    $scope.sessions = {
+        itemlist: function () {
+            return {
+                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_sessions.php", {})
+            }
+        }
+    }
 
 }]);

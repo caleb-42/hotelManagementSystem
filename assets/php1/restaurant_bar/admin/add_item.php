@@ -2,7 +2,7 @@
 sleep(2);
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 $new_item = json_decode($_POST["new_item"], true);
-
+//print_r($new_item);
 // $new_item = '{"item": "sprite", "type": "soft-drink", "category": "drinks", "description": "plastic (33cl)", "current_price": 200, "discount_rate": 0, "discount_criteria":0, "discount_available":"no", "shelf_item": "yes", "current_stock": 50}';
 // $new_item = json_decode($new_item, true);
 // var_dump($new_item);

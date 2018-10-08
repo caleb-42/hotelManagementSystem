@@ -18,6 +18,6 @@ unset($_SESSION['role']);
 session_unset();
 session_destroy();
  
-header("Location:  ../../../logon.php"); 
+header("Location:  ../../../logIn.php"); 
 exit();
 ?>

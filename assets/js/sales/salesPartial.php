@@ -8,9 +8,10 @@
         </div>
         <!--tabnav end-->
         <div class="searchbox col-5 h-100 row  align-items-end pb-1">
-            <div class="col-10">
-                <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
-            <div class="fa fa-search fa-2x row  align-items-end pb-1 wht col-2"></div>
+        <div class="col-8">
+                    <input class="form-control float-right anim" ng-model="searchbox.imp" /></div>
+                <!-- ng-class="{vanishsearch:searchbox.iconhover}" -->
+                <div class="wht text-center col-4 px-0"><a  ng-mouseleave="settings.log = true;" href = "./assets/php1/restaurant_bar/restaurant_logoff.php" ng-mouseenter="settings.log = false;" class = "anim btn w-100 font-fam-Montserrat-bold btn-sm btn-outline-secondary wht mb-2">{{settings.log ? settings.user : 'log out'}}</a></div>
         </div>
 
     </div>
@@ -53,12 +54,14 @@
         <div ng-switch-default>
             <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart' : !sales.order.orderDeselect}">
                 <div class="col-3 m-0" ng-click="buyer.customer.selected = buyer.customer.selectedDefault">
-                    <div class="{{buyer.customer.selected.sex == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
+                    <div class="{{buyer.customer.selected.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
                 </div>
-                <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
-                    <span class="m-0 p-0 buyerbio"><p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.name == buyer.customer.selectedDefault.name ? 'Select Customer' : buyer.customer.selected.name}}</p><p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.name == buyer.customer.selectedDefault.name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
+                <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.customer.makeCustomerList(); buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
+                    <span class="m-0 p-0 buyerbio">
+                        <p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name ? 'Select Customer' : buyer.customer.selected.full_name}}</p>
+                        <p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
                 </div>
-                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
+                <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'md' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
                     <i class="fa addicon pointer " ng-if="sales.order.orderDeselect"></i>
                     <h4 class="wht f-13 mt-1" ng-if="!sales.order.orderDeselect">ORDER</h4>
                 </div>
@@ -78,7 +81,7 @@
                     </div>
                 </div>
                 <!--<button class="btn-block btn "><span class="mr-1">N</span>{{cart.TotalItemCost}}</button>-->
-                <button class="btn-block btn btn-warning my-2"><span class="mr-1 mt-1">N</span>{{surcharge.TotalItemCost}}</button>
+                <button class="btn-block btn {{surcharge.discount.type == 'Total' ? 'custom-btn-outline-warning' : 'btn-warning'}} my-2" ng-mouseleave = "surcharge.totalClass = false" ng-mouseover = "surcharge.totalClass = true"><span class="mr-1 mt-1">N</span>{{ surcharge.totalClass || surcharge.discount.type == 'Item' ? cart.currentCart.total.total_cost : (cart.currentCart.total.discounted_total_cost + ' &nbsp  |  &nbsp %' + cart.currentCart.total.transaction_discount)}}</button>
                 <div class="row">
                     <button class="col-5 btn sechue" ng-click="sales.order.command()">{{!sales.order.orderDeselect ? 'Delete Order' : 'Open Order'}}</button>
                     <button class="offset-2 col-5 btn btn-success" data-toggle="modal" data-target="#Customer" ng-click="settings.modal.active = 'payment'; surcharge.payment.preview(); settings.modal.name = 'Reciept Preview'; settings.modal.size = 'md' ">Pay</button>

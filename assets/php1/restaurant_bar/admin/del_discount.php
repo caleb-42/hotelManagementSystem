@@ -7,12 +7,12 @@ $del_discounts = json_decode($_POST["del_discounts"], true);
 $deleted = [];
 $unique_keys = [];
 
-$discounts = json_decode($del_discounts, true);
+$discounts = $del_discounts;
 $del_array = $discounts["discounts"];
 $no_of_discounts = count($del_array);
 
 $delete_discounts_query = $conn->prepare("DELETE FROM restaurant_discount WHERE id = ?");
-var_dump($delete_discounts_query);
+//var_dump($delete_discounts_query);
 $delete_discounts_query->bind_param("i", $discount_id);
 
 for ($i=0; $i < $no_of_discounts; $i++) { 

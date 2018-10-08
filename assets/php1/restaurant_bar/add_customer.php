@@ -25,7 +25,6 @@ while (mysqli_num_rows($duplicate_ref_result) > 0) {
     $duplicate_ref_query = "SELECT * FROM restaurant_customers WHERE customer_id = '$cus_ref'";
     $duplicate_ref_result = mysqli_query($dbConn, $duplicate_check_query);
 }
-
 $add_new_customer_query = "INSERT INTO restaurant_customers (customer_id, full_name, gender, phone_number, contact_address, outstanding_balance) VALUES('$cus_ref', '$full_name', '$gender', '$phone_number', '$contact_address', 0)";
 $add_new_customer_result = mysqli_query($dbConn, $add_new_customer_query);
 

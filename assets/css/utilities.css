@@ -15,6 +15,10 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+.btn-outline-secondary:hover{
+    background: #444;
+    border:1px solid #444;
+}
 .center{
     overflow: auto;
     margin: auto;
@@ -129,6 +133,9 @@ li{
 .f-15{
     font-size: 15px  !important;
 }
+.f-16{
+    font-size: 15px  !important;
+}
 .f-17{
     font-size: 17px  !important;
 }
@@ -159,7 +166,10 @@ input::placeholder {
     visibility:hidden;
 }
 .gone{
-    display: none;
+    display: none !important;
+}
+.notgone{
+    display: block !important;
 }
 .vanish {
     opacity: 0;
@@ -174,6 +184,19 @@ input::placeholder {
     background: #3F8246;
 /*    font-weight: 700;*/
 }
+
+.custom-btn-outline-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+  }
+  
+  .custom-btn-outline-warning:hover {
+    color: #f0ad4e;
+    background-image: none;
+    background-color: transparent;
+    border-color: #f0ad4e;
+  }
 .grn{
     background: #49B756;
 /*    font-weight: 700;*/
@@ -182,9 +205,12 @@ input::placeholder {
     background: #28562C;
     color: white;
 }
+.btn-lytgrn{
+    background: rgba(60, 172, 38, .2);
+}
 .btn-gdark{
     background: #444;
-    color: white;
+    color: white !important;
 }
 .btn-gdark:hover{
     background: #222;
@@ -306,6 +332,9 @@ button.btnnone{
     -moz-transition: all 0.7s ease;
     -o-transition: all 0.7s ease;
     transition: all 0.7s ease;
+}
+.text-strike{
+    text-decoration: line-through;
 }
 @keyframes fadeInFromNone{
     from {opacity: 0;}

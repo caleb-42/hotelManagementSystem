@@ -28,8 +28,8 @@ $biz_contact = $shop_contact . "\n";
 $connector = new WindowsPrintConnector($printName);
 $printer = new Printer($connector);
 
-//$sales_details = $_POST["sales_details"];
-$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item_name":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"no", "new_stock": 0}]}';
+$sales_details = $_POST["sales_details"];
+//$sales_details = '{"customer": "Ugonna", "sales_rep": "webplay", "customer_ref": "LOD_001", "transaction_discount": 10, "amount_paid": 5000, "total_cost": 8000, "discounted_total_cost": 7200, "pay_method": "CASH", "item_list": [{"item_name":"heineken", "type":"beer", "quantity": 4, "unit_cost": 300, "net_cost": 1200, "discount_rate": 0, "discounted_net_cost": 1200, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"fanta", "type":"soft drink", "quantity": 4, "unit_cost": 200, "net_cost": 800, "discount_rate": 0, "discounted_net_cost": 800, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"yes", "new_stock": 12}, {"item_name":"hot-dog", "type":"beef", "quantity": 6, "unit_cost": 1000, "net_cost": 6000, "discount_rate": 0, "discounted_net_cost": 6000, "discount_amount": 0, "sold_by":"webplay", "shelf_item":"no", "new_stock": 0}]}';
 /*sales_details is the json string from the front-end the keys contain aspects of the
 transaction */
 $sales_details = json_decode($sales_details, true);

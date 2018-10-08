@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2018 at 03:57 PM
+-- Generation Time: Oct 08, 2018 at 10:54 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -42,20 +42,6 @@ CREATE TABLE IF NOT EXISTS `frontdesk_bookings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `frontdesk_customer_transactions`
---
-
-CREATE TABLE IF NOT EXISTS `frontdesk_customer_transactions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_ref` varchar(100) NOT NULL,
-  `section` varchar(150) NOT NULL,
-  `transaction_ref` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `frontdesk_guests`
 --
 
@@ -67,14 +53,27 @@ CREATE TABLE IF NOT EXISTS `frontdesk_guests` (
   `phone_number` varchar(100) NOT NULL DEFAULT '',
   `contact_address` varchar(300) NOT NULL DEFAULT '',
   `total_rooms_booked` int(11) NOT NULL,
+  `lodged_in` varchar(11) NOT NULL DEFAULT 'YES',
   `check_in_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `check_out_date` timestamp NOT NULL,
-  `booking_cost` int(11) NOT NULL,
-  `deposit` int(11) NOT NULL,
-  `balance` int(11) NOT NULL,
+  `room_outstanding` int(11) NOT NULL,
   `restaurant_outstanding` int(11) NOT NULL,
   `checked_out` varchar(50) NOT NULL,
   `visit_count` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `frontdesk_other_transactions`
+--
+
+CREATE TABLE IF NOT EXISTS `frontdesk_other_transactions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_ref` varchar(100) NOT NULL,
+  `section` varchar(150) NOT NULL,
+  `transaction_ref` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -110,11 +109,33 @@ CREATE TABLE IF NOT EXISTS `frontdesk_rooms` (
   `current_guest_id` varchar(200) NOT NULL DEFAULT '',
   `extra_guests` int(11) NOT NULL DEFAULT '0',
   `booked` varchar(50) NOT NULL DEFAULT 'NO',
+  `booking_ref` varchar(100) NOT NULL,
   `booked_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `booking_expires` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `reserved` varchar(50) NOT NULL DEFAULT 'NO',
+  `reserved_by` varchar(200) NOT NULL DEFAULT '',
+  `reservation_ref` varchar(100) NOT NULL DEFAULT '',
   `reservation_date` date NOT NULL DEFAULT '0000-00-00',
   `reservation_expiry` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `frontdesk_txn`
+--
+
+CREATE TABLE IF NOT EXISTS `frontdesk_txn` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `txn_ref` varchar(100) NOT NULL,
+  `total_rooms_booked` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL,
+  `deposited` int(11) NOT NULL,
+  `balance` int(11) NOT NULL,
+  `means_of_payment` varchar(100) NOT NULL,
+  `payment_status` varchar(100) NOT NULL,
+  `frontdesk_rep` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -133,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `restaurant_customers` (
   `contact_address` varchar(200) NOT NULL DEFAULT '',
   `outstanding_balance` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `restaurant_customers`
@@ -141,7 +162,11 @@ CREATE TABLE IF NOT EXISTS `restaurant_customers` (
 
 INSERT INTO `restaurant_customers` (`id`, `customer_id`, `full_name`, `gender`, `phone_number`, `contact_address`, `outstanding_balance`) VALUES
 (1, 'LOD_001', 'Tegogo', '', '', '', 0),
-(2, 'TAB_001', 'Tego', '', '', '', 0);
+(2, 'TAB_001', 'Tego', '', '', '', 0),
+(5, 'RES_58046', 'Ewere', 'male', '08023456789', '20 adesuwa rd. benin', 0),
+(6, 'RES_99116', 'Ryan', 'male', '09098407743', '25 Adesuwa Rd. Benin', 0),
+(7, 'RES_18294', 'Ryan', 'male', '08023456789', '20 adesuwa rd. benin', 0),
+(8, 'RES_44598', 'Harvey Reynolds', 'male', '08023456789', '20 adesuwa rd. benin', 0);
 
 -- --------------------------------------------------------
 
@@ -198,8 +223,8 @@ CREATE TABLE IF NOT EXISTS `restaurant_items` (
 --
 
 INSERT INTO `restaurant_items` (`id`, `item`, `type`, `category`, `description`, `current_price`, `discount_rate`, `discount_criteria`, `discount_available`, `shelf_item`, `current_stock`, `last_stock_update`, `reg_date`) VALUES
-(1, 'heineken', 'beer', 'alcohol', 'can (33cl)', 300, 0, 0, '', 'yes', 52, '0000-00-00 00:00:00', '2018-07-25 12:56:22'),
-(2, 'fanta', 'soft drink', 'drinks', 'plastic (33cl)', 200, 0, 0, '', 'yes', 140, '0000-00-00 00:00:00', '2018-07-25 12:58:25'),
+(1, 'heineken', 'beer', 'alcohol', 'can (33cl)', 300, 0, 0, '', 'yes', 44, '0000-00-00 00:00:00', '2018-07-25 12:56:22'),
+(2, 'fanta', 'soft drink', 'drinks', 'plastic (33cl)', 200, 0, 0, '', 'yes', 132, '0000-00-00 00:00:00', '2018-07-25 12:58:25'),
 (3, 'sharwama', 'chicken', 'snacks', 'medium', 1200, 0, 0, '', 'no', NULL, '0000-00-00 00:00:00', '2018-07-28 12:34:06'),
 (4, 'hot-dog', 'beef', 'snacks', 'medium', 1000, 0, 0, '', 'no', NULL, '0000-00-00 00:00:00', '2018-07-28 12:37:18');
 
@@ -221,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `restaurant_payments` (
   `customer_id` varchar(100) NOT NULL,
   `means_of_payment` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `restaurant_payments`
@@ -235,7 +260,9 @@ INSERT INTO `restaurant_payments` (`id`, `restaurant_txn`, `txn_date`, `amount_p
 (5, '00006', '2018-08-22 12:44:16', 5000, '2018-08-22 11:44:16', 2200, 0, 7200, 'LOD_001', ''),
 (6, '00007', '2018-08-22 12:47:23', 5000, '2018-08-22 11:47:23', 2200, 0, 7200, 'LOD_001', ''),
 (7, '00008', '2018-08-22 12:48:20', 5000, '2018-08-22 11:48:20', 2200, 0, 7200, 'LOD_001', ''),
-(8, '00009', '2018-08-22 12:48:53', 5000, '2018-08-22 11:48:53', 2200, 0, 7200, 'LOD_001', '');
+(8, '00009', '2018-08-22 12:48:53', 5000, '2018-08-22 11:48:53', 2200, 0, 7200, 'LOD_001', ''),
+(9, '00010', '2018-10-05 16:26:03', 5000, '2018-10-05 15:26:03', 5000, 2200, 7200, 'CASH', 'LOD_001'),
+(10, '00011', '2018-10-05 16:29:01', 5000, '2018-10-05 15:29:01', 5000, 2200, 7200, 'CASH', 'LOD_001');
 
 -- --------------------------------------------------------
 
@@ -256,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `restaurant_sales` (
   `discount_amount` int(11) NOT NULL,
   `sold_by` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=103 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=109 ;
 
 --
 -- Dumping data for table `restaurant_sales`
@@ -331,7 +358,13 @@ INSERT INTO `restaurant_sales` (`id`, `sales_ref`, `item`, `type`, `quantity`, `
 (99, '00008', 'hot-dog', 'beef', 6, 1000, 6000, 0, 6000, 0, 'webplay'),
 (100, '00009', 'heineken', 'beer', 4, 300, 1200, 0, 1200, 0, 'webplay'),
 (101, '00009', 'fanta', 'soft drink', 4, 200, 800, 0, 800, 0, 'webplay'),
-(102, '00009', 'hot-dog', 'beef', 6, 1000, 6000, 0, 6000, 0, 'webplay');
+(102, '00009', 'hot-dog', 'beef', 6, 1000, 6000, 0, 6000, 0, 'webplay'),
+(103, '00010', 'heineken', 'beer', 4, 300, 1200, 0, 1200, 0, 'webplay'),
+(104, '00010', 'fanta', 'soft drink', 4, 200, 800, 0, 800, 0, 'webplay'),
+(105, '00010', 'hot-dog', 'beef', 6, 1000, 6000, 0, 6000, 0, 'webplay'),
+(106, '00011', 'heineken', 'beer', 4, 300, 1200, 0, 1200, 0, 'webplay'),
+(107, '00011', 'fanta', 'soft drink', 4, 200, 800, 0, 800, 0, 'webplay'),
+(108, '00011', 'hot-dog', 'beef', 6, 1000, 6000, 0, 6000, 0, 'webplay');
 
 -- --------------------------------------------------------
 
@@ -341,7 +374,7 @@ INSERT INTO `restaurant_sales` (`id`, `sales_ref`, `item`, `type`, `quantity`, `
 
 CREATE TABLE IF NOT EXISTS `restaurant_sessions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(100) NOT NULL,
+  `user_name` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL,
   `logged_on_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `logged_off_time` timestamp NOT NULL,
@@ -418,7 +451,7 @@ CREATE TABLE IF NOT EXISTS `restaurant_txn` (
   `payment_status` varchar(100) NOT NULL,
   `sales_rep` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `restaurant_txn`
@@ -433,7 +466,9 @@ INSERT INTO `restaurant_txn` (`id`, `txn_ref`, `total_items`, `total_cost`, `tra
 (6, '00006', 3, 8000, 10, 7200, 5000, 2200, '2018-08-22 11:44:16', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay'),
 (7, '00007', 3, 8000, 10, 7200, 5000, 2200, '2018-08-22 11:47:23', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay'),
 (8, '00008', 3, 8000, 10, 7200, 5000, 2200, '2018-08-22 11:48:20', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay'),
-(9, '00009', 3, 8000, 10, 7200, 5000, 2200, '2018-08-22 11:48:54', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay');
+(9, '00009', 3, 8000, 10, 7200, 5000, 2200, '2018-08-22 11:48:54', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay'),
+(10, '00010', 3, 8000, 10, 7200, 5000, 2200, '2018-10-05 15:26:03', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay'),
+(11, '00011', 3, 8000, 10, 7200, 5000, 2200, '2018-10-05 15:29:01', 'LOD_001', 'CASH', 'UNBALANCED', 'webplay');
 
 -- --------------------------------------------------------
 
