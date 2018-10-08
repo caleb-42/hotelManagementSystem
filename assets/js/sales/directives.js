@@ -41,7 +41,7 @@ salesApp.directive('jslist', ['List', '$rootScope', function (List, $rootScope) 
     };
 }]);
 
-salesApp.directive('cartitems', ['$rootScope', function ($rootScope) {
+salesApp.directive('cartitems', ['$rootScope', '$filter', 'jsonPost', function ($rootScope, $filter, jsonPost) {
     return {
         restrict: 'E',
         templateUrl: './assets/js/sales/listTemplates.php?type=cartitems',
@@ -55,9 +55,9 @@ salesApp.directive('cartitems', ['$rootScope', function ($rootScope) {
             scope.cartitemsOps = {
                 addItemQty: function ($index, avaQty, editQty) {
                     avaQty = avaQty ? avaQty : 0;
-                    
+
                     scope.cart[$index].quantity >= parseInt(avaQty) && scope.cart[$index].shelf_item == 'yes' ? null : scope.cart[$index].quantity++;
-                    
+
                     //console.log(scope.cart);
                     scope.cartitemsOps.calc($index, avaQty);
                 },
@@ -65,27 +65,105 @@ salesApp.directive('cartitems', ['$rootScope', function ($rootScope) {
                     avaQty = avaQty ? avaQty : 0;
                     scope.cart[$index].quantity = !scope.cart[$index].quantity ? 0 : scope.cart[$index].quantity;
                     console.log(scope.cart[$index].quantity);
-                    if(scope.cart[$index].quantity >= parseInt(avaQty) && scope.cart[$index].shelf_item == 'yes'){return 0};
+
+                    if (scope.cart[$index].quantity >= parseInt(avaQty) && scope.cart[$index].shelf_item == 'yes') { return 0 };
                     console.log(scope.discount);
-                    console.log(scope.cart[$index].discount_available == "yes",  scope.cart[$index].quantity >= parseInt(scope.cart[$index].discount_criteria), scope.discount == "Item");
-                    if (scope.cart[$index].discount_available == "yes" && scope.cart[$index].quantity >= parseInt(scope.cart[$index].discount_criteria)) {
-                        cost = parseInt(scope.cart[$index].current_price) * parseInt(scope.cart[$index].quantity);
-                        scope.cart[$index].net_cost = cost
-                        discount = (parseInt(scope.cart[$index].discount_rate) / 100) * cost;
-                        discountedCost = cost - discount;
-                        scope.cart[$index].discounted_net_cost = discountedCost;
-                        scope.cart[$index].discount_amount = discount;
-                        scope.cartitemsOps.netcost = discountedCost;
-                    } else {
-                        console.log($index);
-                        cost = parseInt(scope.cart[$index].current_price) * parseInt(scope.cart[$index].quantity);
-                        scope.cart[$index].net_cost = cost
-                        scope.cart[$index].discounted_net_cost = cost;
-                        scope.cart[$index].discount_amount = 0;
-                        scope.cartitemsOps.netcost = cost;
-                    }
-                    scope.totalcost();
-                    /* cartItem.discount_available == \'yes\' ? (cartItem.net_cost = cartitemsOps.calc(cartItem.current_price, cartItem.quantity)) : (cartItem.discounted_net_cost = cartitemsOps.calc(cartItem.current_price, cartItem.quantity))*/
+
+                    console.log(scope.cart[$index].discount_available == "yes", scope.cart[$index].quantity >= parseInt(scope.cart[$index].discount_criteria), scope.discount == "Item");
+
+                    jsonPost.data("assets/php1/restaurant_bar/restaurant_item_discount.php", {
+                        item: scope.cart[$index].item,
+                        current_price: scope.cart[$index].current_price,
+                        quantity: scope.cart[$index].quantity
+                    }).then(function (result) {
+                        console.log(result);
+                        if (result && scope.discount == "Item") {
+                            console.log(result);
+                            cost = parseInt(scope.cart[$index].current_price) * parseInt(scope.cart[$index].quantity);
+                            discount_rate = result[0].discount_value;
+                            discount = (parseInt(discount_rate) / 100) * cost;
+                            discountedCost = cost - discount;
+                            scope.cart[$index].net_cost = cost
+                            scope.cart[$index].discounted_net_cost = discountedCost;
+                            scope.cart[$index].discount_amount = discount;
+                            //scope.cartitemsOps.netcost = cost;
+                        } else {
+                            console.log('result');
+                            cost = parseInt(scope.cart[$index].current_price) * parseInt(scope.cart[$index].quantity);
+                            scope.cart[$index].net_cost = cost
+                            scope.cart[$index].discounted_net_cost = cost;
+                            scope.cart[$index].discount_amount = 0;
+                            scope.cartitemsOps.netcost = cost;
+                        }
+                        scope.totalcost();
+                    });
+
+                },
+                /* recalc: async function(){
+                    //scope.cart.forEach(function(elem) {
+                    arr = [];
+                    for(var i = 0; i < scope.cart.length; i++) {
+                        await jsonPost.data("assets/php1/restaurant_bar/restaurant_item_discount.php", {
+                            item: scope.cart[i].item,
+                            current_price: scope.cart[i].current_price,
+                            quantity: scope.cart[i].quantity
+                        }).then(function(result){
+                            if(result && scope.discount == "Item"){
+                                cost = parseInt(scope.cart[i].current_price) * parseInt(scope.cart[i].quantity);
+                                discount_rate = result[0].discount_value;
+                                discount = (parseInt(discount_rate) / 100) * cost;
+                                discountedCost = cost - discount;
+                                console.log('yes', i, discountedCost, cost, discount);
+                                scope.cart[i].net_cost = discountedCost
+                                scope.cart[i].discounted_net_cost = discountedCost;
+                                scope.cart[i].discount_amount = discount;
+                                //scope.cartitemsOps.netcost = cost;
+                            }else{
+                                console.log('result', i);
+                                cost = parseInt(scope.cart[i].current_price) * parseInt(scope.cart[i].quantity);
+                                scope.cart[i].net_cost = cost
+                                scope.cart[i].discounted_net_cost = cost;
+                                scope.cart[i].discount_amount = 0;
+                                scope.cartitemsOps.netcost = cost;
+                            }
+                            i == (scope.cart.length - 1) ? scope.totalcost() : null;
+                        });
+                            
+                    };
+                    
+                }, */
+                recalc: function () {
+                    //scope.cart.forEach(function(elem) {
+                    arr = [];
+                    //for(var i = 0; i < scope.cart.length; i++) {
+                    jsonPost.data("assets/php1/restaurant_bar/restaurant_items_discount.php", {
+                        items: $filter('json')(scope.cart)
+                    }).then(function (result) {
+                        console.log(result);
+                        for (var i = 0; i < scope.cart.length; i++) {
+                            if(result[i] && result[i] != 'nil' && scope.discount == "Item"){
+                                cost = parseInt(scope.cart[i].current_price) * parseInt(scope.cart[i].quantity);
+                                discount_rate = result[i].discount_value;
+                                discount = (parseInt(discount_rate) / 100) * cost;
+                                discountedCost = cost - discount;
+                                console.log('yes', i, discountedCost, cost, discount);
+                                scope.cart[i].net_cost = cost
+                                scope.cart[i].discounted_net_cost = discountedCost;
+                                scope.cart[i].discount_amount = discount;
+                                //scope.cartitemsOps.netcost = cost;
+                            }else{
+                                console.log('result', i);
+                                cost = parseInt(scope.cart[i].current_price) * parseInt(scope.cart[i].quantity);
+                                scope.cart[i].net_cost = cost
+                                scope.cart[i].discounted_net_cost = cost;
+                                scope.cart[i].discount_amount = 0;
+                                scope.cartitemsOps.netcost = cost;
+                            }
+                            i == (scope.cart.length - 1) ? scope.totalcost() : null;
+                        };
+                    });
+
+                    //};
 
                 },
                 minusItemQty: function ($index, avaQty, editQty) {
@@ -120,9 +198,13 @@ salesApp.directive('cartitems', ['$rootScope', function ($rootScope) {
                     obj = $event.currentTarget;
                     avaQty = avaQty ? avaQty : 0;
                     $(obj).val() == "" || (parseInt(sellQty) > parseInt(avaQty) && scope.cart[$index].shelf_item == 'yes') ? (scope.cart[$index].quantity = 0) : null;
+                    scope.cartitemsOps.calc($index, avaQty)
                     //console.log($index);
                 }
             };
+            $rootScope.$on('calcitemtotal', function (evt, params) {
+                scope.cartitemsOps.recalc();
+            });
         }
     };
 }]);

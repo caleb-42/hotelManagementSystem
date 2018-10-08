@@ -51,7 +51,8 @@
             </div>
         </div>
         <div class="h-100 col-5 row  justify-content-center align-items-center">
-            <h6 class="itemCost h-100 m-0 w-100 text-center font-fam-Montserrat opac-50">{{discount == "Total" ? cartItem.net_cost : cartItem.discounted_net_cost}}</h6>
+            <h6 class="itemCost h-100 m-0 w-100 text-center font-fam-Montserrat opac-50 {{discount == 'Item' ? 'text-strike f-13 pb-2' : null}}">{{cartItem.net_cost}}</h6>
+            <h6 class="itemCost  m-0 text-center font-fam-Montserrat-bold f-16 choral {{discount == 'Item' ? null : 'gone'}}">{{cartItem.discounted_net_cost}}</h6>
         </div>
     </div>
 </div>

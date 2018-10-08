@@ -148,7 +148,8 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             $scope.cart.toggleCart();
         });
         $scope.$watch("surcharge.discount.type", function (newValue) {
-            $scope.surcharge.CalcCosts();
+            //$scope.surcharge.CalcCosts();
+            $rootScope.$emit('calcitemtotal', {});
         });
 
         $scope.buyer = {
@@ -248,13 +249,14 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
 
         $scope.surcharge = {
             TotalItemCost: 0,
+            totalClass : false,
             CalcCosts: function () {
                 Total = 0;
                 if ($scope.surcharge.discount.type == "Total") {
                     //console.log($scope.surcharge.discount);
                     tot = 0;
                     $scope.cart.cartlist.forEach(function (element) {
-                        netCost =  element.net_cost;
+                        netCost =  element.discounted_net_cost;
                         console.log(netCost);
                         tot += parseInt(netCost);
                     });
@@ -293,6 +295,12 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.cart.cartlist.forEach(function (element) {
                         Total += parseInt(element.discounted_net_cost);
                     });
+                    $scope.cart.currentCart.total = {
+                        transaction_discount : 0,
+                        total_cost: Total,
+                        discounted_total_cost : Total,
+                        discount_amount : 0
+                    } 
                     $scope.surcharge.TotalItemCost = Total >= 0 ? Total : 0;
                 };
 

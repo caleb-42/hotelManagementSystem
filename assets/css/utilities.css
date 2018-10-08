@@ -133,6 +133,9 @@ li{
 .f-15{
     font-size: 15px  !important;
 }
+.f-16{
+    font-size: 15px  !important;
+}
 .f-17{
     font-size: 17px  !important;
 }
@@ -181,6 +184,19 @@ input::placeholder {
     background: #3F8246;
 /*    font-weight: 700;*/
 }
+
+.custom-btn-outline-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+  }
+  
+  .custom-btn-outline-warning:hover {
+    color: #f0ad4e;
+    background-image: none;
+    background-color: transparent;
+    border-color: #f0ad4e;
+  }
 .grn{
     background: #49B756;
 /*    font-weight: 700;*/
@@ -316,6 +332,9 @@ button.btnnone{
     -moz-transition: all 0.7s ease;
     -o-transition: all 0.7s ease;
     transition: all 0.7s ease;
+}
+.text-strike{
+    text-decoration: line-through;
 }
 @keyframes fadeInFromNone{
     from {opacity: 0;}

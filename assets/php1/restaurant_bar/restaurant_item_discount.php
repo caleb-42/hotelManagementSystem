@@ -2,6 +2,7 @@
 include "../settings/connect.php";  //database name = $dbConn
 $item = $_POST["item"];
 $net_cost = intval($_POST["current_price"]) * intval($_POST["quantity"]);
+//echo $net_cost;
 // $net_cost = 1600;
 $discount_array = [];
 $discount_json = "";
