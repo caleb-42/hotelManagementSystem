@@ -6,7 +6,7 @@ $net_cost = intval($net_cost);
 $discount_array = [];
 $discount_json = "";
 
-$discount_query = "SELECT * FROM restaurant_discount WHERE discount_item = 'all' AND (lower_limit < $net_cost AND upper_limit > $net_cost) OR (lower_limit < $net_cost AND upper_limit = 0)";
+$discount_query = "SELECT * FROM restaurant_discount WHERE discount_item = 'all' AND (lower_limit <= $net_cost AND upper_limit > $net_cost) OR (lower_limit < $net_cost AND upper_limit = 0)";
 $discount_result = mysqli_query($dbConn, $discount_query);
 
 if (mysqli_num_rows($discount_result) > 0 ) {

@@ -336,16 +336,16 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                         $scope.buyer.customer.customerList.forEach(function(elm){
                             console.log(elm);
                             if(elm.full_name == $scope.surcharge.reciept.customer){
-                                $scope.surcharge.reciept.customer = elm.customer_id;
+                                $scope.surcharge.reciept.customer_ref = elm.customer_id;
                             }
                         });
                     }else{
-                        $scope.surcharge.reciept.customer = "BUYER";
+                        $scope.surcharge.reciept.customer_ref = "BUYER";
                     }
                     console.log($scope.surcharge.reciept);
-                    /* jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
+                    jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
                         sales_details: $filter('json')($scope.surcharge.reciept)
-                    }) */
+                    })
                 }
             }
         }

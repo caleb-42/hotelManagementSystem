@@ -15,9 +15,9 @@ $discount_value = intval($discount_value);
 //$new_discount = '{"discount_name": "Twelve Percent", "lower_limit": 5, "upper_limit": }';
 
 
-if ($discount_name == "" || $lower_limit == "" || $upper_limit == "" || $discount_item == "" || $discount_value == "") {	
+if (($discount_name == "") || (($lower_limit == "") && ($lower_limit != 0)) || (($upper_limit == "") && ($upper_limit != 0)) || ($discount_item == "") || ($discount_value == "")) {	
 	$msg_response[0] = "ERROR";
-	$msg_response[1] = "The fields 'Discount name', 'Lower limit', 'Upper limit', 'Discount item' and 'Discount value' are all compulsory";
+	$msg_response[1] = "The fields 'Discount name', 'Lower limit', 'Upper limit', 'Discount item' and 'Discount value' are all compulsory " . ($lower_limit);
 	$response_message = json_encode($msg_response);
 	die($response_message);
 }
