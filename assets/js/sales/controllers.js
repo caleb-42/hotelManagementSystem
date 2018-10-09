@@ -268,6 +268,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                         net_cost: cost
                     }).then(function (response) {
                         if (response) {
+                            console.log(response);
                             discount_rate = response[0].discount_value;
                             discount = (parseInt(discount_rate) / 100) * tot;
                             discountedCost = tot - discount;

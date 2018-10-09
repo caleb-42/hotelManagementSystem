@@ -1,7 +1,7 @@
 app.directive('saleshistorylist', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
-        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in salesHistory.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (salesHistory.jslist.newItemArray = (salesHistory.jslist.values | filter:searchbox.imp))"><span class = "custref col-1">{{hist.customer_ref}}</span><span class = "text-center paymeth col-1">{{hist.pay_method}}</span><span class = "text-center items col-1">{{hist.total_items}}</span><span class = "text-center cost col-1">{{hist.total_cost}}</span><span class = "text-center discost col-1">{{hist.discounted_total_cost}}</span><span class = "text-center discnt col-1">{{hist.transaction_discount}}</span><span class = "text-center deposit col-1">{{hist.deposited}}</span><span class = "text-center bal col-1">{{hist.balance}}</span><span class = "text-center status col-1">{{hist.payment_status}}</span><span class = "text-center tranxref col-1">{{hist.txn_ref}}</span><span class = "text-center tranxtime col-1">{{hist.txn_time}}</span><span class = "text-center salesrep col-1">{{hist.sales_rep}}</span></li></ul></div></div>',
+        templateUrl: './assets/js/records/listTemplates.php?list=sales',
 
         scope: false,
 
@@ -20,12 +20,12 @@ app.directive('saleshistorylist', ['$rootScope', function ($rootScope) {
                     });
                     scope.salesHistory.listhddata = [
                         {
-                            name: "Customer Ref",
+                            name: "Tranx Ref",
                             width: "col-1",
                         },
                         {
                             name: "Method",
-                            width: "col-1",
+                            width: "col-2",
                         },
                         {
                             name: "Items",
@@ -36,38 +36,32 @@ app.directive('saleshistorylist', ['$rootScope', function ($rootScope) {
                             width: "col-1",
                         },
                         {
-                            name: "Discounted Cost",
+                            name: "Discnt Cost",
                             width: "col-1",
                         },
                         {
-                            name: "Tranx Discount",
+                            name: "Tranx Discnt",
                             width: "col-1",
                         },
                         {
                             name: "Deposited",
-                            width: "col-1",
+                            width: "col-2",
                         },
                         {
                             name: "Balance",
                             width: "col-1",
                         },
                         {
-                            name: "Payment Status",
-                            width: "col-1",
-                        },
-                        {
-                            name: "Tranx Ref",
-                            width: "col-1",
-                        },
-                        {
-                            name: "Tranx Time",
-                            width: "col-1",
-                        },
-                        {
-                            name: "Sales Rep",
-                            width: "col-1",
+                            name: "Status",
+                            width: "col-2",
                         }
                     ];
+                },
+                select: function (index, id) {
+                    scope.salesHistory.jslist.selected = id;
+                    scope.salesHistory.jslist.selectedObj = scope.salesHistory.jslist.newItemArray[index];
+                    console.log(scope.salesHistory.jslist.selectedObj);
+                    $rootScope.$emit('tranxselect', {sales_ref : id, obj: scope.salesHistory.jslist.selectedObj});
                 }
             }
             scope.salesHistory.jslist.createList();
@@ -78,7 +72,7 @@ app.directive('saleshistorylist', ['$rootScope', function ($rootScope) {
 app.directive('stockhistorylist', ['$rootScope', function ($rootScope) {
     return {
         restrict: 'E',
-        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in stockHistory.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (stockHistory.jslist.newItemArray = (stockHistory.jslist.values | filter:searchbox.imp))"><span class = "text-left tranxref col-2">{{hist.txn_ref}}</span><span class = "text-center item col-1">{{hist.item}}</span><span class = "text-center prevstk col-2">{{hist.prev_stock}}</span><span class = "text-center qty col-1">{{hist.quantity}}</span><span class = "text-center newstk col-2">{{hist.new_stock}}</span><span class = "text-center cat col-2">{{hist.category}}</span><span class = "text-center tranxdate col-2">{{hist.txn_date}}</span></li></ul></div></div>',
+        templateUrl: './assets/js/records/listTemplates.php?list=stocks',
 
         scope: false,
 
@@ -135,7 +129,7 @@ app.directive('stockhistorylist', ['$rootScope', function ($rootScope) {
 app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $filter) {
     return {
         restrict: 'E',
-        template: '<div class = "listcont h-100"><div class = "listhd pr-3 row"><span class="{{hd.width}}"  ng-class =\'{"text-center" : !$first}\' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span></div><div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" ><li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))" ng-click = "customers.jslist.select($index, hist.customer_id);" ng-class = "{\'actparent\' : customers.jslist.selected == hist.customer_id}"><span class = "text-left custid {{customers.listhddata[0].width}}">{{hist.customer_id}}</span><span class = "text-center fname {{customers.listhddata[1].width}}">{{hist.full_name}}</span><span class = "text-center phone {{customers.listhddata[2].width}}">{{hist.phone_number}}</span><span class = "text-center address {{customers.listhddata[3].width}}">{{hist.contact_address}}</span><span class = "text-center gender {{customers.listhddata[4].width}}">{{hist.gender}}</span><span class = "text-center outbal {{customers.listhddata[5].width}}">{{hist.outstanding_balance}}</span></li></ul></div></div>',
+        templateUrl: './assets/js/records/listTemplates.php?list=customers',
 
         scope: false,
 
@@ -186,9 +180,130 @@ app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $
                     scope.customers.jslist.selected = id;
                     scope.customers.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
                     console.log(scope.customers.jslist.selectedObj);
+                    $rootScope.$emit('custselect', {sales_ref : id, obj: scope.salesHistory.jslist.selectedObj});
+                    //scope.palistsales.jslist.createList(params);
                 },
             }
             scope.customers.jslist.createList();
+        }
+    };
+}]);
+
+app.directive('listsale', ['$rootScope', '$filter', function ($rootScope, $filter) {
+    return {
+        restrict: 'E',
+        templateUrl: './assets/js/records/listTemplates.php?list=tranxsales',
+
+        scope: false,
+
+        link: function (scope, element, attrs) {
+            scope.listsales.jslist = {
+                createList: function (params) {
+                    listdetails = scope.listsales.itemlist(params);
+                    jsonlist = listdetails.jsonfunc;
+
+                    jsonlist.then(function (result) {
+                        /* if (!result) {
+                            return 0;
+                        } */
+                        console.log(result);
+                        scope.listsales.jslist.values = result;
+                    });
+                    scope.listsales.listhddata = [
+                        {
+                            name: "Item",
+                            width: "col-3",
+                        },
+                        {
+                            name: "Qty",
+                            width: "col-1",
+                        },
+                        {
+                            name: "Unit Cost",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Cost",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Discnt Amt",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Discnt Rate",
+                            width: "col-2",
+                        }
+                    ];
+                }
+            };
+            //scope.listsales.jslist.createList({sales_ref : 0});
+            $rootScope.$on('tranxselect' , function(evt, params){
+                //console.log('sssss');
+                scope.listsales.jslist.createList(params);
+                scope.listsales.jslist.tranx = params.obj;
+                scope.listsales.jslist.active = true;
+            });
+        }
+    };
+}]);
+
+app.directive('listtranx', ['$rootScope', '$filter', function ($rootScope, $filter) {
+    return {
+        restrict: 'E',
+        templateUrl: './assets/js/records/listTemplates.php?list=tranxlist',
+
+        scope: false,
+
+        link: function (scope, element, attrs) {
+            scope.listtranxs.jslist = {
+                createList: function (params) {
+                    listdetails = scope.listtranxs.itemlist(params);
+                    jsonlist = listdetails.jsonfunc;
+
+                    jsonlist.then(function (result) {
+                        /* if (!result) {
+                            return 0;
+                        } */
+                        console.log(result);
+                        scope.listtranxs.jslist.values = result;
+                    });
+                    scope.listtranxs.listhddata = [
+                        {
+                            name: "Tranx Ref",
+                            width: "col-2",
+                        },
+                        {
+                            name: "Cost",
+                            width: "col-4",
+                        },
+                        {
+                            name: "Deposited",
+                            width: "col-4",
+                        },
+                        {
+                            name: "Balance",
+                            width: "col-2",
+                        }
+                    ];
+                },
+                select: function (index, id) {
+                    if($filter('limitTo')(id, 3) == 'LOD'){
+                        return;
+                    }
+                    scope.listtranxs.jslist.selected = id;
+                    scope.listtranxs.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
+                    console.log(scope.listtranxs.jslist.selectedObj);
+                    //scope.palistsales.jslist.createList(params);
+                }
+            };
+            //scope.listsales.jslist.createList({sales_ref : 0});
+            $rootScope.$on('custselect' , function(evt, params){
+                //console.log('sssss');
+                scope.listtranxs.jslist.createList(params);
+                scope.listtranxs.jslist.tranx = params.obj;
+                scope.listtranxs.jslist.active = true;
+            });
         }
     };
 }]);

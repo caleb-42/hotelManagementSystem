@@ -3,6 +3,8 @@
 session_start();
 print (isset($_SESSION['user']));
 if(!isset($_SESSION['user_name'])){
+    // $_SESSION['user_name'] = 'webplay';
+    // $_SESSION['role'] = 'admin'; 
     header("Location: logIn.php");
 }
 

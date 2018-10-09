@@ -81,7 +81,10 @@ li{
 .choral{
     color: #d9534f !important;
 }
-
+.orange{
+    background: #f0ad4e;
+    color: #fff;
+}
 .choralback{
     background: #d9534f !important;
 }
@@ -184,14 +187,16 @@ input::placeholder {
     background: #3F8246;
 /*    font-weight: 700;*/
 }
-
+.whtback {
+    background: #fff;
+}
 .custom-btn-outline-warning {
     color: #fff;
     background-color: #f0ad4e;
     border-color: #f0ad4e;
   }
   
-  .custom-btn-outline-warning:hover {
+.custom-btn-outline-warning:hover {
     color: #f0ad4e;
     background-image: none;
     background-color: transparent;
@@ -257,6 +262,9 @@ button.btnnone{
 .w-60{
     width: 60% !important;
 }
+.w-65{
+    width: 65% !important;
+}
 .w-80{
     width: 80% !important;
 }
@@ -268,6 +276,9 @@ button.btnnone{
 }
 .w-30{
     width: 30% !important;
+}
+.w-35{
+    width: 35% !important;
 }
 .w-0{
     width: 0% !important;
@@ -310,6 +321,18 @@ button.btnnone{
 }
 .hs-100{
     height: 100vh !important;
+}
+.hs-70{
+    height: 70vh !important;
+}
+.hs-40{
+    height: 40vh !important;
+}
+.hs-50{
+    height: 50vh !important;
+}
+.hs-45{
+    height: 45vh !important;
 }
 .hs-40{
     height: 40vh !important;

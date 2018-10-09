@@ -1,6 +1,6 @@
 <?php
   include "../../settings/connect.php"; //$database handler $dbConn or $conn
-
+  //print_r($_POST["sales_ref"]);
   $sales_ref = $_POST["sales_ref"];
 
   $get_sales_sql = "SELECT * FROM restaurant_sales WHERE sales_ref = '$sales_ref'";
