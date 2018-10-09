@@ -1,35 +1,61 @@
-recordsApp.controller("records", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
+recordsApp.controller("records", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.tabnav = {
-        selected: 'Sales',
-        navs: [
-            {
-                name: 'Sales'
+        navs: {
+            Sales: {
+                name: 'Sales',
+                options: {
+                    rightbar : {
+                        present: true,
+                        rightbarclass: 'w-35',
+                        primeclass: 'w-65'
+                    }
+                }
             },
-            {
-                name: 'Stocks'
+            Stocks: {
+                name: 'Stocks',
+                options: {
+                    rightbar : false
+                }
             },
-            {
-                name: 'Customers'
-            }
-        ],
-        selectNav: function (navname) {
-            $scope.tabnav.selected = navname;
-        }
-    };
-    $scope.rightSidebar = {
-        itemlist: function () {
-            return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_sessions.php", {})
+            Customers: {
+                name: 'Customers',
+                options: {
+                    rightbar : {
+                        present: true,
+                        rightbarclass: 'w-35',
+                        primeclass: 'w-65'
+                    }
+                }
             }
         },
-        subclass : {
-
+        selected: {
+            name: 'Sales',
+            options: {
+                rightbar : {
+                    present: true,
+                    rightbarclass: 'w-35',
+                    primeclass: 'w-65'
+                }
+            }
+        },
+        selectNav: function (navname) {
+            $scope.tabnav.selected = $scope.tabnav.navs[navname];
         }
+};
+$scope.rightSidebar = {
+    itemlist: function () {
+        return {
+            jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_sessions.php", {})
+        }
+    },
+    subclass: {
+
     }
+}
 
 }]);
 
-recordsApp.controller("saleshistory", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
+recordsApp.controller("saleshistory", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.salesHistory = {
         itemlist: function () {
             return {
@@ -40,7 +66,7 @@ recordsApp.controller("saleshistory", ["$rootScope", "$scope",  'jsonPost','$fil
 
 }]);
 
-recordsApp.controller("stockhistory", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
+recordsApp.controller("stockhistory", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.stockHistory = {
         itemlist: function () {
             return {
@@ -51,7 +77,7 @@ recordsApp.controller("stockhistory", ["$rootScope", "$scope",  'jsonPost','$fil
 
 }]);
 
-recordsApp.controller("customers", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
+recordsApp.controller("customers", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.customers = {
         itemlist: function () {
             return {
