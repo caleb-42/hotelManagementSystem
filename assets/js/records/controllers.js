@@ -60,7 +60,7 @@ $scope.listsales = {
             jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_sales.php", ref)
         }
     }
-}
+};
 $scope.listtranxs = {
     itemlist: function (ref) {
         //console.log('ewere');

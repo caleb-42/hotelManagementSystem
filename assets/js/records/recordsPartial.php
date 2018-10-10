@@ -65,7 +65,7 @@
             </div>            
             <div ng-switch-when = 'Customers'>
                 <div class = "sidebar-content p-4 w-100">
-                    <listtranx></listtranx
+                    <listtranx></listtranx>
                 </div>
             </div>            
         </div>
