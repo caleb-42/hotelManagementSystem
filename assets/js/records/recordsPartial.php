@@ -40,8 +40,8 @@
                             
                             <div class="my-4">
                                 <button class="btn btn-outline-primary mx-1 font-fam-Montserrat f-12" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Add Customer'; settings.modal.size = 'md' " data-toggle="modal" data-target="#crud" >Add</button>
-                                <button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Update Customer'; settings.modal.size = 'lg'; " ng-disabled="!customers.jslist.selected">Update</button>
-                                <button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-click="customers.deleteCustomer()"  ng-disabled="!customers.jslist.selected">Delete</button>
+                                <button class="btn btn-outline-success mx-1 font-fam-Montserrat f-12" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Update Customer'; settings.modal.size = 'lg'; " ng-disabled="!customers.jslist.selected || (customers.jslist.selected | limitTo:3) == 'LOD'">Update</button>
+                                <button class="btn btn-outline-danger mx-1 font-fam-Montserrat f-12" ng-click="customers.deleteCustomer()"  ng-disabled="!customers.jslist.selected || (customers.jslist.selected | limitTo:3) == 'LOD'">Delete</button>
                             </div>
                         </div>
                         <customerslist></customerslist> 
@@ -65,7 +65,7 @@
             </div>            
             <div ng-switch-when = 'Customers'>
                 <div class = "sidebar-content p-4 w-100">
-                    <!-- <listtranx></listtranx -->>
+                    <listtranx></listtranx
                 </div>
             </div>            
         </div>

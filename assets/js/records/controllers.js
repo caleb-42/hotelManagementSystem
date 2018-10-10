@@ -20,7 +20,11 @@ recordsApp.controller("records", ["$rootScope", "$scope", 'jsonPost', '$filter',
             Customers: {
                 name: 'Customers',
                 options: {
-                    rightbar : false
+                    rightbar : {
+                        present: true,
+                        rightbarclass: 'w-35',
+                        primeclass: 'w-65'
+                    }
                 }
             }
         },
@@ -61,8 +65,21 @@ $scope.listtranxs = {
     itemlist: function (ref) {
         //console.log('ewere');
         return {
-            jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_transactions.php", {
-                
+            jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_transactions.php", ref)
+        }
+    },
+    debtpay : function (ref) {
+        //console.log('ewere');
+            ref.trasaction_ref = $scope.listtranxs.jslist.selected;
+            //console.log(ref);
+        return {
+            jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_balance_pay.php", {
+                payment_details: $filter('json')(ref)
+            }).then(function (response) {
+                console.log(response);
+               /*  $rootScope.settings.modal.msgprompt(response);
+                $scope.customers.adding = false;
+                $scope.customers.jslist.createList(); */
             })
         }
     }
@@ -75,11 +92,6 @@ recordsApp.controller("saleshistory", ["$rootScope", "$scope", 'jsonPost', '$fil
         itemlist: function () {
             return {
                 jsonfunc: jsonPost.data("assets/php1/restaurant_bar/admin/list_transactions.php", {})
-            }
-        },
-        debtpay: function (ref) {
-            return {
-                jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_balance_pay.php", {ref})
             }
         }
     }

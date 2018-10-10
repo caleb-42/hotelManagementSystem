@@ -100,28 +100,19 @@
         <h4 class=" text-center w-100 "> Select A Customer</h4>
     </div>
     <div class = "listcont {{!listtranxs.jslist.active ? 'gone' : 'notgone'}}">
-        <!-- <div class = "orange font-fam-Montserrat-bold row p-2 justify-content-between w-100" style = "border-radius: 5px; margin : 10px 0 !important;">
-            <span>Sales Rep</span>
-            <span>{{listtranxs.jslist.tranx.sales_rep}}</span>
+        <div class = " row justify-content-between w-100" style = 'margin:20px 0 !important;'>
+            <button ng-disabled = "!listtranxs.jslist.selected" data-toggle="modal" data-target="#crud" ng-click="settings.modal.active = 'Customers'; settings.modal.name = 'Debt Clear'; settings.modal.size = 'md'; " class="btn btn-block btn-danger font-fam-Montserrat-bold"> Clear Debt </button>
         </div>
-        <div class = "orange font-fam-Montserrat-bold row p-2 justify-content-between w-100" style = "border-radius: 5px; margin : 10px 0 !important;">
-            <span>Tranx Time</span>
-            <span>{{listtranxs.jslist.tranx.txn_time}}</span>
-        </div>
-        <div class = "orange font-fam-Montserrat-bold row p-2 justify-content-between w-100" style = "border-radius: 5px; margin : 10px 0 20px !important;">
-            <span>Customer Ref</span>
-            <span>{{listtranxs.jslist.tranx.customer_ref}}</span>
-        </div> -->
         <div class = "listhd pr-3 row">
             <span class="{{hd.width}}"  ng-class ='{"text-center" : !$first}' ng-repeat = "hd in listtranxs.listhddata">{{hd.name}}</span>
         </div>
-        <div class = "hs-40 listbody ovflo-y pb-4" >
+        <div class = "hs-50 listbody ovflo-y pb-4" >
             <ul class = "list" >
-                <li class = "itemlistrow row align-items-center f-12" ng-repeat = "sales in listtranxs.jslist.values">
-                <span class = "custref col-2">{{hist.txn_ref}}</span>
-                <span class = "text-center cost col-4">{{hist.total_cost}}</span>
-                <span class = "text-center deposit col-4">{{hist.deposited}}</span>
-                <span class = "text-center bal col-2">{{hist.balance}}</span>
+                <li class = "itemlistrow row align-items-center f-12" ng-repeat = "sales in listtranxs.jslist.values" ng-click = "listtranxs.jslist.select($index, sales.txn_ref);" ng-class = "{'actparent' : listtranxs.jslist.selected == sales.txn_ref}">
+                <span class = "tranxref col-2">{{sales.txn_ref}}</span>
+                <span class = "text-center cost col-4">{{sales.total_cost}}</span>
+                <span class = "text-center deposit col-4">{{sales.deposited}}</span>
+                <span class = "text-center bal col-2">{{sales.balance}}</span>
                 </li>
             </ul>
         </div>

@@ -34,6 +34,8 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 }else if ($rootScope.settings.modal.name == "Update Customer") {
                     console.log(scope.customers);
                     loadJson2Form(scope.customers.jslist.selectedObj, '.inpRead');
+                }else if ($rootScope.settings.modal.name == "Debt Clear") {
+                    scope.listtranxs.jslist.pay_method = 'Cash';
                 }
             });
             updateProduct = function () {
@@ -74,6 +76,11 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
             updateCustomer = function () {
                 jsonForm = $(".updateCustomersForm").serializeObject();
                 scope.customers.updateCustomer(jsonForm);
+            };
+            debtpaydata = function () {
+                jsonForm = $(".debtpayForm").serializeObject();
+                //console.log(jsonForm);
+                scope.listtranxs.debtpay(jsonForm);
             };
             if (scope.sidebarnav.navig.activeNav == "Sales") {
                 scope.buyer.customer.jsonform = function (a) {

@@ -13,11 +13,12 @@
                     <div ng-switch-when='addnew' class="addNew">
                         <div class="d-block w-100 text-center buysec"><i class="fa  d-inline-block {{buyer.customer.new.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></i></div>
                         <form autocomplete="off" class="custform w-100 text-center mt-2 px-5 ">
-                            <input class=" form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block" placeholder="Name" name="full_name" ng-focus="activateAutoComplete($event)" />
+                            <input class=" form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
+                                placeholder="Name" name="full_name" ng-focus="activateAutoComplete($event)" />
                             <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
-                            placeholder="Phone Number" name="phone_number" />
+                                placeholder="Phone Number" name="phone_number" />
                             <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
-                            placeholder="Address" name="contact_address" />
+                                placeholder="Address" name="contact_address" />
                             <!-- <input type="number" onkeydown="javascript: return event.keyCode !=69"
                             class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
                             placeholder="Room" name="room" /> -->
@@ -74,10 +75,13 @@
                 <div class="modal-footer w-100">
                     <div class="justify-content-center w-100 d-flex flex-column">
                         <div class="py-1 align-self-center row justify-content-between w-70">
-                            <button type="button" class="b-0 btn btn-warning" ng-click="buyer.customer.selected = buyer.showPanel == 'addnew' ? buyer.customer.jsonform('visitor') : buyer.customer.selectedDefault">{{buyer.showPanel == 'addnew' ? 'Select' : 'Reset'}}</button>
-                            <button type="button" ng-class="{'gone': buyer.showPanel != 'addnew'}"
-                            class="b-0 btn btn-success" ng-click="buyer.customer.makeCustomer()">Add</button>
-                            <button type="button" class="btn b-0 {{buyer.showPanel == 'addnew' ? 'btn-danger' : 'btn-info'}}" ng-click="buyer.showPanel = buyer.showPanel == 'addnew' ? 'search' : 'addnew';settings.modal.size = buyer.showPanel == 'addnew' ? 'md' : 'lg'; buyer.customer.makeCustomerList(); ">{{buyer.showPanel == 'addnew' ? 'Search' : 'New'}}</button>
+                            <button type="button" class="b-0 btn btn-warning" ng-click="buyer.customer.selected = buyer.showPanel == 'addnew' ? buyer.customer.jsonform('visitor') : buyer.customer.selectedDefault">{{buyer.showPanel
+                                == 'addnew' ? 'Select' : 'Reset'}}</button>
+                            <button type="button" ng-class="{'gone': buyer.showPanel != 'addnew'}" class="b-0 btn btn-success"
+                                ng-click="buyer.customer.makeCustomer()">Add</button>
+                            <button type="button" class="btn b-0 {{buyer.showPanel == 'addnew' ? 'btn-danger' : 'btn-info'}}"
+                                ng-click="buyer.showPanel = buyer.showPanel == 'addnew' ? 'search' : 'addnew';settings.modal.size = buyer.showPanel == 'addnew' ? 'md' : 'lg'; buyer.customer.makeCustomerList(); ">{{buyer.showPanel
+                                == 'addnew' ? 'Search' : 'New'}}</button>
                         </div>
                     </div>
                 </div>
@@ -94,13 +98,14 @@
                             <h3 class="mb-4 opac-50 mt-3">{{surcharge.reciept.customer}}</h3>
 
                             <div class="pay-method">
-                                <select ng-model = "surcharge.reciept.pay_method" class="form-control methpay mx-auto my-4 w-40 f-13"  name="paymethod">
+                                <select ng-model="surcharge.reciept.pay_method" class="form-control methpay mx-auto my-4 w-40 f-13"
+                                    name="paymethod">
                                     <option value="Cash">Cash</option>
                                     <option value="Cheque">Cheque</option>
                                     <option value="POS">POS</option>
                                     <option value="Credit">Credit</option>
                                 </select>
-    
+
                             </div>
 
                             <div class="w-100 px-4 pt-3 choralback row justify-content-around wht">
@@ -127,8 +132,13 @@
                             </div>
                             <div class="w-100 row justify-content-between px-4">
                                 <form autocomplete="off">
-                                    <span class="px-3 w-50"><label class = "font-fam-Montserrat-bold opac-50">Paid</label><input ng-change = "surcharge.reciept.outstanding_balance = surcharge.reciept.discounted_total_cost - surcharge.reciept.amount_paid " ng-model = "surcharge.reciept.amount_paid" name = "paid" placeholder = "Amount Paid" class="text-center form-control"/></span>
-                                    <span class="px-3 w-50"><label class = "font-fam-Montserrat-bold opac-50">Balance</label><input ng-model = "surcharge.reciept.outstanding_balance" readonly name = "paid" placeholder = "Balance" class="text-center form-control"/></span>
+                                    <span class="px-3 w-50"><label class="font-fam-Montserrat-bold opac-50">Paid</label><input
+                                            ng-change="surcharge.reciept.outstanding_balance = surcharge.reciept.discounted_total_cost - surcharge.reciept.amount_paid "
+                                            ng-model="surcharge.reciept.amount_paid" name="paid" placeholder="Amount Paid"
+                                            class="text-center form-control" /></span>
+                                    <span class="px-3 w-50"><label class="font-fam-Montserrat-bold opac-50">Balance</label><input
+                                            ng-model="surcharge.reciept.outstanding_balance" readonly name="paid"
+                                            placeholder="Balance" class="text-center form-control" /></span>
                                 </form>
                             </div>
 
@@ -467,9 +477,12 @@
             <div class="w-100" ng-if="settings.modal.active == 'Customers'">
                 <div class="w-100" ng-if="settings.modal.name == 'Add Customer'">
                     <form class="p-4 w-100 addCustomersForm row justify-content-center m-0">
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="full_name" />
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone" name="phone_number" />
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address" name="contact_address" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
+                            name="full_name" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
+                            name="phone_number" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
+                            name="contact_address" />
 
                         <div class="row justify-content-between w-50 py-4">
                             <span class="py-1">
@@ -477,7 +490,7 @@
                                 <label for="male" class="f-15 ml-2">Male</label>
                             </span>
                             <span class="py-1">
-                                <input type="radio" checked value="female" name="gender" id="female"/>
+                                <input type="radio" checked value="female" name="gender" id="female" />
                                 <label for="female" class="f-15 ml-2">Female</label>
                             </span>
                         </div>
@@ -502,23 +515,30 @@
                 <div class="w-100" ng-if="settings.modal.name == 'Update Customer'">
                     <form autocomplete="off" class="updateCustomersForm p-4 w-100">
                         <div class="float-left w-45 inpRead row m-0">
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="full_name" readonly/>
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone" name="phone_number" readonly/>
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address" name="contact_address" readonly/>
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Gender" name="gender" readonly/>
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
+                                name="full_name" readonly />
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
+                                name="phone_number" readonly />
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
+                                name="contact_address" readonly />
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Gender"
+                                name="gender" readonly />
                         </div>
                         <div class="float-right w-45 row m-0 justify-content-center">
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="new_full_name" />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone" name="new_phone_number" />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address" name="new_contact_address" />
-    
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
+                                name="new_full_name" />
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
+                                name="new_phone_number" />
+                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
+                                name="new_contact_address" />
+
                             <div class="row justify-content-between w-50 py-4">
                                 <span class="py-1">
                                     <input type="radio" id="male" value="male" name="new_gender" />
                                     <label for="male" class="f-15 ml-2">Male</label>
                                 </span>
                                 <span class="py-1">
-                                    <input type="radio" checked value="female" name="new_gender" id="female"/>
+                                    <input type="radio" checked value="female" name="new_gender" id="female" />
                                     <label for="female" class="f-15 ml-2">Female</label>
                                 </span>
                             </div>
@@ -541,6 +561,40 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="w-100" ng-if="settings.modal.name == 'Debt Clear'">
+                    <form class="p-4 w-100 debtpayForm row justify-content-center m-0">
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Amount Paid"
+                            name="amount_paid" />
+
+                        <select ng-model="listtranxs.jslist.pay_method" class="form-control methpay mx-auto my-4 w-40 f-13"
+                            name="means_of_payment">
+                            <option value="Cash">Cash</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="POS">POS</option>
+                            <option value="Credit">Credit</option>
+                        </select>
+
+
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <div ng-class="{gone : !listtranxs.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                        height="70px" /></div>
+                                <button type="button" class="{{listtranxs.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="debtpaydata()" ng-click="listtranxs.adding = true">
+                                    pay
+                                </button>
+                            </div>
+                            <div class="row pt-3 justify-content-center">
+                                <p class="{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
             <!--....... Customers End ......... -->
 

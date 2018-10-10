@@ -175,12 +175,12 @@ app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $
                 },
                 select: function (index, id) {
                     if($filter('limitTo')(id, 3) == 'LOD'){
-                        return;
+                        //return;
                     }
                     scope.customers.jslist.selected = id;
                     scope.customers.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
                     console.log(scope.customers.jslist.selectedObj);
-                    $rootScope.$emit('custselect', {sales_ref : id, obj: scope.salesHistory.jslist.selectedObj});
+                    $rootScope.$emit('custselect', {customer_ref : id, obj: scope.customers.jslist.selectedObj});
                     //scope.palistsales.jslist.createList(params);
                 },
             }
@@ -288,18 +288,15 @@ app.directive('listtranx', ['$rootScope', '$filter', function ($rootScope, $filt
                     ];
                 },
                 select: function (index, id) {
-                    if($filter('limitTo')(id, 3) == 'LOD'){
-                        return;
-                    }
                     scope.listtranxs.jslist.selected = id;
-                    scope.listtranxs.jslist.selectedObj = scope.customers.jslist.newItemArray[index];
+                    scope.listtranxs.jslist.selectedObj = scope.listtranxs.jslist.values[index];
                     console.log(scope.listtranxs.jslist.selectedObj);
                     //scope.palistsales.jslist.createList(params);
                 }
             };
             //scope.listsales.jslist.createList({sales_ref : 0});
             $rootScope.$on('custselect' , function(evt, params){
-                //console.log('sssss');
+                console.log('sssss');
                 scope.listtranxs.jslist.createList(params);
                 scope.listtranxs.jslist.tranx = params.obj;
                 scope.listtranxs.jslist.active = true;

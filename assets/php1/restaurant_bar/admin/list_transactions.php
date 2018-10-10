@@ -1,13 +1,13 @@
 <?php
   include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-  if (isset($_POST["txn_ref"])) {
-    $txn_ref = isset($_POST["txn_ref"]);
+  if (isset($_POST["customer_ref"])) {
+    $customer_ref = $_POST["customer_ref"];
   } else {
-    $txn_ref = "";
+    $customer_ref = "";
   }
 
-  $get_txn_sql = $txn_ref ? "SELECT * FROM restaurant_txn WHERE txn_ref = '$txn_ref'" : "SELECT * FROM restaurant_txn";
+  $get_txn_sql = $customer_ref ? "SELECT * FROM restaurant_txn WHERE customer_ref = '$customer_ref'" : "SELECT * FROM restaurant_txn";
 
   $get_txn_result = mysqli_query($dbConn, $get_txn_sql);
   $get_txn_array = [];

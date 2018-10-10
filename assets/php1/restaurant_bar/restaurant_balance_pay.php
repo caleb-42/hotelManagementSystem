@@ -17,12 +17,13 @@ $last_payment = "SELECT * FROM restaurant_payments WHERE id = $payment_id";
 $last_payment_result = mysqli_query($dbConn, $last_payment);
 
 $last_payment_details = mysqli_fetch_assoc($last_payment_result);
-$new_balance = intval($last_payment_result["amount_balance"]) - $amount_paid;
+$new_balance = intval($last_payment_details["amount_balance"]) - $amount_paid;
 
-$txn_date = $last_payment_result["txn_date"];
-$net_paid = intval($last_payment_result["net_paid"]) + $amount_paid;
-$txn_worth = intval($last_payment_result["txn_worth"]);
-$customer_id = $last_payment_result["customer_id"];
+$txn_date = $last_payment_details["txn_date"];
+$net_paid = intval($last_payment_details["net_paid"]) + $amount_paid;
+$txn_worth = intval($last_payment_details["txn_worth"]);
+$customer_id = $last_payment_details["customer_id"];
+
 
 $udpate_payment = "INSERT INTO restaurant_payments (restaurant_txn, txn_date, amount_paid, date_of_payment, amount_balance, net_paid, txn_worth, customer_id, means_of_payment) VALUES ('$trasaction_ref', '$txn_date', $amount_paid, CURRENT_TIMESTAMP, $new_balance, $net_paid, $txn_worth, '$customer_id', '$means_of_payment')";
 
@@ -43,7 +44,7 @@ $get_outstanding_result = mysqli_query($dbConn, $get_outstanding_query);
 $get_outstanding_details = mysqli_fetch_assoc($get_outstanding_result);
 $new_outstanding = intval($get_outstanding_details["outstanding_balance"]) - $amount_paid;
 
-if (substr($customer_ref, 0, 3) == "LOD") {
+if (substr($customer_id, 0, 3) == "LOD") {
 	$update_customer_outstanding = "UPDATE frontdesk_guests SET restaurant_outstanding = restaurant_outstanding - $amount_paid WHERE guest_id  = '$customer_id'";
     $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
 } else {
