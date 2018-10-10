@@ -88,14 +88,15 @@ $select_items_query->bind_param("s", $item); // continue from here
 /*Record sales of individual items*/
 $insert_into_sales = $conn->prepare("INSERT INTO restaurant_sales (sales_ref, item, type, quantity, unit_cost, net_cost, discount_rate, discounted_net_cost, discount_amount, sold_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-$insert_into_sales->bind_param("sssiiiiiis", $txn_ref, $item, $type, $item_qty, $unit_cost, $net_cost, $discount_rate, $discounted_net_cost, $discount_amount, $sold_by);
+$insert_into_sales->bind_param("sssiiiiiis", $tx_ref, $item, $type, $item_qty, $unit_cost, $net_cost, $discount_rate, $discounted_net_cost, $discount_amount, $sold_by);
 
 for ($i=0; $i <$no_of_items ; $i++) { 
 	echo "<br>$i";
+	$tx_ref = $txn_ref;
 	$item = $item_list[$i]["item"];
 	$type = $item_list[$i]["type"];
 	$item_qty = $item_list[$i]["quantity"];
-	$unit_cost = $item_list[$i]["unit_cost"];
+	$unit_cost = $item_list[$i]["current_price"];
 	$net_cost = $item_list[$i]["net_cost"];
 	$discount_rate = $item_list[$i]["discount_rate"];
 	$discounted_net_cost = $item_list[$i]["discounted_net_cost"];
