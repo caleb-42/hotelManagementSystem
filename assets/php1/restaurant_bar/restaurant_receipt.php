@@ -122,7 +122,7 @@ $update_stock_query->close();
 
 /*Record Transaction*/
 if ($amount_paid) {
-	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, net_paid, txn_worth, customer_id, means_of_payment ,date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_paid, $amount_balance, $discounted_total_cost, '$pay_method', '$customer_ref', CURRENT_TIMESTAMP)";
+	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, net_paid, txn_worth, customer_id, means_of_payment ,date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref', '$pay_method', CURRENT_TIMESTAMP)";
 } else {
 	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, net_paid, amount_balance, txn_worth, customer_id) VALUES('$txn_ref', $amount_paid, $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref')";
 }
