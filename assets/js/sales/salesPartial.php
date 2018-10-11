@@ -1,8 +1,8 @@
 <div ng-controller="sales">
-<div class="prime-hd anim">
+<div class="prime-hd anim  {{tabnav.selected.options.rightbar ? tabnav.selected.options.rightbar.primeclass : 'w-100'}}">
     <div class="statusbar grn row  align-items-end pl-1">
         <div class="tabnav col-7 row">
-            <button ng-repeat='nav in tabnav.navs' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected}">
+            <button ng-repeat='nav in tabnav.navs | objtoarray' class="tabpill btnnone" ng-click="tabnav.selectNav(nav.name)" ng-class="{focus:nav.name == tabnav.selected.name}">
                 <h5>{{nav.name}}</h5>
             </button>
         </div>
@@ -18,7 +18,7 @@
     <!--statusbar for primehd end-->
 
     <div class="prime-body">
-        <div class="animate-switch-container" ng-switch on="tabnav.selected">
+        <div class="animate-switch-container" ng-switch on="tabnav.selected.name">
             <div class="animate-switch Sales h-100" ng-switch-default>
                 <div class="products  anim " ng-class='{"h-100": !sales.order.panel, "h-70": sales.order.panel}'>
                     <div class="p-3 px-4 itemlayout w-100" ng-class='{" h-95": !sales.order.panel, " h-93": sales.order.panel}'>
@@ -45,7 +45,7 @@
 </div>
 <!--primehd end-->
 
-<div class="main-sidebar-right hs-100 anim">
+<div class="main-sidebar-right hs-100 anim {{tabnav.selected.options.rightbar ? tabnav.selected.options.rightbar.rightbarclass : 'w-0 gone'}}">
     <div class="statusbar grn row align-items-end justify-content-center">
         <h4 class="text-center wht">Cart <i class="fa fa-shopping-cart"></i></h4>
     </div>
@@ -73,11 +73,11 @@
                 <div class="row justify-content-between">
                     <div class="col-6">
                         <input type="radio" name="radio" value="Item" id="itemdis" ng-model='surcharge.discount.type' />
-                        <label for="itemdis" class="f-13">Item Discount</label>
+                        <label for="itemdis" class="f-13">Item Dis</label>
                     </div>
                     <div class="col-6">
                         <input type="radio" name="radio" value="Total" id="totaldis" ng-model='surcharge.discount.type' />
-                        <label for="totaldis" class="f-13"> Total Discount</label>
+                        <label for="totaldis" class="f-13"> Total Dis</label>
                     </div>
                 </div>
                 <!--<button class="btn-block btn "><span class="mr-1">N</span>{{cart.TotalItemCost}}</button>-->

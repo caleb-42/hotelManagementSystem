@@ -1,16 +1,29 @@
 stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.tabnav = {
-        selected: 'Products',
         navs: {
-            nav1: {
-                name: 'Products'
-            },
-            /*nav2: {
-                name: 'History'
-            }*/
+            Products: {
+                name: 'Products',
+                options: {
+                    rightbar: {
+                        present: true,
+                        rightbarclass: 'w-30',
+                        primeclass: 'w-70'
+                    }
+                }
+            }
+        },
+        selected: {
+            name: 'Products',
+            options: {
+                rightbar: {
+                    present: true,
+                    rightbarclass: 'w-30',
+                    primeclass: 'w-70'
+                }
+            }
         },
         selectNav: function (navname) {
-            $scope.tabnav.selected = navname;
+            $scope.tabnav.selected = $scope.tabnav.navs[navname];
         }
     };
     $scope.productstock = {

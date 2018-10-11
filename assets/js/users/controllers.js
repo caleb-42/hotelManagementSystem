@@ -1,16 +1,29 @@
 usersApp.controller("users", ["$rootScope", "$scope",  'jsonPost','$filter', function ($rootScope, $scope, jsonPost, $filter) {
     $scope.tabnav = {
-        selected: 'Users',
         navs: {
-            nav1: {
-                name: 'Users'
-            },
-            /*nav2: {
-                name: 'History'
-            }*/
+            Users: {
+                name: 'Users',
+                options: {
+                    rightbar: {
+                        present: true,
+                        rightbarclass: 'w-30',
+                        primeclass: 'w-70'
+                    }
+                }
+            }
+        },
+        selected: {
+            name: 'Users',
+            options: {
+                rightbar: {
+                    present: true,
+                    rightbarclass: 'w-30',
+                    primeclass: 'w-70'
+                }
+            }
         },
         selectNav: function (navname) {
-            $scope.tabnav.selected = navname;
+            $scope.tabnav.selected = $scope.tabnav.navs[navname];
         }
     };
     $scope.users = {
