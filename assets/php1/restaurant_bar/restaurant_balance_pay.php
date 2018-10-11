@@ -1,10 +1,7 @@
 <?php
 include "../settings/connect.php";  //database name = $dbConn
 
-// $payment_details = json_decode($_POST["payment_details"], true);
-
-$payment_details = '{"trasaction_ref":"00012", "means_of_payment": "CASH", "amount_paid": 300}';
-$payment_details = json_decode($payment_details, true);
+$payment_details = json_decode($_POST["payment_details"], true);
 
 $trasaction_ref = $payment_details["trasaction_ref"];
 $means_of_payment = $payment_details["means_of_payment"];
