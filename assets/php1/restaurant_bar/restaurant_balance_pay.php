@@ -21,8 +21,12 @@ $new_balance = intval($last_payment_details["amount_balance"]) - $amount_paid;
 
 $txn_date = $last_payment_details["txn_date"];
 $net_paid = intval($last_payment_details["net_paid"]) + $amount_paid;
+
 $txn_worth = intval($last_payment_details["txn_worth"]);
 $customer_id = $last_payment_details["customer_id"];
+
+// echo $customer_id;
+// exit;
 
 
 $udpate_payment = "INSERT INTO restaurant_payments (restaurant_txn, txn_date, amount_paid, date_of_payment, amount_balance, net_paid, txn_worth, customer_id, means_of_payment) VALUES ('$trasaction_ref', '$txn_date', $amount_paid, CURRENT_TIMESTAMP, $new_balance, $net_paid, $txn_worth, '$customer_id', '$means_of_payment')";
@@ -60,10 +64,16 @@ if (substr($customer_id, 0, 3) == "LOD") {
 	exit;
 }
 
+$msg_response="";
 
-if ($update_txn_result && $update_payment_result) {
-	echo "SUCCESS";
+if($update_txn_result && $update_payment_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "PAYMENT RECORDS SUCCESSFULLY UPDATED";
 } else {
-	echo "FAILED";
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
 }
+
+$response_message = json_encode($msg_response);
+echo $response_message;
 ?>
