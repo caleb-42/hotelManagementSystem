@@ -46,10 +46,18 @@ $new_outstanding = intval($get_outstanding_details["outstanding_balance"]) - $am
 
 if (substr($customer_id, 0, 3) == "LOD") {
 	$update_customer_outstanding = "UPDATE frontdesk_guests SET restaurant_outstanding = restaurant_outstanding - $amount_paid WHERE guest_id  = '$customer_id'";
-    $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+	$update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+	echo "LOD";
+	exit;
 } else {
 	$update_customer_outstanding = "UPDATE restaurant_customers SET outstanding_balance = $new_outstanding WHERE customer_id = '$customer_id'";
-    $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+	$update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
+	if($update_outstanding_result){
+		echo "$customer_id";
+	} else {
+		echo "NES";
+	}
+	exit;
 }
 
 
