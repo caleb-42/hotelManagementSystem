@@ -139,6 +139,7 @@ salesApp.directive('cartitems', ['$rootScope', '$filter', 'jsonPost', function (
                     jsonPost.data("assets/php1/restaurant_bar/restaurant_items_discount.php", {
                         items: $filter('json')(scope.cart)
                     }).then(function (result) {
+                        console.log(scope.cart);
                         console.log(result);
                         for (var i = 0; i < scope.cart.length; i++) {
                             if(result[i] && result[i] != 'nil' && scope.discount == "Item"){
