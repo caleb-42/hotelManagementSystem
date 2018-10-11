@@ -3,7 +3,7 @@
 
  //$new_guest = json_decode($_POST["new_guest"], true);
 
- $new_guest = '{"guest_name":"Ewere", "guest_type_gender": "male", "phone_number":"08023456789", "contact_address":"webplay nigerial ltd", "total_rooms_booked":9, "no_of_nights":8, "room_outstanding": 4000}';
+ $new_guest = '{"guest_name":"Ewere", "guest_type_gender": "male", "phone_number":"08023456789", "contact_address":"webplay nigeria ltd", "total_rooms_booked":9, "no_of_nights":8, "room_outstanding": 4000}';
 
  $new_guest = json_decode($new_guest, true);
 
@@ -37,7 +37,7 @@
 
  if($add_new_guest_result){
 	$msg_response[0] = "OUTPUT";
-	$msg_response[1] = $guest_name . "SUCCESSFULLY ADDED";
+	$msg_response[1] = $guest_name . " SUCCESSFULLY ADDED";
  } else {
 	$msg_response[0] = "ERROR";
 	$msg_response[1] = "SOMETHING WENT WRONG". mysqli_error($dbConn);

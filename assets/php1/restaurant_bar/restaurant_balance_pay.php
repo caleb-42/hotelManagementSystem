@@ -1,7 +1,10 @@
 <?php
 include "../settings/connect.php";  //database name = $dbConn
 
-$payment_details = json_decode($_POST["payment_details"], true);
+// $payment_details = json_decode($_POST["payment_details"], true);
+
+$payment_details = '{"trasaction_ref":"00012", "means_of_payment": "CASH", "amount_paid": 300}';
+$payment_details = json_decode($payment_details, true);
 
 $trasaction_ref = $payment_details["trasaction_ref"];
 $means_of_payment = $payment_details["means_of_payment"];
@@ -21,8 +24,12 @@ $new_balance = intval($last_payment_details["amount_balance"]) - $amount_paid;
 
 $txn_date = $last_payment_details["txn_date"];
 $net_paid = intval($last_payment_details["net_paid"]) + $amount_paid;
+
 $txn_worth = intval($last_payment_details["txn_worth"]);
 $customer_id = $last_payment_details["customer_id"];
+
+// echo $customer_id;
+// exit;
 
 
 $udpate_payment = "INSERT INTO restaurant_payments (restaurant_txn, txn_date, amount_paid, date_of_payment, amount_balance, net_paid, txn_worth, customer_id, means_of_payment) VALUES ('$trasaction_ref', '$txn_date', $amount_paid, CURRENT_TIMESTAMP, $new_balance, $net_paid, $txn_worth, '$customer_id', '$means_of_payment')";
@@ -52,10 +59,16 @@ if (substr($customer_id, 0, 3) == "LOD") {
     $update_outstanding_result = mysqli_query($dbConn, $update_customer_outstanding);
 }
 
+$msg_response="";
 
-if ($update_txn_result && $update_payment_result) {
-	echo "SUCCESS";
+if($update_txn_result && $update_payment_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "PAYMENT RECORDS SUCCESSFULLY UPDATED";
 } else {
-	echo "FAILED";
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
 }
+
+$response_message = json_encode($msg_response);
+echo $response_message;
 ?>

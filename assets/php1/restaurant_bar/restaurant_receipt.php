@@ -91,7 +91,6 @@ $insert_into_sales = $conn->prepare("INSERT INTO restaurant_sales (sales_ref, it
 $insert_into_sales->bind_param("sssiiiiiis", $tx_ref, $item, $type, $item_qty, $unit_cost, $net_cost, $discount_rate, $discounted_net_cost, $discount_amount, $sold_by);
 
 for ($i=0; $i <$no_of_items ; $i++) { 
-	echo "<br>$i";
 	$tx_ref = $txn_ref;
 	$item = $item_list[$i]["item"];
 	$type = $item_list[$i]["type"];
