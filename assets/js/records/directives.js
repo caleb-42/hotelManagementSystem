@@ -292,7 +292,8 @@ app.directive('listtranx', ['$rootScope', '$filter', function ($rootScope, $filt
                     scope.listtranxs.jslist.selectedObj = scope.listtranxs.jslist.values[index];
                     console.log(scope.listtranxs.jslist.selectedObj);
                     //scope.palistsales.jslist.createList(params);
-                }
+                },
+                pay_method : 'Cash'
             };
             //scope.listsales.jslist.createList({sales_ref : 0});
             $rootScope.$on('custselect' , function(evt, params){

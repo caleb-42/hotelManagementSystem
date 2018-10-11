@@ -71,17 +71,21 @@
             </div>
             <div class="surcharge p-3 anim">
                 <div class="row justify-content-between">
-                    <div class="col-6">
+                    <div class="col-4">
                         <input type="radio" name="radio" value="Item" id="itemdis" ng-model='surcharge.discount.type' />
                         <label for="itemdis" class="f-13">Item Dis</label>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <input type="radio" name="radio" value="Total" id="totaldis" ng-model='surcharge.discount.type' />
                         <label for="totaldis" class="f-13"> Total Dis</label>
                     </div>
+                    <div class="col-4">
+                        <input type="radio" name="radio" value="None" id="nonedis" ng-model='surcharge.discount.type' />
+                        <label for="nonedis" class="f-13"> No Dis</label>
+                    </div>
                 </div>
                 <!--<button class="btn-block btn "><span class="mr-1">N</span>{{cart.TotalItemCost}}</button>-->
-                <button class="btn-block btn {{surcharge.discount.type == 'Total' ? 'custom-btn-outline-warning' : 'btn-warning'}} my-2" ng-mouseleave = "surcharge.totalClass = false" ng-mouseover = "surcharge.totalClass = true"><span class="mr-1 mt-1">N</span>{{ surcharge.totalClass || surcharge.discount.type == 'Item' ? cart.currentCart.total.total_cost : (cart.currentCart.total.discounted_total_cost + ' &nbsp  |  &nbsp %' + cart.currentCart.total.transaction_discount)}}</button>
+                <button class="btn-block btn {{surcharge.discount.type == 'Total' ? 'custom-btn-outline-warning' : 'btn-warning'}} my-2" ng-mouseleave = "surcharge.discount.type == 'Total' ? (surcharge.totalClass = false) : null;" ng-mouseover = "surcharge.discount.type == 'Total' ? (surcharge.totalClass = true) : null;"><span class="mr-1 mt-1">N</span>{{ surcharge.totalClass || surcharge.discount.type == 'Item' || surcharge.discount.type == 'None'  ? cart.currentCart.total.total_cost : (cart.currentCart.total.discounted_total_cost + ' &nbsp  |  &nbsp %' + cart.currentCart.total.transaction_discount)}}</button>
                 <div class="row">
                     <button class="col-5 btn sechue" ng-click="sales.order.command()">{{!sales.order.orderDeselect ? 'Delete Order' : 'Open Order'}}</button>
                     <button class="offset-2 col-5 btn btn-success" data-toggle="modal" data-target="#Customer" ng-click="settings.modal.active = 'payment'; surcharge.payment.preview(); settings.modal.name = 'Reciept Preview'; settings.modal.size = 'md' ">Pay</button>

@@ -324,6 +324,18 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     discount_amount: 0
                 }
                 $scope.surcharge.TotalItemCost = Total >= 0 ? Total : 0;
+            } else if ($scope.surcharge.discount.type == "None") {
+                //console.log($scope.surcharge.discount);
+                $scope.cart.cartlist.forEach(function (element) {
+                    Total += parseInt(element.discounted_net_cost);
+                });
+                $scope.cart.currentCart.total = {
+                    transaction_discount: 0,
+                    total_cost: Total,
+                    discounted_total_cost: Total,
+                    discount_amount: 0
+                }
+                $scope.surcharge.TotalItemCost = Total >= 0 ? Total : 0;
             };
 
             console.log($scope.surcharge.TotalItemCost);
