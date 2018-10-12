@@ -18,6 +18,16 @@ $discount_available = $new_item["discount_available"];
 $shelf_item = $new_item["shelf_item"];
 $current_stock = $new_item["current_stock"];
 
+if (!($current_stock)) {
+	$current_stock = "";
+}
+
+$item = mysqli_real_escape_string($dbConn, $item);
+$type = mysqli_real_escape_string($dbConn, $type);
+$category = mysqli_real_escape_string($dbConn, $category);
+$description = mysqli_real_escape_string($dbConn, $description);
+$shelf_item = mysqli_real_escape_string($dbConn, $shelf_item);
+
 $msg_response="";
 
 if ($item == "" || $current_price == "") {
@@ -36,7 +46,7 @@ if (mysqli_num_rows($duplicate_check_result) > 0) {
 if ($current_stock) {
 	$add_item_query = "INSERT INTO restaurant_items (item, type, category, description, current_price, discount_rate, discount_available, shelf_item, current_stock, last_stock_update) VALUES ('$item', '$type', '$category', '$description', $current_price, $discount_rate, '$discount_available', '$shelf_item', $current_stock, CURRENT_TIMESTAMP)";
 } else {
-	$add_item_query = "INSERT INTO restaurant_items (item, type, category, description, current_price, discount_rate, discount_available, shelf_item, current_stock) VALUES ('$item', '$type', '$category', '$description', $current_price, $discount_rate, '$discount_available', '$shelf_item', $current_stock)";
+	$add_item_query = "INSERT INTO restaurant_items (item, type, category, description, current_price, discount_rate, discount_available, shelf_item) VALUES ('$item', '$type', '$category', '$description', $current_price, $discount_rate, '$discount_available', '$shelf_item')";
 }
 
 $add_item_result = mysqli_query($dbConn, $add_item_query);
