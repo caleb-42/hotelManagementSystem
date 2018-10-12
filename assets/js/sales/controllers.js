@@ -341,7 +341,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             console.log($scope.surcharge.TotalItemCost);
         },
         discount: {
-            type: "Total",
+            type: "None",
         },
         payment: {
             preview: function () {
