@@ -76,10 +76,14 @@ $scope.listtranxs = {
             jsonfunc: jsonPost.data("assets/php1/restaurant_bar/restaurant_balance_pay.php", {
                 payment_details: $filter('json')(ref)
             }).then(function (response) {
+                $scope.listtranxs.jslist.toggleOut();
                 console.log(response);
-               /*  $rootScope.settings.modal.msgprompt(response);
-                $scope.customers.adding = false;
-                $scope.customers.jslist.createList(); */
+                $rootScope.settings.modal.msgprompt(response);
+                $scope.listtranxs.adding = false;
+                $scope.listtranxs.jslist.createList($scope.listtranxs.jslist.data);
+                $scope.listtranxs.jslist.createcustomerList();
+                $scope.listtranxs.jslist.selected = null;
+                $scope.listtranxs.jslist.toggleIn();
             })
         }
     }

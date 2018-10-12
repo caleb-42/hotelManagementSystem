@@ -147,8 +147,19 @@
                 </div>
 
                 <div class="modal-footer w-100 px-5">
-                    <div class="justify-content-center w-100 d-flex flex-column"><button type="button" class="b-0 btn btn-success mx-5"
-                            ng-click="surcharge.payment.receiptPrint(); ">Pay</button></div>
+                    <div class="justify-content-center w-100 d-flex flex-column">
+                        <div class="py-1 row justify-content-center w-100">
+                            <div ng-class="{gone : !surcharge.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                    height="70px" /></div>
+                            <button type="button" class="{{surcharge.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
+                            ng-click="surcharge.payment.receiptPrint(); surcharge.adding = true" >
+                                Pay
+                            </button>
+                        </div>
+                        <div class="row pt-3 justify-content-center">
+                            <p class="{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--....... Payment End ......... -->
