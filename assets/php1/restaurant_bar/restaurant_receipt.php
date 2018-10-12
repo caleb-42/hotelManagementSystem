@@ -122,7 +122,7 @@ $update_stock_query->close();
 
 /*Record Transaction*/
 if ($amount_paid) {
-	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, net_paid, txn_worth, customer_id, means_of_payment ,date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref', '$pay_method', CURRENT_TIMESTAMP)";
+	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, amount_balance, net_paid, txn_worth, customer_id, means_of_payment ,date_of_payment) VALUES('$txn_ref', $amount_paid, $amount_balance, $amount_paid, $discounted_total_cost, '$customer_ref', '$pay_method', CURRENT_TIMESTAMP)";
 } else {
 	$payment_record_query = "INSERT INTO restaurant_payments (restaurant_txn, amount_paid, net_paid, amount_balance, txn_worth, customer_id) VALUES('$txn_ref', $amount_paid, $amount_paid, $amount_balance, $discounted_total_cost, '$customer_ref')";
 }
@@ -339,6 +339,18 @@ file_put_contents($filename, $printData);
 
 copy($filename, $device);       //Print receipt contents
 unlink($filename);
-echo "DONE";
+
+$msg_response="";
+
+if($txn_insert_result && $payment_record_result){
+	$msg_response[0] = "OUTPUT";
+	$msg_response[1] = "SUCCESS";
+} else {
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "SOMETHING WENT WRONG";
+}
+
+$response_message = json_encode($msg_response);
+echo $response_message;
 /* Complete Receipt Printing */
 ?>
