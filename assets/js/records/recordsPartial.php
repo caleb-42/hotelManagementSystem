@@ -54,7 +54,7 @@
     <!--statusbar for primehd end--><!-- {{tabnav.selected == 'Customers' ? null : 'w-0 gone'}} -->
     <div class="main-sidebar-right hs-100 whtback anim {{tabnav.selected.options.rightbar ? tabnav.selected.options.rightbar.rightbarclass : 'w-0 gone'}}">
         <div class="statusbar grn row align-items-end justify-content-center">
-            <h4 class="text-center wht">Details <i class="fa fa-book"></i></h4>
+            <h4 class="text-center wht">{{tabnav.selected.name == 'Customers' ? 'Sales Tranx' : 'Sales List'}} <i class="fa fa-book"></i></h4>
         </div>
         <!--statusbar for main-sidebar-right end -->
         <div class="sidebar-body" ng-switch on="tabnav.selected.name">

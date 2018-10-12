@@ -11,12 +11,12 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     }
                 }
             },
-            History: {
+            /* History: {
                 name: 'History',
                 options: {
                     rightbar: false
                 }
-            }
+            } */
         },
         selected: {
             name: 'Sales',
@@ -345,6 +345,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
         },
         payment: {
             preview: function () {
+                $scope.buyer.customer.makeCustomerList();
                 $scope.cart.currentCart.buyer = $scope.buyer.customer.selected;
                 $scope.cart.currentCart.cart = JSON.parse(JSON.stringify($scope.cart.cartlist));
                 $scope.surcharge.reciept = {
@@ -364,6 +365,7 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     alert('fill amount paid');
                     return;
                 }
+                console.log($scope.buyer.customer.customerList);
                 if ($scope.cart.currentCart.buyer.type == 'customer') {
                     $scope.buyer.customer.customerList.forEach(function (elm) {
                         console.log(elm);
@@ -375,11 +377,12 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.surcharge.reciept.customer_ref = "BUYER";
                 }
                 console.log($scope.surcharge.reciept);
+                $scope.surcharge.adding = false;
                 jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
                     sales_details: $filter('json')($scope.surcharge.reciept)
                 }).then(function(response){
                     console.log(response);
-                    //$rootScope.settings.modal.msgprompt(response);
+                    $rootScope.settings.modal.msgprompt(response);
                     $scope.surcharge.adding = false;
                     if(!$scope.sales.order.orderDeselect){
                         $scope.sales.order.delete();
@@ -389,7 +392,8 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                         $scope.cart.currentCart = {};
 
                     }
-                })
+                });
+                $rootScope.$emit('resetproductlist' , {});
             }
         }
     }

@@ -35,8 +35,20 @@ salesApp.directive('jslist', ['List', '$rootScope', function (List, $rootScope) 
                     ];
                     listoptions = listdetails.listjsOptions;
                 },
+                toggleOut: function () {
+                    $(".listcont").fadeOut(200);
+                },
+                toggleIn: function () {
+                    $(".listcont").delay(500).fadeIn(200);
+                }
             }
             scope.jslist.createList();
+            $rootScope.$on('resetproductlist', function(evt,params){
+                console.log('ewereereewee');
+                scope.jslist.toggleOut();
+                scope.jslist.createList();
+                scope.jslist.toggleIn();
+            });
         }
     };
 }]);

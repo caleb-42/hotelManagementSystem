@@ -42,11 +42,11 @@
 </div>
 
 <div ng-if = "<?php echo $_GET['list']   == 'customers'?>">
-    <div class = "listcont h-100">
+    <div class = "listcont hs-100">
             <div class = "listhd pr-3 row">
                 <span class="{{hd.width}}"  ng-class ='{"text-center" : !$first}' ng-repeat = "hd in customers.listhddata">{{hd.name}}</span>
             </div>
-            <div class = "h-80 listbody ovflo-y pb-4" ><ul class = "list" >
+            <div class = "hs-70 listbody ovflo-y pb-4" ><ul class = "list" >
                 <li class = "itemlistrow row align-items-center f-12" ng-repeat = "hist in (customers.jslist.newItemArray = (customers.jslist.values | filter:searchbox.imp))" ng-click = "customers.jslist.select($index, hist.customer_id);" ng-class = "{'actparent' : customers.jslist.selected == hist.customer_id}">
                     <span class = "text-left custid {{customers.listhddata[0].width}}">{{hist.customer_id}}</span>
                     <span class = "text-center fname {{customers.listhddata[1].width}}">{{hist.full_name}}</span>
@@ -61,7 +61,7 @@
 </div>
 
 <div ng-if = "<?php echo $_GET['list']   == 'tranxsales'?>">
-    <div class = "row hs-100 {{listsales.jslist.active ? 'gone' : 'align-items-center'}} relatv ">
+    <div class = "row hs-80 {{listsales.jslist.active ? 'gone' : 'align-items-center'}} relatv ">
         <h4 class=" text-center w-100 "> Select A Transaction</h4>
     </div>
     <div class = "listcont {{!listsales.jslist.active ? 'gone' : 'notgone'}}">
@@ -96,7 +96,7 @@
 </div>
 
 <div ng-if = "<?php echo $_GET['list']   == 'tranxlist'?>">
-    <div class = "row hs-100 {{listtranxs.jslist.active ? 'gone' : 'align-items-center'}} relatv ">
+    <div class = "row hs-80 {{listtranxs.jslist.active ? 'gone' : 'align-items-center'}} relatv ">
         <h4 class=" text-center w-100 "> Select A Customer</h4>
     </div>
     <div class = "listcont {{!listtranxs.jslist.active ? 'gone' : 'notgone'}}">
