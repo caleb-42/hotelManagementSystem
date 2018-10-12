@@ -1,7 +1,7 @@
 recordsApp.controller("records", ["$rootScope", "$scope", 'jsonPost', '$filter',  function ($rootScope, $scope, jsonPost, $filter) {
     $scope.tabnav = {
         navs: {
-            Transactions: {
+            Sales: {
                 name: 'Sales',
                 options: {
                     rightbar : {
