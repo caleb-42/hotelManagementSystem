@@ -51,6 +51,7 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
         },
         updateProduct: function (jsonprod) {
             jsonprod.id = $scope.productstock.jslist.selected;
+            jsonprod.new_shelf_item = "";
             console.log("new product", jsonprod);
             jsonPost.data("assets/php1/restaurant_bar/admin/edit_item.php", {
                 update_item: $filter('json')(jsonprod)

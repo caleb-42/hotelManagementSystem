@@ -322,6 +322,12 @@ button.btnnone{
 .hs-100{
     height: 100vh !important;
 }
+.hs-90{
+    height: 90vh !important;
+}
+.hs-80{
+    height: 80vh !important;
+}
 .hs-70{
     height: 70vh !important;
 }

@@ -1,6 +1,6 @@
 
 <!-- ............jslist start ..............-->
-<div ng-if = "<?php echo $_GET['type']   == 'jslist'?>" class="animate-switch-container h-100 pb-4" ng-switch on="layout">
+<div ng-if = "<?php echo $_GET['type']   == 'jslist'?>" class="animate-switch-container h-100 pb-4 listcont" ng-switch on="layout">
     <div class="animate-switch h-100" ng-switch-default>
         <div class = "itemboxhd ovflo-y h-100 w-100">
             <div class = "itembox " ng-repeat = "items in (jslist.newItemArray = (jslist.values | filter:searchquery))" ng-click = "jslist.addToCart($index)">
