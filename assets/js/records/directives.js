@@ -145,6 +145,7 @@ app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $
                         }
                         console.log(result);
                         scope.customers.jslist.values = result;
+                        scope.customers.jslist.selected = null;
                     });
                     scope.customers.listhddata = [
                         {
@@ -183,8 +184,17 @@ app.directive('customerslist', ['$rootScope', '$filter', function ($rootScope, $
                     $rootScope.$emit('custselect', {customer_ref : id, obj: scope.customers.jslist.selectedObj});
                     //scope.palistsales.jslist.createList(params);
                 },
+                toggleOut: function () {
+                    $(".listcont").fadeOut(200);
+                },
+                toggleIn: function () {
+                    $(".listcont").delay(500).fadeIn(200);
+                },
             }
             scope.customers.jslist.createList();
+            $rootScope.$on('createcustomerlist', function(evt, params){
+                scope.customers.jslist.createList();
+            });
         }
     };
 }]);
@@ -293,12 +303,24 @@ app.directive('listtranx', ['$rootScope', '$filter', function ($rootScope, $filt
                     console.log(scope.listtranxs.jslist.selectedObj);
                     //scope.palistsales.jslist.createList(params);
                 },
+                toggleOut: function () {
+                    $(".listcont").fadeOut(200);
+                },
+                toggleIn: function () {
+                    $(".listcont").delay(500).fadeIn(200);
+                },
+                createcustomerList : function()
+                {
+                    scope.listtranxs.jslist.active = false;
+                    $rootScope.$emit('createcustomerlist', {})
+                },
                 pay_method : 'Cash'
             };
             //scope.listsales.jslist.createList({sales_ref : 0});
             $rootScope.$on('custselect' , function(evt, params){
                 console.log('sssss');
-                scope.listtranxs.jslist.createList(params);
+                scope.listtranxs.jslist.data = params;
+                scope.listtranxs.jslist.createList(scope.listtranxs.jslist.data);
                 scope.listtranxs.jslist.tranx = params.obj;
                 scope.listtranxs.jslist.active = true;
             });

@@ -14,7 +14,7 @@
 </div>
 
 <div ng-if = "<?php echo $_GET['list']   == 'sessions'?>">
-    <div class = "row h-100 {{users.jslist.selected ? 'gone' : 'align-items-center'}} relatv ">
+    <div class = "row hs-100 {{users.jslist.selected ? 'gone' : 'align-items-center'}} relatv ">
         <h4 class=" text-center w-100 "> Select A User</h4>
     </div>
     <div class = "listcont {{!users.jslist.selected ? 'gone' : 'notgone'}}">

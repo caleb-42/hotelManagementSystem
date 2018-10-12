@@ -52,14 +52,14 @@
     <!--statusbar for main-sidebar-right end -->
     <div class="sidebar-body" ng-switch on="tabnav.selected">
         <div ng-switch-default>
-            <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart' : !sales.order.orderDeselect}">
+            <div class="buyer-status row  align-items-center pointer anim" ng-class="{'ordercart pointer-disabled' : !sales.order.orderDeselect}">
                 <div class="col-3 m-0" ng-click="buyer.customer.selected = buyer.customer.selectedDefault">
                     <div class="{{buyer.customer.selected.gender == 'male' ? 'avatar-img' : 'avatar-img-female'}}"></div>
                 </div>
                 <div class="col-6 row  justify-content-start px-1 h-100  align-items-center" ng-click="buyer.customer.makeCustomerList(); buyer.showPanel = 'search'; settings.modal.active = 'customer'; settings.modal.name = 'Select Customer'; settings.modal.size = 'lg' " data-toggle="modal" data-target="#Customer">
                     <span class="m-0 p-0 buyerbio">
                         <p class="m-0 f-17 font-fam-Montserrat pointer excerpt" style = "width:150px;">{{buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name ? 'Select Customer' : buyer.customer.selected.full_name}}</p>
-                        <p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.bal}}</p></span>
+                        <p class="f-13-5 m-0 font-fam-Montserrat opac-50 pointer" ng-class = "{'gone' : buyer.customer.selected.full_name == buyer.customer.selectedDefault.full_name}">{{buyer.customer.selected.type}} | {{buyer.customer.selected.outstanding_balance}}</p></span>
                 </div>
                 <div class="col-3" ng-click="buyer.showPanel = 'addnew'; settings.modal.active = 'customer'; settings.modal.name = 'Add Customer'; settings.modal.size = 'md' " data-toggle="modal" data-target="#Customer" ng-class="{'btn-danger py-1' : !sales.order.orderDeselect}" ng-style="{'box-shadow' : !sales.order.orderDeselect ? '-3px 3px  5px #444' : 'none'}">
                     <i class="fa addicon pointer " ng-if="sales.order.orderDeselect"></i>
@@ -70,25 +70,25 @@
                 <cartitems cart="cart.cartlist" totalcost="surcharge.CalcCosts()" discount = "surcharge.discount.type"></cartitems>
             </div>
             <div class="surcharge p-3 anim">
-                <div class="row justify-content-between">
-                    <div class="col-4">
+                <div class="row p-0">
+                    <div class="col">
                         <input type="radio" name="radio" value="Item" id="itemdis" ng-model='surcharge.discount.type' />
-                        <label for="itemdis" class="f-13">Item Dis</label>
+                        <label for="itemdis" class="f-13">Item Discnt</label>
                     </div>
-                    <div class="col-4">
+                    <div class="col">
                         <input type="radio" name="radio" value="Total" id="totaldis" ng-model='surcharge.discount.type' />
-                        <label for="totaldis" class="f-13"> Total Dis</label>
+                        <label for="totaldis" class="f-13"> Total Discnt</label>
                     </div>
-                    <div class="col-4">
+                    <div class="col">
                         <input type="radio" name="radio" value="None" id="nonedis" ng-model='surcharge.discount.type' />
-                        <label for="nonedis" class="f-13"> No Dis</label>
+                        <label for="nonedis" class="f-13"> No Discnt</label>
                     </div>
                 </div>
                 <!--<button class="btn-block btn "><span class="mr-1">N</span>{{cart.TotalItemCost}}</button>-->
                 <button class="btn-block btn {{surcharge.discount.type == 'Total' ? 'custom-btn-outline-warning' : 'btn-warning'}} my-2" ng-mouseleave = "surcharge.discount.type == 'Total' ? (surcharge.totalClass = false) : null;" ng-mouseover = "surcharge.discount.type == 'Total' ? (surcharge.totalClass = true) : null;"><span class="mr-1 mt-1">N</span>{{ surcharge.totalClass || surcharge.discount.type == 'Item' || surcharge.discount.type == 'None'  ? cart.currentCart.total.total_cost : (cart.currentCart.total.discounted_total_cost + ' &nbsp  |  &nbsp %' + cart.currentCart.total.transaction_discount)}}</button>
                 <div class="row">
                     <button class="col-5 btn sechue" ng-click="sales.order.command()">{{!sales.order.orderDeselect ? 'Delete Order' : 'Open Order'}}</button>
-                    <button class="offset-2 col-5 btn btn-success" data-toggle="modal" data-target="#Customer" ng-click="settings.modal.active = 'payment'; surcharge.payment.preview(); settings.modal.name = 'Reciept Preview'; settings.modal.size = 'md' ">Pay</button>
+                    <button class="offset-2 col-5 btn btn-success" data-toggle="modal" data-target="#Customer" ng-click="settings.modal.active = 'payment'; surcharge.payment.preview(); settings.modal.name = 'Reciept Preview'; settings.modal.size = 'md' ">Preview</button>
                 </div>
             </div>
         </div>

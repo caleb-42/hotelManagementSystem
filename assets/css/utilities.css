@@ -368,6 +368,10 @@ button.btnnone{
 .text-strike{
     text-decoration: line-through;
 }
+.pointer-disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+}
 @keyframes fadeInFromNone{
     from {opacity: 0;}
     to {opacity: 1;}

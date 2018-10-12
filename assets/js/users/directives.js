@@ -13,6 +13,7 @@ app.directive('userlist', ['$rootScope', function ($rootScope) {
                     jsonlist.then(function (result) {
                         console.log(result);
                         scope.users.jslist.values = result;
+                        scope.users.jslist.selected = null;
                     });
                     scope.users.listhddata = [
                         {

@@ -377,6 +377,18 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                 console.log($scope.surcharge.reciept);
                 jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
                     sales_details: $filter('json')($scope.surcharge.reciept)
+                }).then(function(response){
+                    console.log(response);
+                    //$rootScope.settings.modal.msgprompt(response);
+                    $scope.surcharge.adding = false;
+                    if(!$scope.sales.order.orderDeselect){
+                        $scope.sales.order.delete();
+                    }else{
+                        $scope.buyer.customer.selected = $scope.buyer.customer.selectedDefault;
+                        $scope.cart.cartlist = []
+                        $scope.cart.currentCart = {};
+
+                    }
                 })
             }
         }
