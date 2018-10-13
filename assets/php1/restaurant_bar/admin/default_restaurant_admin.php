@@ -1,7 +1,7 @@
 <?php
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-$default_user = '{"user_name":"admin", "role":"admin", "user_pass": "webplay"}';
+$default_user = '{"user_name":"admin", "role":"admin", "user_pass": "webplay", "user": "Admin"}';
 $new_user = json_decode($default_user, true);
 
 $user_name = $new_user["user_name"];
