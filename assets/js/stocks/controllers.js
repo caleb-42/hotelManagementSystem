@@ -44,7 +44,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.productstock.adding = false;
                 $scope.productstock.jslist.createList();
                 $scope.productstock.jslist.toggleIn();
             });
@@ -59,7 +58,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.productstock.adding = false;
                 $scope.productstock.jslist.createList();
                 $scope.productstock.jslist.toggleIn();
             });
@@ -117,7 +115,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.stock.adding = false;
                 $scope.productstock.jslist.createList();
                 $scope.productstock.jslist.toggleIn();
             });
@@ -131,7 +128,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                 $scope.productstock.jslist.toggleOut();
                 console.log(response);
                 $rootScope.settings.modal.msgprompt(response);
-                $scope.productstock.adding = false;
                 $scope.productstock.jslist.createList();
                 $scope.productstock.jslist.toggleIn();
             });
@@ -189,7 +185,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
                     $rootScope.settings.modal.msgprompt(response);
-                    $scope.details.discount.adding = false;
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();
                 });
@@ -208,7 +203,6 @@ stocksApp.controller("stocks", ["$rootScope", "$scope", 'jsonPost', '$filter', f
                     $scope.details.discount.jslist.toggleOut();
                     console.log(response);
                     $rootScope.settings.modal.msgprompt(response);
-                    $scope.details.discount.adding = false;
                     $scope.details.discount.jslist.createList();
                     $scope.details.discount.jslist.toggleIn();
                 });

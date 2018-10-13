@@ -301,6 +301,9 @@ button.btnnone{
 .h-70{
     height: 70% !important;
 }
+.h-60{
+    height: 60% !important;
+}
 .h-50{
     height: 50% !important;
 }
@@ -330,6 +333,9 @@ button.btnnone{
 }
 .hs-70{
     height: 70vh !important;
+}
+.hs-60{
+    height: 60vh !important;
 }
 .hs-40{
     height: 40vh !important;

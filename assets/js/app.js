@@ -7,25 +7,30 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
             name: "",
             size: "",
             msg: "",
+            adding : false,
             msgprompt: function (arr) {
                 if (typeof (arr) == "string") {
                     $rootScope.settings.modal.msg = "BACKEND CODE ERROR";
                     $rootScope.settings.modal.msgcolor = "choral";
+                    $rootScope.settings.modal.adding = false;
+                    $rootScope.settings.modal.fademsg();
                 } else {
                     $rootScope.settings.modal.msg = arr[1];
                     if(arr[0] == "OUTPUT"){
                         $rootScope.settings.modal.msgcolor = "green";
-                        $rootScope.settings.modal.close()
+                        $rootScope.settings.modal.close();
                     }else{
                         $rootScope.settings.modal.msgcolor = "choral";
+                        $rootScope.settings.modal.fademsg();
                     }
+                    $rootScope.settings.modal.adding = false;
                 }
             }
         },
-        userDefinition: function (user, role) {
+        userDefinition : function (user, role) {
             $rootScope.settings.user = user;
             $rootScope.settings.role = role;
-        },
+        },        
         user: "",
         role: "",
         log: true
@@ -64,12 +69,13 @@ app.controller("appctrl", ["$rootScope", "$scope", function ($rootScope, $scope)
             ]
         },
         menuicon: {
+            active : true,
             toggleactive: function () {
                 console.log("rertr");
                 $scope.sidebarnav.menuicon.active = $scope.sidebarnav.menuicon.active ? false : true;
             }
         }
-    }
+    };
 }]);
 
 var salesApp = angular.module('salesApp', []);

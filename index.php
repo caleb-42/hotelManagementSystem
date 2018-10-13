@@ -71,7 +71,7 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
 
 <body>
 
-    <div class="wrapper anim" ng-style = "{'padding-left': settings.role == 'admin' ? '80px' : '0'}"  ng-controller="appctrl" ng-class = "{'toggled' : sidebarnav.menuicon.active}">
+    <div class="wrapper anim" ng-style = "{'padding-left': settings.role == 'admin' ? '80px' : '0'}"  ng-controller="appctrl" ng-class = "{'toggled' : settings.role == 'admin' ? sidebarnav.menuicon.active : false}">
         <div class="sidebarleft anim" ng-style = "{'width': settings.role == 'admin' ? '80px' : '0'}">
             <div class="h-15 menuicon w-100 ml-3 pl-1 py-4">
                 <div class="hamburger hamburger--minus p-0" ng-click="sidebarnav.menuicon.toggleactive()" ng-class="{'is-active':sidebarnav.menuicon.active}">

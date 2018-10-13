@@ -63,7 +63,8 @@ app.directive('productlist', ['$rootScope', '$filter', function ($rootScope, $fi
                 },
                 toggleIn: function () {
                     $(".listcont").delay(500).fadeIn(200);
-                }
+                },
+                shelfitem : 'yes'
             }
             scope.productstock.jslist.createList();
         }
