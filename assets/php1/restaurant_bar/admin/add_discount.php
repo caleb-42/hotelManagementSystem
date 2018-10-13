@@ -9,6 +9,8 @@ $lower_limit = intval($lower_limit);
 $upper_limit = $new_discount["upper_limit"];
 $upper_limit = intval($upper_limit);
 $discount_item = $new_discount["discount_item"];
+$discount_name = mysqli_real_escape_string($dbConn, $discount_name);
+$discount_item = mysqli_real_escape_string($dbConn, $discount_item);
 $discount_value = $new_discount["discount_value"];
 $discount_value = intval($discount_value);
 

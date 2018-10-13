@@ -88,7 +88,7 @@
                     <span class = "text-center login col-2">{{sales.unit_cost}}</span>
                     <span class = "text-center login col-2">{{sales.net_cost}}</span>
                     <span class = "text-center login col-2">{{sales.discount_amount}}</span>
-                    <span class = "text-center logoff col-2">{{sales.discount_rate}}</span>
+                    <span class = "text-center logoff col-1">{{sales.discount_rate}}</span>
                 </li>
             </ul>
         </div>

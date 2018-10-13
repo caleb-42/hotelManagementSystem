@@ -2,7 +2,7 @@
     <div  class = "listhd pr-3 row">
         <span class="{{hd.width}}"  ng-class ='{"text-center" : !$first}' ng-repeat = "hd in productstock.listhddata">{{hd.name}}</span>
     </div>
-    <div class = "h-80 listbody ovflo-y pb-4" >
+    <div class = "hs-60 listbody ovflo-y pb-4" >
         <ul class = "list" >
             <li class = "anim-fast itemlistrow row align-items-center f-12" ng-repeat = "items in (productstock.jslist.newItemArray = (productstock.jslist.values | filter:{'item' : searchbox.imp}:strict))" ng-click = "productstock.jslist.select($index, items.id); details.discount.jslist.createList()" ng-class = "{'actparent' :productstock.jslist.selected == items.id}">
                 <span class = "itemname col-2">{{items.item}}</span>

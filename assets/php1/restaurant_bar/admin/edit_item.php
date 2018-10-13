@@ -21,6 +21,12 @@ $discount_available = !$update_item["new_discount_available"] ? $update_item["ne
 $shelf_item = $update_item["new_shelf_item"] ? $update_item["new_shelf_item"] : $update_item["shelf_item"];
 $current_stock = $update_item["new_current_stock"] ? $update_item["new_current_stock"] : $update_item["current_stock"];
 
+$item = mysqli_real_escape_string($dbConn, $item);
+$type = mysqli_real_escape_string($dbConn, $type);
+$category = mysqli_real_escape_string($dbConn, $category);
+$description = mysqli_real_escape_string($dbConn, $description);
+$shelf_item = mysqli_real_escape_string($dbConn, $shelf_item);
+
 $msg_response="";
 
 if ($item == "" || $type == "" || $category == "" || $description == "" || $current_price == "") {

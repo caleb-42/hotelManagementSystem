@@ -19,6 +19,9 @@ $user = $update_user["new_user"] ? $update_user["new_user"] : $update_user["user
 $role = $update_user["new_role"] ? $update_user["new_role"] : $update_user["role"];
 $password = $update_user["new_password"] ? generateHash($update_user["new_password"]) : "";
 
+$user_name = mysqli_real_escape_string($dbConn, $user_name);
+$user = mysqli_real_escape_string($dbConn, $user);
+
 $msg_response="";
 
 if ($user == "" || $role == "" || $user_name == "") {

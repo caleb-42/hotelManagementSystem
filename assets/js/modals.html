@@ -15,8 +15,7 @@
                         <form autocomplete="off" class="custform w-100 text-center mt-2 px-5 ">
                             <input class=" form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
                                 placeholder="Name" name="full_name" ng-focus="activateAutoComplete($event)" />
-                            <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
-                                placeholder="Phone Number" name="phone_number" />
+                            <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block" type="number" onkeydown="javascript: return event.keyCode !=69" placeholder="Phone Number" name="phone_number" />
                             <input class="form-control font-fam-Montserrat w-100 mt-4 text-center d-inline-block"
                                 placeholder="Address" name="contact_address" />
                             <!-- <input type="number" onkeydown="javascript: return event.keyCode !=69"
@@ -135,7 +134,7 @@
                                     <span class="px-3 w-50"><label class="font-fam-Montserrat-bold opac-50">Paid</label><input
                                             ng-change="surcharge.reciept.outstanding_balance = surcharge.reciept.discounted_total_cost - surcharge.reciept.amount_paid "
                                             ng-model="surcharge.reciept.amount_paid" name="paid" placeholder="Amount Paid"
-                                            class="text-center form-control" /></span>
+                                            class="text-center form-control"  type="number" onkeydown="javascript: return event.keyCode !=69" /></span>
                                     <span class="px-3 w-50"><label class="font-fam-Montserrat-bold opac-50">Balance</label><input
                                             ng-model="surcharge.reciept.outstanding_balance" readonly name="paid"
                                             placeholder="Balance" class="text-center form-control" /></span>
@@ -149,10 +148,10 @@
                 <div class="modal-footer w-100 px-5">
                     <div class="justify-content-center w-100 d-flex flex-column">
                         <div class="py-1 row justify-content-center w-100">
-                            <div ng-class="{gone : !surcharge.adding}"><img src="./assets/img/loader.gif" width="100px"
+                            <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                     height="70px" /></div>
-                            <button type="button" class="{{surcharge.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
-                            ng-click="surcharge.payment.receiptPrint(); surcharge.adding = true" >
+                            <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
+                            ng-click=" settings.modal.adding = true; surcharge.payment.receiptPrint();" >
                                 Pay
                             </button>
                         </div>
@@ -168,18 +167,22 @@
             <div ng-if="settings.modal.active == 'Add Product'">
                 <form autocomplete="off" class="addProductForm mx-5 my-4">
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name" name="item" />
-                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" type="number"
-                        name="current_stock" />
-                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" type="number"
-                        name="current_price" />
+                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock" type="number" type="number" onkeydown="javascript: return event.keyCode !=69" name="current_stock" />
+                    <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" type="number" type="number" onkeydown="javascript: return event.keyCode !=69" name="current_price" />
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Description"
                         name="description" />
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Category"
                         name="category" />
                     <div class="row justify-content-around my-2 align-items-center font-fam-Montserrat">
-                        <h6 class="font-fam-Montserrat-bold choral">Shelf Item</h6><span><input type="radio" id="yes"
-                                value="yes" checked name="shelf_item" /><label for="yes" class="f-15 ml-2">Yes</label></span><span><input
-                                type="radio" value="no" name="shelf_item" id="no" /><label for="no" class="f-15 ml-2">No</label></span>
+                        <h6 class="font-fam-Montserrat-bold choral">Shelf Item</h6>
+                        <span>
+                            <input type="radio" ng-model = 'productstock.jslist.shelfitem' id="yes" value="yes"  name="shelf_item" />
+                            <label for="yes" class="f-15 ml-2">Yes</label>
+                        </span>
+                        <span>
+                            <input type="radio" ng-model = 'productstock.jslist.shelfitem' value="no" name="shelf_item" id="no" />
+                            <label for="no" class="f-15 ml-2">No</label>
+                        </span>
                     </div>
 
                     <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Type" name="type" />
@@ -187,10 +190,10 @@
                 <div class="modal-footer w-100">
                     <div class="justify-content-center w-100 d-flex flex-column">
                         <div class="py-1 row justify-content-center w-100">
-                            <div ng-class="{gone : !productstock.adding}"><img src="./assets/img/loader.gif" width="100px"
+                            <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                     height="70px" /></div>
-                            <button type="button" class="{{productstock.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
-                                onclick="addProduct()" ng-click="productstock.adding = true">
+                            <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
+                                onclick="addProduct()">
                                 Add
                             </button>
                         </div>
@@ -206,7 +209,7 @@
                         <div class="w-100">
                             <input class="item form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name"
                                 value="rer" name="item" readonly />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock"
+                            <input class="form-control gone font-fam-Montserrat text-center d-block my-4" placeholder="Stock"
                                 name="current_stock" readonly />
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price"
                                 name="current_price" readonly />
@@ -223,10 +226,8 @@
                         <div class="w-100">
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Name"
                                 name="new_item" />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Stock"
-                                name="new_current_stock" />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price"
-                                name="new_current_price" />
+                            <input class="form-control gone font-fam-Montserrat text-center d-block my-4" placeholder="Stock" type="number" onkeydown="javascript: return event.keyCode !=69" name="new_current_stock" />
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Price" type="number" onkeydown="javascript: return event.keyCode !=69" name="new_current_price" />
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Description"
                                 name="new_description" />
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Category"
@@ -246,10 +247,10 @@
                 <div class="modal-footer w-100">
                     <div class="justify-content-center w-100 d-flex flex-column">
                         <div class="py-1 row justify-content-center w-100">
-                            <div ng-class="{gone : !productstock.adding}"><img src="./assets/img/loader.gif" width="100px"
+                            <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                     height="70px" /></div>
-                            <button type="button" class="{{productstock.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
-                                onclick="updateProduct()" ng-click="productstock.adding = true">
+                            <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success my-3"
+                                onclick="updateProduct()">
                                 Update
                             </button>
                         </div>
@@ -284,8 +285,8 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                                 <div class="py-1 row justify-content-center w-100">
-                                <div ng-class = "{gone : !details.discount.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
-                                <button type="button" class="{{details.discount.adding ? 'gone' : ''}} b-0 btn btn-success" onclick="updateDiscount()" ng-click = "details.discount.adding = true">
+                                <div ng-class = "{gone : !settings.modal.adding}"><img src = "./assets/img/loader.gif" width = "100px" height = "70px"/></div>
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success" onclick="updateDiscount()">
                                     {{settings.modal.name | limitTo:6}}
                                 </button>
                             </div>
@@ -295,16 +296,15 @@
                 </div>-->
                 <div class="w-100" ng-if="settings.modal.name == 'Add Stock'">
                     <form class="p-4 w-100 addStockForm row justify-content-center m-0">
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Stock No"
-                            name="quantity" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Stock No" type="number" onkeydown="javascript: return event.keyCode !=69" name="quantity" />
                     </form>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !stock.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
-                                <button type="button" class="{{stock.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="addStock()" ng-click="stock.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="addStock()">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -339,21 +339,18 @@
                                 name="new_discount_item" />
                             <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name"
                                 name="new_discount_name" />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit"
-                                name="new_upper_limit" />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit"
-                                name="new_lower_limit" />
-                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value"
-                                name="new_discount_value" />
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" type="number" onkeydown="javascript: return event.keyCode !=69" name="new_upper_limit" />
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" type="number" onkeydown="javascript: return event.keyCode !=69" name="new_lower_limit" />
+                            <input class="form-control font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" type="number" onkeydown="javascript: return event.keyCode !=69" name="new_discount_value" />
                         </div>
                     </form>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !details.discount.adding}"><img src="./assets/img/loader.gif"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif"
                                         width="100px" height="70px" /></div>
-                                <button type="button" class="{{details.discount.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="updateDiscount()" ng-click="details.discount.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="updateDiscount()">
                                     {{settings.modal.name | limitTo:6}}
                                 </button>
                             </div>
@@ -367,20 +364,17 @@
                     <form class="p-4 w-100 addDiscount row justify-content-center m-0">
                         <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount Name"
                             name="discount_name" />
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit"
-                            name="lower_limit" />
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit"
-                            name="upper_limit" />
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value"
-                            name="discount_value" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Lower Limit" type="number" onkeydown="javascript: return event.keyCode !=69" name="lower_limit" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Upper Limit" type="number" onkeydown="javascript: return event.keyCode !=69" name="upper_limit" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Discount Value" type="number" onkeydown="javascript: return event.keyCode !=69" name="discount_value" />
                     </form>
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !details.discount.adding}"><img src="./assets/img/loader.gif"
+                                <div ng-class="{gone : !settings.modal.addingg}"><img src="./assets/img/loader.gif"
                                         width="100px" height="70px" /></div>
-                                <button type="button" class="{{details.discount.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="addDiscount()" ng-click="details.discount.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="addDiscount()">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -418,10 +412,10 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !users.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
-                                <button type="button" class="{{users.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="addUser()" ng-click="users.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="addUser()">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -466,11 +460,11 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !users.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
 
-                                <button type="button" class="{{users.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="updateUser()" ng-click="users.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="updateUser()">
                                     {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>
@@ -490,7 +484,7 @@
                         <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
                             name="full_name" />
                         <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
-                            name="phone_number" />
+                            name="phone_number"  type="number" onkeydown="javascript: return event.keyCode !=69" />
                         <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
                             name="contact_address" />
 
@@ -508,10 +502,10 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !customers.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
-                                <button type="button" class="{{customers.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="addCustomer('.addCustomersForm')" ng-click="customers.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="addCustomer('.addCustomersForm')">
                                     {{settings.modal.name | limitTo:3}}
                                 </button>
                             </div>
@@ -525,21 +519,21 @@
                 <div class="w-100" ng-if="settings.modal.name == 'Update Customer'">
                     <form autocomplete="off" class="updateCustomersForm p-4 w-100">
                         <div class="float-left w-45 inpRead row m-0">
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
                                 name="full_name" readonly />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
                                 name="phone_number" readonly />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
                                 name="contact_address" readonly />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Gender"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Gender"
                                 name="gender" readonly />
                         </div>
                         <div class="float-right w-45 row m-0 justify-content-center">
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Name"
                                 name="new_full_name" />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
-                                name="new_phone_number" />
-                            <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Phone"
+                                name="new_phone_number"  type="number" onkeydown="javascript: return event.keyCode !=69" />
+                            <input class="form-control w-100 font-fam-Montserrat text-center d-block my-4" placeholder="Address"
                                 name="new_contact_address" />
 
                             <div class="row justify-content-between w-50 py-4">
@@ -557,11 +551,11 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !customers.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
 
-                                <button type="button" class="{{customers.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="updateCustomer()" ng-click="customers.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="updateCustomer()">
                                     {{settings.modal.name | limitTo:7}}
                                 </button>
                             </div>
@@ -574,8 +568,7 @@
 
                 <div class="w-100" ng-if="settings.modal.name == 'Debt Clear'">
                     <form class="p-4 w-100 debtpayForm row justify-content-center m-0">
-                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Amount Paid"
-                            name="amount_paid" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Amount Paid" name="amount_paid" type="number" onkeydown="javascript: return event.keyCode !=69" />
 
                         <select ng-model="listtranxs.jslist.pay_method" class="form-control methpay mx-auto my-4 w-40 f-13"
                             name="means_of_payment">
@@ -590,10 +583,9 @@
                     <div class="modal-footer w-100">
                         <div class="justify-content-center w-100 d-flex flex-column">
                             <div class="py-1 row justify-content-center w-100">
-                                <div ng-class="{gone : !listtranxs.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
                                         height="70px" /></div>
-                                <button type="button" class="{{listtranxs.adding ? 'gone' : ''}} b-0 btn btn-success"
-                                    onclick="debtpaydata()" ng-click="listtranxs.adding = true">
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success" onclick="debtpaydata()">
                                     pay
                                 </button>
                             </div>

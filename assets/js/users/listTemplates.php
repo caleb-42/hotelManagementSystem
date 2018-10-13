@@ -3,7 +3,7 @@
     <div class = "listhd pr-3 row">
         <span class="{{hd.width}}"  ng-class ='{"text-center" : !$first}' ng-repeat = "hd in users.listhddata">{{hd.name}}</span>
     </div>
-    <div class = "hs-80 listbody ovflo-y pb-4" >
+    <div class = "hs-60 listbody ovflo-y pb-4" >
         <ul class = "list" >
             <li class = "anim-fast itemlistrow row align-items-center f-12" ng-repeat = "items in (users.jslist.newItemArray = (users.jslist.values | filter:searchbox.imp))" ng-click = "users.jslist.select($index, items.id)" ng-class = "{'actparent' :users.jslist.selected == items.id}">
                 <span class = "username col-6">{{items.user_name}}</span>
