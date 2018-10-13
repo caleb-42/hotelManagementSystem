@@ -362,7 +362,8 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
             },
             receiptPrint: function () {
                 if (!$scope.surcharge.reciept.amount_paid) {
-                    alert('fill amount paid');
+                    $rootScope.settings.modal.msgprompt(['ERROR', 'FILL AMOUNT PAID']);
+                    console.log('what');
                     return;
                 }
                 console.log($scope.buyer.customer.customerList);
@@ -377,13 +378,11 @@ salesApp.controller("sales", ["$rootScope", "$scope", 'jsonPost', '$filter', fun
                     $scope.surcharge.reciept.customer_ref = "BUYER";
                 }
                 console.log($scope.surcharge.reciept);
-                $scope.surcharge.adding = false;
                 jsonPost.data("assets/php1/restaurant_bar/restaurant_receipt.php", {
                     sales_details: $filter('json')($scope.surcharge.reciept)
                 }).then(function(response){
                     console.log(response);
                     $rootScope.settings.modal.msgprompt(response);
-                    $scope.surcharge.adding = false;
                     if(!$scope.sales.order.orderDeselect){
                         $scope.sales.order.delete();
                     }else{

@@ -77,7 +77,7 @@ $date=date("D M d, Y g:i a");
             </div>
         </div>
         <footer class="f-12">
-            <p class = "text-center">&copy; 2012 - 2017 Webplay Nig Ltd. All Rights Reserved.</p>
+            <p class = "text-center">&copy; 2012 - <?php echo date('Y') ?> Webplay Nig Ltd. All Rights Reserved.</p>
             <p class = "text-center"><?php echo $date ?></p>
         </footer>
     </body>

@@ -222,27 +222,27 @@ app.directive('listsale', ['$rootScope', '$filter', function ($rootScope, $filte
                     scope.listsales.listhddata = [
                         {
                             name: "Item",
-                            width: "col-3",
+                            width: "col-3 f-13",
                         },
                         {
                             name: "Qty",
-                            width: "col-1",
+                            width: "col-1 f-13",
                         },
                         {
                             name: "Unit Cost",
-                            width: "col-2",
+                            width: "col-2 f-13",
                         },
                         {
                             name: "Cost",
-                            width: "col-2",
+                            width: "col-2 f-13",
                         },
                         {
                             name: "Discnt Amt",
-                            width: "col-2",
+                            width: "col-2 f-13",
                         },
                         {
-                            name: "Discnt Rate",
-                            width: "col-2",
+                            name: "Discnt %",
+                            width: "col-1 f-13",
                         }
                     ];
                 }
