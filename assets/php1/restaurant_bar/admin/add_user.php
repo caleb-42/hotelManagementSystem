@@ -8,6 +8,9 @@ $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
 
+$user_name = mysqli_real_escape_string($dbConn, $user_name);
+$user = mysqli_real_escape_string($dbConn, $user);
+
 if ($user_name == "" || $role == "" || $user_pass == "") {
 	$msg_response[0] = "ERROR";
 	$msg_response[1] = "THE FIELDS 'USERNAME', 'ROLE', AND 'PASSWORD' ARE ALL COMPULSORY";

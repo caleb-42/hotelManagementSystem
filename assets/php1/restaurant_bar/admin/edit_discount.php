@@ -10,6 +10,9 @@ $discount_item = $edit_discounts["new_discount_item"] ? $edit_discounts["new_dis
 $discount_value = $edit_discounts["new_discount_value"] ? $edit_discounts["new_discount_value"] : $edit_discounts["discount_value"];
 $discount_id = $edit_discounts["discount_id"];
 
+$discount_name = mysqli_real_escape_string($dbConn, $discount_name);
+$discount_item = mysqli_real_escape_string($dbConn, $discount_item);
+
 /*Deleting obsolete discounts*/
 
 $delete_in_between_discounts_query = "DELETE FROM restaurant_discount WHERE lower_limit >= $lower_limit AND upper_limit <= $upper_limit AND upper_limit != 0 AND discount_item = '$discount_item' AND id != $discount_id";
