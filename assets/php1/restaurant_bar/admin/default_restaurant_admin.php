@@ -8,6 +8,8 @@ $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
 	$msg_response[0] = "ERROR";

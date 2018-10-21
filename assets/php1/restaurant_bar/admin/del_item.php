@@ -9,6 +9,8 @@ $deleted = [];
 
 $del_array = $items["items"];
 $no_of_items = count($del_array);
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 $delete_items_query = $conn->prepare("DELETE FROM restaurant_items WHERE item = ? AND id = ?");
 $delete_items_query->bind_param("si", $item, $item_id);

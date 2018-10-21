@@ -10,6 +10,7 @@ $user_pass = $new_user["user_pass"];
 
 $user_name = mysqli_real_escape_string($dbConn, $user_name);
 $user = mysqli_real_escape_string($dbConn, $user);
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
 	$msg_response[0] = "ERROR";

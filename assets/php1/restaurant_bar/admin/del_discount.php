@@ -73,6 +73,8 @@ for ($i=0; $i < $no_of_items; $i++) {
 	}
 }
 $update_discount_query->close();
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 /*Updating the discount table to match with deleted discounts*/
 

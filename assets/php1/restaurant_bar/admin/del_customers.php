@@ -5,6 +5,8 @@ $del_customers = json_decode($_POST["del_customers"], true);
 //$del_customers = '{"customers": [{"full_name": "Ewere", "id": 3}, {"full_name": "Ewere", "id": 4}]}';
 
 $deleted = [];
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 //$del_customers = json_decode($del_customers, true);
 $del_array = $del_customers["customers"];
