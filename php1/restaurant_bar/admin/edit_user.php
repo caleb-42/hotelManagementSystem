@@ -22,7 +22,8 @@ $password = $update_user["new_password"] ? generateHash($update_user["new_passwo
 $user_name = mysqli_real_escape_string($dbConn, $user_name);
 $user = mysqli_real_escape_string($dbConn, $user);
 
-$msg_response="";
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 if ($user == "" || $role == "" || $user_name == "") {
 	$msg_response = "The fields 'user name', 'role', and 'user' are all compulsory";

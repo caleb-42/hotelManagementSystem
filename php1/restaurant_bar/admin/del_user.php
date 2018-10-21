@@ -9,6 +9,8 @@ $deleted = [];
 //$del_users = json_decode($del_users, true);
 $del_array = $del_users["users"];
 $no_of_users = count($del_array);
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 $delete_users_query = $conn->prepare("DELETE FROM restaurant_users WHERE user_name = ? AND id = ?");
 $delete_users_query->bind_param("si", $user_name, $user_name_id);

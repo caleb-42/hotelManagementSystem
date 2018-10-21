@@ -63,6 +63,7 @@ $update_discount_query->bind_param("iii", $update_upper, $update_lower, $update_
 	    $update_discount_query->execute();
 	}
 $update_discount_query->close();
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
 
 if($update_discount_result){
 	$msg_response[0] = "OUTPUT";

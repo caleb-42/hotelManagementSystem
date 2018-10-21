@@ -10,6 +10,7 @@ $item = $new_stock["item"];
 $item_id = intval($new_stock["item_id"]);
 $category = $new_stock["category"];
 $quantity = $new_stock["quantity"];
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
 
 
 $last_stock_query = "SELECT MAX(txn_id) AS txn_id FROM restaurant_stock WHERE item_id = $item_id";

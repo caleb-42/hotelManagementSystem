@@ -27,11 +27,14 @@ $category = mysqli_real_escape_string($dbConn, $category);
 $description = mysqli_real_escape_string($dbConn, $description);
 $shelf_item = mysqli_real_escape_string($dbConn, $shelf_item);
 
-$msg_response="";
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 if ($item == "" || $type == "" || $category == "" || $description == "" || $current_price == "") {
-	$msg_response = "The fields 'Item name', 'Type', 'Category', 'Description' and 'Current Price' are all compulsory";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "The fields 'Item name', 'Type', 'Category', 'Description' and 'Current Price' are all compulsory";
+	$response_message = json_encode($msg_response);
+	die($response_message);
 }
 
 if ($old_name != $item) {
@@ -39,8 +42,10 @@ if ($old_name != $item) {
     $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
     if (mysqli_num_rows($duplicate_check_result) > 0) {
-	   $msg_response = "This name conflicts with a name already in use";
-	   die($msg_response);
+    	$msg_response[0] = "ERROR";
+	    $msg_response[1] = "This name conflicts with a name already in use";
+	    $response_message = json_encode($msg_response);
+	   die($response_message);
     }
 }
 

@@ -28,19 +28,21 @@ $category = mysqli_real_escape_string($dbConn, $category);
 $description = mysqli_real_escape_string($dbConn, $description);
 $shelf_item = mysqli_real_escape_string($dbConn, $shelf_item);
 
-$msg_response="";
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
 
 if ($item == "" || $current_price == "") {
-	$msg_response = "The fields 'Item name' and 'Current Price' are compulsory";
-	die($msg_response);
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "The fields 'Item name' and 'Current Price' are compulsory";
+	die(json_encode($msg_response));
 }
 
 $duplicate_check_query = "SELECT * FROM restaurant_items WHERE item = '$item' AND type = '$type' AND description = '$description'";
 $duplicate_check_result = mysqli_query($dbConn, $duplicate_check_query);
 
-if (mysqli_num_rows($duplicate_check_result) > 0) {
-	$msg_response = "A menu item already exist with the same name, type and description";
-	die($msg_response);
+if (mysqli_num_rows($duplicate_check_result) > 0) {	
+	$msg_response[0] = "ERROR";
+	$msg_response[1] = "A menu item already exist with the same name, type and description";
+	die(json_encode($msg_response));
 }
 
 if ($current_stock) {

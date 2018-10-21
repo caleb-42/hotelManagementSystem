@@ -15,6 +15,7 @@ $discount_value = $new_discount["discount_value"];
 $discount_value = intval($discount_value);
 
 //$new_discount = '{"discount_name": "Twelve Percent", "lower_limit": 5, "upper_limit": }';
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
 
 
 if (($discount_name == "") || (($lower_limit == "") && ($lower_limit != 0)) || (($upper_limit == "") && ($upper_limit != 0)) || ($discount_item == "") || ($discount_value == "")) {	

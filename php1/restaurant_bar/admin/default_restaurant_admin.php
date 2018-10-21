@@ -1,13 +1,15 @@
 <?php
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
 
-$default_user = '{"user_name":"admin", "role":"admin", "user_pass": "webplay"}';
+$default_user = '{"user_name":"admin", "role":"admin", "user_pass": "webplay", "user": "Admin"}';
 $new_user = json_decode($default_user, true);
 
 $user_name = $new_user["user_name"];
 $user = $new_user["user"];
 $role = $new_user["role"];
 $user_pass = $new_user["user_pass"];
+$msg_response=["OUTPUT", "NOTHING HAPPENED"];
+
 
 if ($user_name == "" || $role == "" || $user_pass == "") {
 	$msg_response[0] = "ERROR";
