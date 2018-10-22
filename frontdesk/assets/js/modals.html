@@ -389,6 +389,98 @@
 
 
             <!--....... User Start ......... -->
+            <div class="w-100" ng-if="settings.modal.active == 'Guest'">
+                <div class="w-100" ng-if="settings.modal.name == 'Add Guest'">
+                    <form class="p-4 w-100 addGuestForm row justify-content-center m-0">
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-2" placeholder="Name"
+                            name="guest_name" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-2" placeholder="Phone Number"
+                            name="phone_number" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-2" placeholder="Address" name="contact_address" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-2" placeholder="Rooms" name="total_rooms_booked" />
+                        <input class="form-control w-75 font-fam-Montserrat text-center d-block my-2" placeholder="Number of Nights" name="no_of_nights" />
+                        <!-- <input class="form-control w-75 font-fam-Montserrat text-center d-block my-4" placeholder="Room Outstanding" name="room_outstanding" /> -->
+                        <div class="row justify-content-between w-50 py-2">
+                            <span class="py-1">
+                                <input type="radio" id="male" value="male" checked name="guest_type_gender" />
+                                <label for="male" class="f-15 ml-2">Male</label>
+                            </span>
+                            <span class="py-1">
+                                <input type="radio" value="female" name="guest_type_gender" id="female" />
+                                <label for="female" class="f-15 ml-2">Female</label>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                        height="70px" /></div>
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="addGuest()">
+                                    {{settings.modal.name | limitTo:3}}
+                                </button>
+                            </div>
+                            <div class="row pt-3 justify-content-center">
+                                <p class="{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="w-100" ng-if="settings.modal.name == 'Update Guest'">
+                    <form autocomplete="off" class="updateGuestForm p-4 w-100">
+                        <div class="float-left w-45 inpRead row m-0">
+                            <input class="user form-control font-fam-Montserrat text-center d-block my-4" placeholder="User"
+                                name="user" readonly />
+                            <input class="user-name form-control font-fam-Montserrat text-center d-block my-4"
+                                placeholder="Username" name="user_name" readonly />
+                            <input class="role form-control font-fam-Montserrat text-center d-block my-4" placeholder="Role"
+                                name="role" readonly />
+                            <input class="password form-control font-fam-Montserrat text-center d-block my-4"
+                                placeholder="Password" name="pass" readonly />
+                        </div>
+                        <div class="float-right w-45 row m-0 justify-content-center">
+                            <input class="user form-control font-fam-Montserrat text-center d-block my-4" placeholder="User"
+                                name="new_user" />
+                            <input class="user-name form-control font-fam-Montserrat text-center d-block my-4"
+                                placeholder="Username" name="new_user_name" />
+                            <div class="row justify-content-between w-50 py-4">
+                                <span class="py-1">
+                                    <input type="radio" id="admin" value="admin" name="new_role" />
+                                    <label for="admin" class="f-15 ml-2">Admin</label>
+                                </span>
+                                <span class="py-1">
+                                    <input type="radio" checked value="user" name="new_role" id="user" />
+                                    <label for="user" class="f-15 ml-2">User</label>
+                                </span>
+                            </div>
+                            <input class="password form-control font-fam-Montserrat text-center d-block my-4"
+                                placeholder="Password" name="new_password" />
+                        </div>
+                    </form>
+                    <div class="modal-footer w-100">
+                        <div class="justify-content-center w-100 d-flex flex-column">
+                            <div class="py-1 row justify-content-center w-100">
+                                <div ng-class="{gone : !settings.modal.adding}"><img src="./assets/img/loader.gif" width="100px"
+                                        height="70px" /></div>
+
+                                <button type="button" class="{{settings.modal.adding ? 'gone' : ''}} b-0 btn btn-success"
+                                    onclick="updateGuest()">
+                                    {{settings.modal.name | limitTo:7}}
+                                </button>
+                            </div>
+                            <div class="row pt-3 justify-content-center">
+                                <p class="{{settings.modal.msgcolor}} report f-14">{{settings.modal.msg}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--....... User End ......... -->
+
+
+            <!--....... User Start ......... -->
             <div class="w-100" ng-if="settings.modal.active == 'User'">
                 <div class="w-100" ng-if="settings.modal.name == 'Add User'">
                     <form class="p-4 w-100 addUserForm row justify-content-center m-0">

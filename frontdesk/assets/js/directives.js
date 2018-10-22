@@ -66,6 +66,12 @@ app.directive('modalentry', ['$rootScope', 'jsonPost', function ($rootScope, jso
                 console.log(scope.users);
                 scope.users.addUser(jsonForm);
             };
+            addGuest = function () {
+                $rootScope.settings.modal.adding = true;
+                jsonForm = $(".addGuestForm").serializeObject();
+                console.log(scope.guest);
+                scope.guest.addGuest(jsonForm);
+            };
             updateUser = function () {
                 $rootScope.settings.modal.adding = true
                 jsonForm = $(".updateUserForm").serializeObject();
