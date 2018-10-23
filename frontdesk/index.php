@@ -3,12 +3,21 @@
 session_start();
 print (isset($_SESSION['user']));
 if(!isset($_SESSION['user_name'])){
+<<<<<<< HEAD
     // $_SESSION['user_name'] = 'webplay';
     // $_SESSION['role'] = 'admin'; 
     header("Location: logIn.php");
 }
 
 $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","Users"=>"./assets/js/users/usersPartial.php","Records"=>"./assets/js/records/recordsPartial.php"]
+=======
+     $_SESSION['user_name'] = 'webplay';
+     $_SESSION['role'] = 'admin'; 
+    //header("Location: logIn.php");
+}
+
+$templates = ["Dashboard"=>"./assets/js/dashboard/dashPartial.php","Stocks"=>"./assets/js/stocks/stocksPartial.php","Users"=>"./assets/js/users/usersPartial.php","Records"=>"./assets/js/records/recordsPartial.php"]
+>>>>>>> origin/master
 ?>
 
 <!doctype html>
@@ -20,7 +29,11 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <meta name="description" content="">
     <meta name="author" content="">
 
+<<<<<<< HEAD
     <title>Restaurant &amp; Bar</title>
+=======
+    <title>FrontDesk</title>
+>>>>>>> origin/master
 
     <!-- Angular core -->
     <script src="./vendors/angular/angular.min.js"></script>
@@ -58,8 +71,13 @@ $templates = ["Sales"=>"./assets/js/sales/salesPartial.php","Stocks"=>"./assets/
     <script src="./assets/js/filters.js"></script>
     <script src="./assets/js/services.js"></script>
     <script src="./assets/js/directives.js"></script>
+<<<<<<< HEAD
     <script src="./assets/js/sales/directives.js"></script>
     <script src="./assets/js/sales/controllers.js"></script>
+=======
+    <script src="./assets/js/dashboard/directives.js"></script>
+    <script src="./assets/js/dashboard/controllers.js"></script>
+>>>>>>> origin/master
     <script src="./assets/js/stocks/directives.js"></script>
     <script src="./assets/js/stocks/controllers.js"></script>
     <script src="./assets/js/users/directives.js"></script>

@@ -34,12 +34,22 @@ $date=date("D M d, Y g:i a");
             <div class = "adminform row justify-content-center" style="height: 100vh;">
                 <form autocomplete="off" role="form" method="post" action = "../php1/restaurant_bar/restaurant_logon.php" class="align-self-center">
                     <div class="formhd text-center px-4 pt-4">
+<<<<<<< HEAD
                         <img  class = "" width = 200px height = 70px src = "assets/img/logo.png"/>
                         <h5 class = "Title mb-4 pb-1 mx-5 mt-3 wht font-fam-Calibri">Sales</h5>
                         <div class="row mb-4 pb-2">
                             <input type="text" name="username" class="form-control text-center font-fam-Montserrat-bold inputcolor" required id="username" required value = "Username" placehd = "Username"/>
                             <input type="text" name="password" class="form-control text-center font-fam-Montserrat-bold inputcolor" id="password" value="Password" required placehd = "Password"/>
                             <button type="submit" class="btn btn-lg btn-darkgrn w-100 font-fam-Myriad mt-2" name="B1" style="" onclick="login();">Sign in </button> 
+=======
+                        <img  class = "" width = 140px height = 130px src = "assets/img/icon.png"/>
+                        <!-- <h5 class = "Title mb-4 pb-1 mx-5 mt-3 wht font-fam-Calibri">Front<b>Desk</b></h5> -->
+                        <img  class = "my-4 ml-2" width = 300px height = 70px src = "assets/img/title.png"/>
+                        <div class="row mb-4 pb-2">
+                            <input type="text" name="username" class="form-control text-center font-fam-Montserrat-bold inputcolor" required id="username" required value = "Username" placehd = "Username"/>
+                            <input type="text" name="password" class="form-control text-center font-fam-Montserrat-bold inputcolor" id="password" value="Password" required placehd = "Password"/>
+                            <button type="submit" class="btn btn-lg w-100 font-fam-Myriad mt-2" name="B1" style="" onclick="login();">Sign In </button> 
+>>>>>>> origin/master
                         </div>
                     </div>
                     <div class="row justify-content-center pb-5" style="height:120px;">

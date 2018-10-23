@@ -1,5 +1,10 @@
 <?php
 include "../../settings/connect.php"; //$database handler $dbConn or $conn
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
 $update_room = json_decode($_POST["update_room"], true);
 
@@ -39,4 +44,8 @@ if($update_room_result){
 
 $response_message = json_encode($msg_response);
 echo $response_message;
+<<<<<<< HEAD
+=======
+>>>>>>> github/master
+>>>>>>> origin/master
 ?>
